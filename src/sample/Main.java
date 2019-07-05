@@ -13,7 +13,7 @@ import javafx.scene.chart.XYChart;
 public class Main extends Application{
 
     private static ArrayList<Patient> pazienti = new ArrayList<>();
-    public static ArrayList<User_toDELETE> users = new ArrayList<>();
+    public static ArrayList<User> users = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args); //GUI Start
