@@ -12,6 +12,13 @@ import javafx.scene.chart.XYChart;
 
 public class Main extends Application{
 
+    private static ArrayList<Patient> pazienti = new ArrayList<>();
+    public static ArrayList<User> users = new ArrayList<>();
+
+    public static void main(String[] args) {
+        launch(args); //GUI Start
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public void start(Stage primaryStage) throws Exception{
@@ -64,25 +71,6 @@ public class Main extends Application{
 
         lineChart2.getData().add(series3);
         //lineChart.setTitle("Pressione");
-
-    }
-
-    private static ArrayList<Patient> pazienti = new ArrayList<>();
-    public static ArrayList<Medicine> medicines = new ArrayList<>();
-    public static ArrayList<User> users = new ArrayList<>();
-
-    public static void main(String[] args) {
-        launch(args); //GUI Start
-        System.out.println("Hello World!");
-
-        //crea pazienti
-        //pazienti.add(paziente1);
-
-        try{
-            read();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
 
     }
 
