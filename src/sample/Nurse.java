@@ -15,6 +15,13 @@ public class Nurse implements User, Serializable {
         this.password = password;
     }
 
+    public void addPatient(Patient current){
+        if (!Main.patients.contains(current))
+            Main.patients.add(current);
+
+        //TODO: in caso reagisci al fatto che il paziente che stai inserendo esiste già
+    }
+
     @Override
     public String toString(){
         return "Nurse [name=" + name + ", surname=" + surname + ", username=" + username + ", password=" + password + "]";

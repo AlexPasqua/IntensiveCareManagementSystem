@@ -27,6 +27,12 @@ public class Patient implements Serializable {
         this.administrations = new ArrayList<Administration>();
     }
 
+    @Override
+    public boolean equals(Object other){
+        return (other instanceof Patient) && (cod.equals(((Patient)other).cod)) && (name.equals(((Patient)other).name)) &&
+                (surname.equals(((Patient)other).surname)) && (birthDate.equals(((Patient)other).birthDate)) &&
+                (birthTown.equals(((Patient)other).birthTown));
+    }
 
     @Override
     public String toString() {

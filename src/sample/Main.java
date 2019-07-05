@@ -12,7 +12,7 @@ import javafx.scene.chart.XYChart;
 
 public class Main extends Application{
 
-    private static ArrayList<Patient> pazienti = new ArrayList<>();
+    public static ArrayList<Patient> patients = new ArrayList<>();
     public static ArrayList<User> users = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -79,7 +79,7 @@ public class Main extends Application{
     public static void write() throws IOException {
         FileOutputStream out = new FileOutputStream("pazienti");
         ObjectOutputStream s = new ObjectOutputStream(out);
-        s.writeObject(pazienti);
+        s.writeObject(patients);
         s.flush();
         System.out.println("Data Written!");
     }
@@ -87,9 +87,9 @@ public class Main extends Application{
     public static void read() throws IOException, ClassNotFoundException{
         FileInputStream in = new FileInputStream("pazienti");
         ObjectInputStream s = new ObjectInputStream(in);
-        pazienti = (ArrayList<Patient>) s.readObject();
+        patients = (ArrayList<Patient>) s.readObject();
         System.out.println("Data Loaded!");
-        System.out.println(pazienti.toString());
+        System.out.println(patients.toString());
     }
 
     //
