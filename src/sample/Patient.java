@@ -13,6 +13,7 @@ public class Patient implements Serializable {
     private final Date date;
     private final String town;
     private final String diagnosis;
+    private ArrayList<Prescription> prescriptions;
     private ArrayList<Administration> administrations;
 
     public Patient(String cod, String name, String surname, Date date, String town, String diagnosis) {
@@ -22,7 +23,8 @@ public class Patient implements Serializable {
         this.date = date;
         this.town = town;
         this.diagnosis = diagnosis;
-        this.administrations = new ArrayList<>();
+        this.prescriptions = new ArrayList<Prescription>();
+        this.administrations = new ArrayList<Administration>();
     }
 
 

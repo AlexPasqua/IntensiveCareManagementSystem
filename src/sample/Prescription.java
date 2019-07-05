@@ -20,7 +20,7 @@ public class Prescription implements Serializable {
 
         if (!(availMeds.contains(medicine)))
             availMeds.add(medicine);
-        
+
         this.medicine = medicine;
         this.therapyDuration = therapyDuration;
         this.dailyDoses = dailyDoses;
