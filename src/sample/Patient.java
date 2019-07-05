@@ -12,17 +12,16 @@ public class Patient implements Serializable {
     private final String surname;
     private final Date birthDate;
     private final String birthTown;
-    private final String diagnosis;
+    private String diagnosis;
     private ArrayList<Prescription> prescriptions;
     private ArrayList<Administration> administrations;
 
-    public Patient(String cod, String name, String surname, Date birthDate, String birthTown, String diagnosis) {
+    public Patient(String cod, String name, String surname, Date birthDate, String birthTown) {
         this.cod = cod;
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
         this.birthTown = birthTown;
-        this.diagnosis = diagnosis;
         this.prescriptions = new ArrayList<Prescription>();
         this.administrations = new ArrayList<Administration>();
     }
@@ -33,6 +32,10 @@ public class Patient implements Serializable {
 
     public void addAdministration(Administration current){
         administrations.add(current);
+    }
+
+    public void setDiagnosis(String diagnosis){
+        this.diagnosis = diagnosis;
     }
 
     @Override
