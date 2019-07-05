@@ -11,11 +11,11 @@ public class Prescription implements Serializable {
     private final Integer therapyDuration; //in days
     private final Integer dailyDoses;
     private final Integer mgDose; //in mg
-    private final User doctor;
+    private final User_toDELETE doctor;
     private final Date timestamp;
 
     
-    public Prescription(String medicine, Integer therapyDuration, Integer dailyDoses, Integer mgDose, User doctor) {
+    public Prescription(String medicine, Integer therapyDuration, Integer dailyDoses, Integer mgDose, User_toDELETE doctor) {
         medicine = medicine.toLowerCase();
 
         if (!(availMeds.contains(medicine)))
