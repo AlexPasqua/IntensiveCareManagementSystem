@@ -10,18 +10,18 @@ public class Patient implements Serializable {
     private final String cod;
     private final String name;
     private final String surname;
-    private final Date date;
-    private final String town;
+    private final Date birthDate;
+    private final String birthTown;
     private final String diagnosis;
     private ArrayList<Prescription> prescriptions;
     private ArrayList<Administration> administrations;
 
-    public Patient(String cod, String name, String surname, Date date, String town, String diagnosis) {
+    public Patient(String cod, String name, String surname, Date birthDate, String birthTown, String diagnosis) {
         this.cod = cod;
         this.name = name;
         this.surname = surname;
-        this.date = date;
-        this.town = town;
+        this.birthDate = birthDate;
+        this.birthTown = birthTown;
         this.diagnosis = diagnosis;
         this.prescriptions = new ArrayList<Prescription>();
         this.administrations = new ArrayList<Administration>();
@@ -30,6 +30,6 @@ public class Patient implements Serializable {
 
     @Override
     public String toString() {
-        return "Patient [cod=" + cod + ", name=" + name + ", surname=" + surname + ", date=" + date.toString() + ", town=" + town + ", diagnosis=" + diagnosis + ", administrations=" + administrations.toString() + "]";
+        return "Patient [cod=" + cod + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate.toString() + ", birthTown=" + birthTown + ", diagnosis=" + diagnosis + ", administrations=" + administrations.toString() + "]";
     }
 }
