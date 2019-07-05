@@ -16,8 +16,8 @@ public class Nurse implements User, Serializable {
     }
 
     public void addPatient(Patient current){
-        if (!Main.patients.contains(current))
-            Main.patients.add(current);
+        if (!Datastore.getPatients().contains(current))
+            Datastore.getPatients().add(current);
 
         //TODO: in caso reagisci al fatto che il paziente che stai inserendo esiste già
     }

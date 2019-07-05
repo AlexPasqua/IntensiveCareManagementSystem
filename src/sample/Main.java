@@ -12,9 +12,6 @@ import javafx.scene.chart.XYChart;
 
 public class Main extends Application{
 
-    public static ArrayList<Patient> patients = new ArrayList<>();
-    public static ArrayList<User> users = new ArrayList<>();
-
     public static void main(String[] args) {
         launch(args); //GUI Start
     }
@@ -26,8 +23,6 @@ public class Main extends Application{
         primaryStage.setTitle("Dashboard");
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
-
-        System.out.println("ciao come va");
 
         LineChart lineChart = (LineChart) root.lookup("#grafico1");
 
@@ -74,23 +69,4 @@ public class Main extends Application{
 
     }
 
-    // DATA STORE
-
-    public static void write() throws IOException {
-        FileOutputStream out = new FileOutputStream("pazienti");
-        ObjectOutputStream s = new ObjectOutputStream(out);
-        s.writeObject(patients);
-        s.flush();
-        System.out.println("Data Written!");
-    }
-
-    public static void read() throws IOException, ClassNotFoundException{
-        FileInputStream in = new FileInputStream("pazienti");
-        ObjectInputStream s = new ObjectInputStream(in);
-        patients = (ArrayList<Patient>) s.readObject();
-        System.out.println("Data Loaded!");
-        System.out.println(patients.toString());
-    }
-
-    //
 }
