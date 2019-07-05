@@ -22,6 +22,10 @@ public class Nurse implements User, Serializable {
         //TODO: in caso reagisci al fatto che il paziente che stai inserendo esiste già
     }
 
+    public void addAdministration(Patient pat, Prescription presc, Integer dose, String notes){
+        pat.addAdministration(new Administration(presc, dose, notes));
+    }
+
     @Override
     public String toString(){
         return "Nurse [name=" + name + ", surname=" + surname + ", username=" + username + ", password=" + password + "]";

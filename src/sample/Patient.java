@@ -27,6 +27,14 @@ public class Patient implements Serializable {
         this.administrations = new ArrayList<Administration>();
     }
 
+    public void addPrescription(Prescription current){
+        prescriptions.add(current);
+    }
+
+    public void addAdministration(Administration current){
+        administrations.add(current);
+    }
+
     @Override
     public boolean equals(Object other){
         return (other instanceof Patient) && (cod.equals(((Patient)other).cod)) && (name.equals(((Patient)other).name)) &&
