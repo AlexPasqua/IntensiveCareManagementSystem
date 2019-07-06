@@ -38,6 +38,8 @@ public class Patient implements Serializable {
         this.diagnosis = diagnosis;
     }
 
+    public String getFullName(){ return (surname + " " + name); };
+
     @Override
     public boolean equals(Object other){
         return (other instanceof Patient) && (cod.equals(((Patient)other).cod)) && (name.equals(((Patient)other).name)) &&

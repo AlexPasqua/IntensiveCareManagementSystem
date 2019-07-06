@@ -85,6 +85,9 @@ public class patientPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Image image = new Image(getClass().getResourceAsStream("/imgs/user.png"));
         imageUser.setImage(image);
-        System.out.println("Image set");
+    }
+
+    public void loadPatient(Integer patientId){
+        System.out.println("I should be loading patient with ID=" + patientId);
     }
 }

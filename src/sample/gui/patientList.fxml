@@ -33,7 +33,7 @@
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="807.0" VBox.vgrow="ALWAYS">
          <children>
             <Button layoutX="718.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddPatient" prefHeight="26.0" prefWidth="132.0" text="Aggiungi Paziente" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
-            <GridPane alignment="CENTER" layoutX="48.0" layoutY="125.0" prefHeight="358.0" prefWidth="775.0" AnchorPane.bottomAnchor="34.200000000000045" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="40.799999999999955" AnchorPane.topAnchor="125.0">
+            <GridPane fx:id="gridPatients" alignment="CENTER" layoutX="48.0" layoutY="125.0" prefHeight="358.0" prefWidth="775.0" AnchorPane.bottomAnchor="34.200000000000045" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="40.799999999999955" AnchorPane.topAnchor="125.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,25 +46,16 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="patient1" alignment="CENTER" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: true;" text="Nome Cognome">
+                  <Button fx:id="patient1" alignment="CENTER" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome">
                      <graphic>
-                        <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" fx:id="imageP1">
+                        <ImageView fx:id="imageP1" fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../assets/imgs/user.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="1">
-                     <graphic>
-                        <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../assets/imgs/user.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="2">
+                  <Button fx:id="patient2" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="1">
                      <graphic>
                         <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -73,7 +64,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="3">
+                  <Button fx:id="patient3" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="2">
                      <graphic>
                         <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -82,7 +73,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.rowIndex="1">
+                  <Button fx:id="patient4" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="3">
                      <graphic>
                         <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -91,7 +82,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button fx:id="patient5" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.rowIndex="1">
                      <graphic>
                         <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -100,7 +91,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button fx:id="patient6" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <graphic>
                         <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -109,7 +100,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <Button fx:id="patient7" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <graphic>
                         <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -118,7 +109,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.rowIndex="2">
+                  <Button fx:id="patient8" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <graphic>
                         <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -127,7 +118,16 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button fx:id="patient9" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.rowIndex="2">
+                     <graphic>
+                        <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/imgs/user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="patient10" mnemonicParsing="false" onAction="#handleOpenPatient" prefHeight="122.0" prefWidth="194.0" style="visibility: false;" text="Nome Cognome" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <graphic>
                         <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
