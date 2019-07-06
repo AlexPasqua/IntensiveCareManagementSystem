@@ -40,6 +40,12 @@ public class Patient implements Serializable {
 
     public String getFullName(){ return (surname + " " + name); };
 
+    public String getCodFis(){ return cod; };
+
+    public Date getDate(){ return birthDate; };
+
+    public String getBirthTown(){ return birthTown; };
+
     @Override
     public boolean equals(Object other){
         return (other instanceof Patient) && (cod.equals(((Patient)other).cod)) && (name.equals(((Patient)other).name)) &&
