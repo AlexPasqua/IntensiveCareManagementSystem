@@ -95,7 +95,7 @@ public class patientPageController implements Initializable {
         System.out.println("I should be loading patient with ID=" + patientId);
         //metto dei dati dentro il tmp array
         //TODO: rimuovere quando avrò accesso al dataset, solo per test
-        Patient p1 = new Patient("XXXX", "Francesco", "Fattori", new Date(), "Soave");
+        Patient p1 = new Patient("FTTFNC98C22I775D", "Francesco", "Fattori", new Date(), "Soave");
         Patient p2 = new Patient("XXXX", "Giacomo", "Frigo", new Date(), "Soave");
         patients.add(p1);
         patients.add(p2);

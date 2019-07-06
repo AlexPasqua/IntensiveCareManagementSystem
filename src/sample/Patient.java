@@ -15,6 +15,7 @@ public class Patient implements Serializable {
     private String diagnosis;
     private ArrayList<Prescription> prescriptions;
     private ArrayList<Administration> administrations;
+    private boolean hospitalized;
 
     public Patient(String cod, String name, String surname, Date birthDate, String birthTown) {
         this.cod = cod;
@@ -24,6 +25,7 @@ public class Patient implements Serializable {
         this.birthTown = birthTown;
         this.prescriptions = new ArrayList<Prescription>();
         this.administrations = new ArrayList<Administration>();
+        this.hospitalized = true;
     }
 
     public void addPrescription(Prescription current){
@@ -38,6 +40,8 @@ public class Patient implements Serializable {
         this.diagnosis = diagnosis;
     }
 
+    public void setHospitalization(boolean state){ hospitalized = state; };
+
     public String getFullName(){ return (surname + " " + name); };
 
     public String getCodFis(){ return cod; };
@@ -45,6 +49,8 @@ public class Patient implements Serializable {
     public Date getDate(){ return birthDate; };
 
     public String getBirthTown(){ return birthTown; };
+
+    public boolean getHospitalization(){ return hospitalized; };
 
     @Override
     public boolean equals(Object other){

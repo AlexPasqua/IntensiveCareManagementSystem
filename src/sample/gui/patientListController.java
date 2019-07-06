@@ -50,13 +50,13 @@ public class patientListController implements Initializable  {
 
     @FXML
     void handleOpenPatient(ActionEvent event) throws Exception{
-        String patientId = ((Button) event.getSource()).getId().replace("patient", "");
-
+        Button clicked = (Button) event.getSource();
+        String patientId = clicked.getStyle().replace("npatient: ", "");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientPage.fxml"));
         Parent root1 = fxmlLoader.load();
 
         patientPageController controller = fxmlLoader.<patientPageController>getController();
-        controller.loadPatient(Integer.parseInt(patientId)-1);
+        controller.loadPatient(Integer.parseInt(patientId));
 
         Stage stage = new Stage();
         stage.setTitle("Paziente");
@@ -71,18 +71,23 @@ public class patientListController implements Initializable  {
         //TODO: rimuovere quando avrò accesso al dataset, solo per test
         Patient p1 = new Patient("XXXX", "Francesco", "Fattori", new Date(), "Soave");
         Patient p2 = new Patient("XXXX", "Giacomo", "Frigo", new Date(), "Soave");
+        p1.setHospitalization(false);
         patients.add(p1);
         patients.add(p2);
         //fine
 
         ObservableList<Node> buttons = gridPatients.getChildren();
         Image image = new Image(getClass().getResourceAsStream("/imgs/user.png"));
+        int lastbtn = 0;
         for (int i = 0; i < patients.size(); i++){
-            Button button = (Button) buttons.get(i);
-            button.setText(patients.get(i).getFullName());
-            button.setStyle("visibility: true");
-
-            ((ImageView) button.getGraphic()).setImage(image);
+            if (patients.get(i).getHospitalization()) {
+                Button button = (Button) buttons.get(lastbtn);
+                button.setText(patients.get(i).getFullName());
+                button.setStyle("visibility: true");
+                button.setStyle("npatient: " + i);
+                ((ImageView) button.getGraphic()).setImage(image);
+                lastbtn++;
+            }
         }
 
     }
