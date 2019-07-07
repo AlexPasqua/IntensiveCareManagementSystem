@@ -52,6 +52,11 @@ public class Datastore {
         return users;
     }
 
+    //add patient
+
+    public static void addPatient(Patient patient){
+        patients.add(patient);
+    }
 
 
 
