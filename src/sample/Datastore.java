@@ -53,9 +53,22 @@ public class Datastore {
     }
 
     //add patient
-
     public static void addPatient(Patient patient){
         patients.add(patient);
+    }
+
+    //discharge patient
+    public static void dischargePatient(Patient patient){
+        for (Patient p: patients)
+            if (p.equals(patient)) {
+                p.setHospitalization(false);
+                return;
+            }
+    }
+
+    //add user
+    public static void addUser(User user){
+        users.add(user);
     }
 
 
