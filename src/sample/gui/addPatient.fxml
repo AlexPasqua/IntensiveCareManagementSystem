@@ -51,7 +51,7 @@
                         <Button mnemonicParsing="false" text="Aggiungi" />
                      </children>
                      <GridPane.margin>
-                        <Insets right="10.0" />
+                        <Insets />
                      </GridPane.margin>
                   </HBox>
                </children>

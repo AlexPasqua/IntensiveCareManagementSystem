@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,15 +18,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="587.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="587.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.patientPageController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
          <menus>
-            <Menu mnemonicParsing="false" text="Unspecified Menu">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
+            <Menu mnemonicParsing="false" text="File" />
          </menus>
     </MenuBar>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="896.0" VBox.vgrow="ALWAYS">
@@ -47,9 +42,9 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="149.0" prefWidth="254.0">
                                  <children>
-                                    <ImageView fitHeight="122.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="122.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true" fx:id="imageUser">
                                        <image>
-                                          <Image url="@../../imgs/user.png" />
+                                          <Image url="@../../../assets/imgs/user.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -82,27 +77,27 @@
                            <children>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="230.0" text="Aggiungi Diagnosi di Ingresso" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddDiagnosis" prefHeight="34.0" prefWidth="230.0" text="Aggiungi Diagnosi di Ingresso" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="230.0" text="Prescrizioni" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddPrescription" prefHeight="34.0" prefWidth="230.0" text="Prescrizioni" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="230.0" text="Somministrazioni" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddAdministration" prefHeight="34.0" prefWidth="230.0" text="Somministrazioni" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="230.0" text="Genera Report" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleGenerateReport" prefHeight="34.0" prefWidth="230.0" text="Genera Report" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane GridPane.rowIndex="4">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="230.0" text="Dimetti" AnchorPane.bottomAnchor="6.399999999999999" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleRelease" prefHeight="33.0" prefWidth="230.0" text="Dimetti" AnchorPane.bottomAnchor="6.399999999999999" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>

@@ -1,7 +1,5 @@
 package sample;
 
-import java.io.*;
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +17,7 @@ public class Main extends Application{
     @Override
     @SuppressWarnings("unchecked")
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("gui/home.fxml"));
         primaryStage.setTitle("Dashboard");
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
