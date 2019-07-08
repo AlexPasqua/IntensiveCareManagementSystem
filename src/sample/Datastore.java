@@ -15,9 +15,10 @@ public class Datastore {
 
     //write on file patients array
     public static void write() throws IOException {
-        FileOutputStream out = new FileOutputStream("patients");
+        FileOutputStream out = new FileOutputStream("datastore");
         ObjectOutputStream s = new ObjectOutputStream(out);
         s.writeObject(patients);
+        s.writeObject(users);
         s.flush();
         System.out.println("Data Written!");
     }
@@ -25,11 +26,13 @@ public class Datastore {
     //read from file patients array
     @SuppressWarnings("unchecked")
     public static void read() throws IOException, ClassNotFoundException{
-        FileInputStream in = new FileInputStream("patients");
+        FileInputStream in = new FileInputStream("datastore");
         ObjectInputStream s = new ObjectInputStream(in);
         patients = (ArrayList<Patient>) s.readObject();
+        users = (ArrayList<User>) s.readObject();
         System.out.println("Data Loaded!");
         System.out.println(patients.toString());
+        System.out.println(users.toString());
     }
 
     //return active user
@@ -70,4 +73,9 @@ public class Datastore {
     public static void addUser(User user){
         users.add(user);
     }
+
+
+
+
+
 }

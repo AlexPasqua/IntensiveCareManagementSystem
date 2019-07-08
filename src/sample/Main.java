@@ -8,9 +8,18 @@ import javafx.stage.Stage;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 
+import java.io.IOException;
+
 public class Main extends Application{
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
+        try {
+            Datastore.read();
+        }
+        catch(IOException | ClassNotFoundException e){
+            System.out.println("An error occurred while opening Datastore file");
+        }
+
         launch(args); //GUI Start
     }
 

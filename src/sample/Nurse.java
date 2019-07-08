@@ -15,6 +15,11 @@ public class Nurse implements User, Serializable {
         this.password = password;
     }
 
+    public boolean isValid(String username, String password){
+        return username.equals(this.username) && password.equals(this.password);
+    }
+
+
     public void addPatient(Patient current){
         if (!Datastore.getPatients().contains(current))
             Datastore.getPatients().add(current);
