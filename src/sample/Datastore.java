@@ -14,40 +14,24 @@ public class Datastore {
 
 
     //write on file patients array
-    public static void writePatients() throws IOException {
-        FileOutputStream out = new FileOutputStream("patients");
+    public static void write() throws IOException {
+        FileOutputStream out = new FileOutputStream("datastore");
         ObjectOutputStream s = new ObjectOutputStream(out);
         s.writeObject(patients);
+        s.writeObject(users);
         s.flush();
-        System.out.println("Patients Written!");
+        System.out.println("Data Written!");
     }
 
     //read from file patients array
     @SuppressWarnings("unchecked")
-    public static void readPatients() throws IOException, ClassNotFoundException{
-        FileInputStream in = new FileInputStream("patients");
+    public static void read() throws IOException, ClassNotFoundException{
+        FileInputStream in = new FileInputStream("datastore");
         ObjectInputStream s = new ObjectInputStream(in);
         patients = (ArrayList<Patient>) s.readObject();
-        System.out.println("Patients Loaded!");
-        System.out.println(patients.toString());
-    }
-
-    //write on file users array
-    public static void writeUsers() throws IOException {
-        FileOutputStream out = new FileOutputStream("users");
-        ObjectOutputStream s = new ObjectOutputStream(out);
-        s.writeObject(users);
-        s.flush();
-        System.out.println("Users Written!");
-    }
-
-    //read from file users array
-    @SuppressWarnings("unchecked")
-    public static void readUsers() throws IOException, ClassNotFoundException{
-        FileInputStream in = new FileInputStream("users");
-        ObjectInputStream s = new ObjectInputStream(in);
         users = (ArrayList<User>) s.readObject();
-        System.out.println("Users Loaded!");
+        System.out.println("Data Loaded!");
+        System.out.println(patients.toString());
         System.out.println(users.toString());
     }
 
@@ -89,6 +73,8 @@ public class Datastore {
     public static void addUser(User user){
         users.add(user);
     }
+
+
 
 
 
