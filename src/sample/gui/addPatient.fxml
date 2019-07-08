@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="250.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="250.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.addPatientController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="238.0" prefWidth="462.0" VBox.vgrow="ALWAYS">
          <children>
@@ -41,14 +41,14 @@
                   <Label text="Nome" GridPane.rowIndex="2" />
                   <Label text="Data di Nascita" GridPane.rowIndex="3" />
                   <Label text="Città di Nascita" GridPane.rowIndex="4" />
-                  <TextField prefHeight="26.0" prefWidth="193.0" GridPane.columnIndex="1" />
-                  <TextField prefHeight="26.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField prefHeight="26.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField prefHeight="26.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="textboxCod" prefHeight="26.0" prefWidth="193.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="textboxSurname" prefHeight="26.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="textboxName" prefHeight="26.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="textboxBirthTown" prefHeight="26.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="textboxBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <HBox alignment="BOTTOM_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <children>
-                        <Button mnemonicParsing="false" text="Aggiungi" />
+                        <Button mnemonicParsing="false" onAction="#handleConfirm" text="Aggiungi" />
                      </children>
                      <GridPane.margin>
                         <Insets />

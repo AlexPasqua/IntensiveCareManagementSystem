@@ -70,7 +70,4 @@ public class Datastore {
     public static void addUser(User user){
         users.add(user);
     }
-
-
-
 }
