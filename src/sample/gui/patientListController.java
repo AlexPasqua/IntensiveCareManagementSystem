@@ -83,7 +83,7 @@ public class patientListController implements Initializable  {
             if (patients.get(i).getHospitalization()) {
                 Button button = (Button) buttons.get(lastbtn);
                 button.setText(patients.get(i).getFullName());
-                button.setStyle("visibility: true");
+                //button.setStyle("visibility: true");
                 button.setStyle("npatient: " + i);
                 ((ImageView) button.getGraphic()).setImage(image);
                 lastbtn++;
