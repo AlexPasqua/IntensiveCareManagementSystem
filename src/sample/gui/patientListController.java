@@ -55,7 +55,7 @@ public class patientListController implements Initializable  {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(thiswindow);
         stage.setScene(new Scene(root1));
-        stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
+        stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
         stage.show();
     }
 

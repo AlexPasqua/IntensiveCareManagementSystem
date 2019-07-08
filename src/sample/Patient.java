@@ -13,7 +13,7 @@ public class Patient implements Serializable {
     private final String surname;
     private final LocalDate birthDate;
     private final String birthTown;
-    private String diagnosis;
+    private String diagnosis = "";
     private ArrayList<Prescription> prescriptions;
     private ArrayList<Administration> administrations;
     private boolean hospitalized;
@@ -41,17 +41,19 @@ public class Patient implements Serializable {
         this.diagnosis = diagnosis;
     }
 
-    public void setHospitalization(boolean state){ hospitalized = state; };
+    public String getDiagnosis() { return diagnosis; }
 
-    public String getFullName(){ return (surname + " " + name); };
+    public void setHospitalization(boolean state){ hospitalized = state; }
 
-    public String getCodFis(){ return cod; };
+    public String getFullName(){ return (surname + " " + name); }
 
-    public LocalDate getDate(){ return birthDate; };
+    public String getCodFis(){ return cod; }
 
-    public String getBirthTown(){ return birthTown; };
+    public LocalDate getDate(){ return birthDate; }
 
-    public boolean getHospitalization(){ return hospitalized; };
+    public String getBirthTown(){ return birthTown; }
+
+    public boolean getHospitalization(){ return hospitalized; }
 
     @Override
     public boolean equals(Object other){

@@ -31,7 +31,7 @@ public class Main extends Application{
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
 
-        LineChart lineChart = (LineChart) root.lookup("#grafico1");
+        LineChart lineChart = (LineChart) root.lookup("#grafico01");
 
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Minima");
@@ -60,7 +60,7 @@ public class Main extends Application{
         lineChart.getData().addAll(series1, series2);
 
         //heartbeat
-        LineChart lineChart2 = (LineChart) root.lookup("#grafico11");
+        LineChart lineChart2 = (LineChart) root.lookup("#grafico02");
         XYChart.Series series3 = new XYChart.Series();
         series3.setName("HeartBeat");
         series3.getData().add(new XYChart.Data<>(0,30));

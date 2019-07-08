@@ -2,15 +2,17 @@ package sample.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import sample.Datastore;
 import sample.Patient;
-import sample.User;
+
 
 import java.io.IOException;
-import java.util.Date;
+
 
 
 public class addPatientController {
@@ -45,8 +47,10 @@ public class addPatientController {
         Datastore.addPatient(newpatient);
         Datastore.write();
 
-        //update List
-        //patientListController controller =
+        showDialog(Alert.AlertType.INFORMATION, "Paziente Aggiunto correttamente!");
+
+        Stage stage = (Stage)((Node)e.getTarget()).getScene().getWindow();
+        stage.close();
     }
 
     void showDialog(Alert.AlertType type, String msg){
