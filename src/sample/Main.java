@@ -10,7 +10,9 @@ import javafx.scene.chart.XYChart;
 
 public class Main extends Application{
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+        Datastore.readUsers();
+        Datastore.readPatients();
         launch(args); //GUI Start
     }
 
