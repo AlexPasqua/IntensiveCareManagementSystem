@@ -2,6 +2,7 @@ package sample;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,14 +11,14 @@ public class Patient implements Serializable {
     private final String cod;
     private final String name;
     private final String surname;
-    private final Date birthDate;
+    private final LocalDate birthDate;
     private final String birthTown;
     private String diagnosis;
     private ArrayList<Prescription> prescriptions;
     private ArrayList<Administration> administrations;
     private boolean hospitalized;
 
-    public Patient(String cod, String name, String surname, Date birthDate, String birthTown) {
+    public Patient(String cod, String name, String surname, LocalDate birthDate, String birthTown) {
         this.cod = cod;
         this.name = name;
         this.surname = surname;
@@ -46,7 +47,7 @@ public class Patient implements Serializable {
 
     public String getCodFis(){ return cod; };
 
-    public Date getDate(){ return birthDate; };
+    public LocalDate getDate(){ return birthDate; };
 
     public String getBirthTown(){ return birthTown; };
 
