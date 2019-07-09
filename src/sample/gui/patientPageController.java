@@ -68,7 +68,9 @@ public class patientPageController implements Initializable {
 
     @FXML
     void handleAddPrescription(ActionEvent event) throws Exception {
-        openPopupWindow("Aggiungi Prescrizione", "addPrescription", event);
+        FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Prescrizione", "addPrescription.fxml", event);
+        AddPrescriptionController controller = fxmlLoader.<AddPrescriptionController>getController();
+        controller.setCurrentPatient(currentPatient);
     }
 
     @FXML
