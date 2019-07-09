@@ -20,7 +20,6 @@ public class Main extends Application{
             System.out.println("An error occurred while opening Datastore file");
         }
 
-        Datastore.getActivePower();
         launch(args); //GUI Start
     }
 
