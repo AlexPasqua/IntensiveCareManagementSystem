@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import sample.ChiefDoctor;
 import sample.Datastore;
 
 public class loginController {
@@ -34,10 +35,11 @@ public class loginController {
             }
 
             //TODO togli
-            else if(user.getText().isEmpty() && password.getText().isEmpty())
+            else if(user.getText().isEmpty() && password.getText().isEmpty()) {
+                ChiefDoctor dc = new ChiefDoctor("Admin", "Admin", "admin", "admin");
+                Datastore.setActiveUser(dc);
                 break;
-
-            else {
+            } else {
                 //lancio errore
                 showDialog(Alert.AlertType.ERROR, "Utente Errato!");
                 return;

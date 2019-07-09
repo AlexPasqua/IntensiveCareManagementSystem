@@ -55,6 +55,8 @@ public class Patient implements Serializable {
 
     public boolean getHospitalization(){ return hospitalized; }
 
+    public ArrayList<Prescription> getPrescriptions(){ return prescriptions; }
+
     @Override
     public boolean equals(Object other){
         return (other instanceof Patient) && (cod.equals(((Patient)other).cod)) && (name.equals(((Patient)other).name)) &&

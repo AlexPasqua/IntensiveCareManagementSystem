@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="300.0" prefWidth="503.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="300.0" prefWidth="503.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.AddAministrationController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="280.0" prefWidth="502.0" VBox.vgrow="ALWAYS">
          <children>
@@ -43,7 +43,7 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ComboBox prefHeight="26.0" prefWidth="370.0" />
+                        <ComboBox fx:id="comboboxPrescriptions" prefHeight="26.0" prefWidth="370.0" />
                      </children>
                   </GridPane>
                   <Label text="Dose Somministrata" GridPane.rowIndex="1" />
@@ -61,7 +61,7 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField prefHeight="26.0" prefWidth="0.0" />
+                        <TextField fx:id="textboxDose" prefHeight="26.0" prefWidth="0.0" />
                         <Label alignment="CENTER" prefHeight="18.0" prefWidth="54.0" text="mg" textAlignment="CENTER" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
@@ -70,7 +70,7 @@
                         <Button mnemonicParsing="false" text="Aggiungi" />
                      </children>
                   </HBox>
-                  <TextArea prefHeight="189.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextArea fx:id="textareaExtra" prefHeight="189.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>

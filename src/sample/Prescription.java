@@ -33,4 +33,8 @@ public class Prescription implements Serializable {
     public String toString() {
         return "Prescription [medicine=" + medicine + ", therapyDuration=" + therapyDuration + ", dailyDoses=" + dailyDoses + ", mgDose=" + mgDose + ", doctor=" + doctor + ", timestamp=" + timestamp.toString() + "]";
     }
+
+    public String forComboBox(){
+        return medicine + "<" + dailyDoses + " al giorno, " + mgDose + "mg a dose>";
+    }
 }
