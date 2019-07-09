@@ -5,10 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.stage.Stage;
 import sample.Datastore;
 import sample.Patient;
 import sample.Prescription;
@@ -58,6 +60,9 @@ public class AddPrescriptionController {
             showDialog(Alert.AlertType.WARNING, "Tutti i campi sono obbligatori");
         } else {
             currentPatient.addPrescription(new Prescription(medList.getSelectionModel().getSelectedItem(), Integer.parseInt(textboxDuration.getText()), Integer.parseInt(textboxDailyDose.getText()), Integer.parseInt(textboxDose.getText()), Datastore.getActiveUser()));
+            showDialog(Alert.AlertType.INFORMATION, "Prescrizione Aggiunta");
+            Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
+            stage.close();
         }
     }
 

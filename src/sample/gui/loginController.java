@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import sample.ChiefDoctor;
 import sample.Datastore;
+import sample.Doctor;
+import sample.Nurse;
 
 public class loginController {
 
@@ -27,17 +29,20 @@ public class loginController {
 
     @FXML
     void handleLogin(ActionEvent event) throws Exception{
+        if (Datastore.getUsers().isEmpty())
+            createDemoUsers();
+
         for (sample.User current: Datastore.getUsers()) {
             if (current.isValid(user.getText(), password.getText())) {
                 //update activeUser
                 Datastore.setActiveUser(current);
                 break;
             }
-
             //TODO togli
             else if(user.getText().isEmpty() && password.getText().isEmpty()) {
                 ChiefDoctor dc = new ChiefDoctor("Admin", "Admin", "admin", "admin");
                 Datastore.setActiveUser(dc);
+                System.out.println("Using temp chiefdoctor");
                 break;
             } else {
                 //lancio errore
@@ -65,6 +70,16 @@ public class loginController {
         alert.setHeaderText(null);
         alert.setContentText(msg);
         alert.showAndWait();
+    }
+
+    void createDemoUsers(){
+        ChiefDoctor cd = new ChiefDoctor("Demo", "Admin", "admin", "admin");
+        Doctor doc = new Doctor("Demo", "Doctor", "doctor", "doctor");
+        Nurse nurse = new Nurse("Demo", "Nurse", "nurse", "nurse");
+
+        Datastore.addUser(cd);
+        Datastore.addUser(doc);
+        Datastore.addUser(nurse);
     }
 }
 

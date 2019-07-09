@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
@@ -15,9 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
-import sample.Datastore;
-import sample.Patient;
-import sample.User;
+import sample.*;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -55,8 +54,25 @@ public class patientPageController implements Initializable {
     private ImageView imageUser;
 
     @FXML
+    private Button buttonDiagnosis;
+
+    @FXML
+    private Button buttonPrescription;
+
+    @FXML
+    private Button buttonAdministration;
+
+    @FXML
+    private Button buttonReport;
+
+    @FXML
+    private Button buttonRelease;
+
+    @FXML
     void handleAddAdministration(ActionEvent event) throws Exception {
-        openPopupWindow("Aggiungi Somministrazione", "AddAdministration.fxml", event);
+        FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Prescrizione", "addAdministration.fxml", event);
+        AddAministrationController controller = fxmlLoader.<AddAministrationController>getController();
+        controller.setCurrentPatient(currentPatient);
     }
 
     @FXML
@@ -85,11 +101,15 @@ public class patientPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(Datastore.getActiveUser());
         User activeUser = Datastore.getActiveUser();
-        System.out.println("Active User: " + activeUser);
+        System.out.println("Active User: " + activeUser.getClass().getSimpleName());
 
+        System.out.println("Debug frig: " + (activeUser instanceof Nurse));
         Image image = new Image(getClass().getResourceAsStream("/imgs/user.png"));
         imageUser.setImage(image);
+
+        enableButtons();
     }
 
 
@@ -102,6 +122,24 @@ public class patientPageController implements Initializable {
         labelBirthDate.setText(currentPatient.getDate().toString());
         labelBirthTown.setText(currentPatient.getBirthTown());
 
+    }
+
+    public void enableButtons(){
+        System.out.println("Current power: " + Datastore.getActivePower());
+        switch (Datastore.getActivePower()){
+            case CHIEFDOCTOR:{
+                buttonReport.setDisable(false);
+                buttonRelease.setDisable(false);
+            }
+            case DOCTOR:{
+                buttonPrescription.setDisable(false);
+                buttonDiagnosis.setDisable(false);
+            }
+            case NURSE: {
+                buttonAdministration.setDisable(false);
+
+            }
+        }
     }
 
     FXMLLoader openPopupWindow(String title, String fxml, ActionEvent event) throws IOException {

@@ -37,6 +37,7 @@ public class AddAministrationController {
         for(Prescription prescription: currentPatient.getPrescriptions()) {
             items.add(prescription.forComboBox());
         }
+        System.out.println(items);
         comboboxPrescriptions.setItems(FXCollections.observableArrayList(items));
     }
 }

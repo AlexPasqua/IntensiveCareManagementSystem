@@ -76,11 +76,11 @@ public class Datastore {
 
     //get logged user power
     public static Power getActivePower(){
-        if (activeUser instanceof Nurse )
+        if (activeUser.getClass().getSimpleName().equals("Nurse"))
             return Power.NURSE;
-        else if (activeUser instanceof Doctor)
+        else if (activeUser.getClass().getSimpleName().equals("Doctor"))
             return Power.DOCTOR;
-        else if (activeUser instanceof ChiefDoctor)
+        else if (activeUser.getClass().getSimpleName().equals("ChiefDoctor"))
             return Power.CHIEFDOCTOR;
         else
             return null;

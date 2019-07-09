@@ -16,7 +16,6 @@ public class Prescription implements Serializable {
 
     
     public Prescription(String medicine, Integer therapyDuration, Integer dailyDoses, Integer mgDose, User doctor) {
-        medicine = medicine.toLowerCase();
 
         if (!(availMeds.contains(medicine)))
             availMeds.add(medicine);

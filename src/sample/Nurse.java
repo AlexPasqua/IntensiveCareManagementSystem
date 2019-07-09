@@ -33,6 +33,6 @@ public class Nurse implements User, Serializable {
 
     @Override
     public String toString(){
-        return "Nurse [name=" + name + ", surname=" + surname + ", username=" + username + ", password=" + password + "]";
+        return getClass().getSimpleName()+" [name=" + name + ", surname=" + surname + ", username=" + username + ", password=" + password + "]";
     }
 }
