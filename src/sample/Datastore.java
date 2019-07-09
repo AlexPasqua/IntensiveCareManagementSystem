@@ -10,7 +10,7 @@ public class Datastore {
     //users array
     private static ArrayList<User> users = new ArrayList<>();
     //active user
-    private static User activeUser = null;
+    private static User activeUser = new Nurse("g", "g", "g", "g");
 
 
     //write on file patients array
@@ -72,6 +72,17 @@ public class Datastore {
     //add user
     public static void addUser(User user){
         users.add(user);
+    }
+
+    public static Power getActivePower(){
+        if (activeUser instanceof Nurse )
+            return Power.NURSE;
+        else if (activeUser instanceof Doctor)
+            return Power.DOCTOR;
+        else if (activeUser instanceof ChiefDoctor)
+            return Power.CHIEFDOCTOR;
+        else
+            return null;
     }
 
 
