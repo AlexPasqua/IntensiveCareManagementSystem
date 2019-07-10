@@ -34,7 +34,8 @@ public class addPatientController {
     @FXML
     void handleConfirm(ActionEvent e) throws IOException{
         //controllo codice fiscale
-        if (textboxCod.getText().trim() == "" || textboxCod.getText().length() != 16) {
+        String code = textboxCod.getText().trim();
+        if (code.isEmpty() || code.length() != 16) {
             showDialog(Alert.AlertType.ERROR, "Codice Fiscale vuoto o non valido");
             return;
         }
@@ -43,7 +44,7 @@ public class addPatientController {
             return;
         }
 
-        Patient newpatient = new Patient(textboxCod.getText(), textboxName.getText(), textboxSurname.getText(), textboxBirthDate.getValue(), textboxBirthTown.getText());
+        Patient newpatient = new Patient(code, textboxName.getText(), textboxSurname.getText(), textboxBirthDate.getValue(), textboxBirthTown.getText());
         Datastore.addPatient(newpatient);
         Datastore.write();
 
