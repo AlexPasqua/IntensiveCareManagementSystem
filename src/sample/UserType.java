@@ -1,6 +1,6 @@
 package sample;
 
-public enum Power {
+public enum UserType {
     NURSE,
     DOCTOR,
     CHIEFDOCTOR
