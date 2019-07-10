@@ -11,10 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import sample.ChiefDoctor;
-import sample.Datastore;
-import sample.Doctor;
-import sample.Nurse;
+import sample.*;
 
 public class loginController {
 
@@ -40,7 +37,7 @@ public class loginController {
             }
             //TODO togli
             else if(user.getText().isEmpty() && password.getText().isEmpty()) {
-                ChiefDoctor dc = new ChiefDoctor("Admin", "Admin", "admin", "admin");
+                User dc = new User("Admin", "Admin", "admin", "admin", UserType.CHIEFDOCTOR);
                 Datastore.setActiveUser(dc);
                 System.out.println("Using temp chiefdoctor");
                 break;
@@ -73,9 +70,9 @@ public class loginController {
     }
 
     void createDemoUsers(){
-        ChiefDoctor cd = new ChiefDoctor("Demo", "Admin", "admin", "admin");
-        Doctor doc = new Doctor("Demo", "Doctor", "doctor", "doctor");
-        Nurse nurse = new Nurse("Demo", "Nurse", "nurse", "nurse");
+        User cd = new User("Demo", "Admin", "admin", "admin", UserType.CHIEFDOCTOR);
+        User doc = new User("Demo", "Doctor", "doctor", "doctor", UserType.DOCTOR);
+        User nurse = new User("Demo", "Nurse", "nurse", "nurse", UserType.NURSE);
 
         Datastore.addUser(cd);
         Datastore.addUser(doc);

@@ -7,7 +7,7 @@ public class User {
     private String password;
     private UserType type;
 
-    public Nurse(String name, String surname, String username, String password, UserType type){
+    public User(String name, String surname, String username, String password, UserType type){
         this.name = name;
         this.surname = surname;
         this.username = username;
