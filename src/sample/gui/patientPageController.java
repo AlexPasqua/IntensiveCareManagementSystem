@@ -104,8 +104,7 @@ public class patientPageController implements Initializable {
         System.out.println(Datastore.getActiveUser());
         User activeUser = Datastore.getActiveUser();
         System.out.println("Active User: " + activeUser.getClass().getSimpleName());
-
-        System.out.println("Debug frig: " + (activeUser instanceof Nurse));
+        
         Image image = new Image(getClass().getResourceAsStream("/imgs/user.png"));
         imageUser.setImage(image);
 
