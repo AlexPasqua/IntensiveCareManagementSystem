@@ -104,7 +104,7 @@ public class patientPageController implements Initializable {
         System.out.println(Datastore.getActiveUser());
         User activeUser = Datastore.getActiveUser();
         System.out.println("Active User: " + activeUser.getClass().getSimpleName());
-        
+
         Image image = new Image(getClass().getResourceAsStream("/imgs/user.png"));
         imageUser.setImage(image);
 
@@ -124,8 +124,8 @@ public class patientPageController implements Initializable {
     }
 
     public void enableButtons(){
-        System.out.println("Current power: " + Datastore.getActivePower());
-        switch (Datastore.getActivePower()){
+        System.out.println("Current power: " + Datastore.getActiveUser().getUserType());
+        switch (Datastore.getActiveUser().getUserType()){
             case CHIEFDOCTOR:{
                 buttonReport.setDisable(false);
                 buttonRelease.setDisable(false);

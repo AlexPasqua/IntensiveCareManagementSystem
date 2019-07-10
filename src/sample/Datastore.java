@@ -5,21 +5,18 @@ import java.util.ArrayList;
 
 public class Datastore {
 
-    //patients array
     private static ArrayList<Patient> patients = new ArrayList<>();
-    //users array
     private static ArrayList<User> users = new ArrayList<>();
-    //active user
-    private static User activeUser = null;
+    private static User activeUser = null;  //active user
 
 
     //write on file patients array
     public static void write() throws IOException {
         FileOutputStream out = new FileOutputStream("datastore");
-        ObjectOutputStream s = new ObjectOutputStream(out);
-        s.writeObject(patients);
-        s.writeObject(users);
-        s.flush();
+        ObjectOutputStream stream = new ObjectOutputStream(out);
+        stream.writeObject(patients);
+        stream.writeObject(users);
+        stream.flush();
         System.out.println("Data Written!");
     }
 
@@ -27,9 +24,9 @@ public class Datastore {
     @SuppressWarnings("unchecked")
     public static void read() throws IOException, ClassNotFoundException{
         FileInputStream in = new FileInputStream("datastore");
-        ObjectInputStream s = new ObjectInputStream(in);
-        patients = (ArrayList<Patient>) s.readObject();
-        users = (ArrayList<User>) s.readObject();
+        ObjectInputStream stream = new ObjectInputStream(in);
+        patients = (ArrayList<Patient>) stream.readObject();
+        users = (ArrayList<User>) stream.readObject();
         System.out.println("Data Loaded!");
         System.out.println(patients.toString());
         System.out.println(users.toString());
@@ -75,7 +72,7 @@ public class Datastore {
     }
 
     //get logged user power
-    public static UserType getActivePower(){
+    /*public static UserType getActivePower(){
         if (activeUser.getClass().getSimpleName().equals("Nurse"))
             return UserType.NURSE;
         else if (activeUser.getClass().getSimpleName().equals("Doctor"))
@@ -84,10 +81,5 @@ public class Datastore {
             return UserType.CHIEFDOCTOR;
         else
             return null;
-    }
-
-
-
-
-
+    }*/
 }

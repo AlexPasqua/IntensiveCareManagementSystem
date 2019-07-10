@@ -1,6 +1,8 @@
 package sample;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String name;
     private String surname;
     private String username;
@@ -19,8 +21,12 @@ public class User {
         return username.equals(this.username) && password.equals(this.password);
     }
 
+    public UserType getUserType(){
+        return type;
+    }
+
     @Override
     public String toString(){
-        return getClass().getSimpleName()+" [name=" + name + ", surname=" + surname + ", username=" + username + ", password=" + password + "]";
+        return getClass().getSimpleName()+" [name=" + name + ", surname=" + surname + ", username=" + username + ", password=" + password + ", type=" + type + "]";
     }
 }
