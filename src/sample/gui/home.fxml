@@ -23,7 +23,7 @@
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handleLogin" text="Login" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#handleQuit" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">

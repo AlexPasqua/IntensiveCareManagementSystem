@@ -1,5 +1,7 @@
 package sample.gui;
 
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,7 +31,6 @@ public class homeController {
         //addDataTo(grafico1,  20, 0);
         //addDataTo(grafico1,  55, 1);
         addDataTo(grafico11, 55, 0);
-
     }
 
     @FXML
@@ -40,7 +41,6 @@ public class homeController {
         stage.setTitle("Login");
         stage.setScene(new Scene(root1));
         stage.show();
-
     }
 
     @FXML
@@ -49,7 +49,6 @@ public class homeController {
         alert.setTitle("About");
         alert.setHeaderText(null);
         alert.setContentText("Ciao!\nSoftware sviluppato da\nFrancesco Fattori, Giacomo Frigo e Alex Pasquali");
-
         alert.showAndWait();
     }
 
@@ -62,7 +61,7 @@ public class homeController {
         currentSeries.getData().remove(0);
         int numOfPoint = currentSeries.getData().size();
 
-        for(int i=0; i<numOfPoint; i++) {
+        for(int i=0; i < numOfPoint; i++) {
             //reduce XValue
             XYChart.Data<Number, Number> data = (XYChart.Data<Number, Number>)currentSeries.getData().get(i);
             int x = (int) data.getXValue();
@@ -72,4 +71,9 @@ public class homeController {
         currentSeries.getData().add(new XYChart.Data<>(numOfPoint, y));
     }
 
+    @FXML
+    private void handleQuit() throws Exception {
+        Platform.exit();
+        System.exit(0);
+    }
 }
