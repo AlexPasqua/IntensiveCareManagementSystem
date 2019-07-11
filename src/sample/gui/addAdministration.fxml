@@ -67,7 +67,7 @@
                   </GridPane>
                   <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Button mnemonicParsing="false" text="Aggiungi" />
+                        <Button mnemonicParsing="false" onAction="#addAdministration" text="Aggiungi" />
                      </children>
                   </HBox>
                   <TextArea fx:id="textareaExtra" prefHeight="189.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

@@ -15,8 +15,6 @@ public class Prescription implements Serializable {
 
     
     public Prescription(String medicine, Integer therapyDuration, Integer dailyDoses, Integer mgDose, User doctor) {
-
-
         this.medicine = medicine;
         this.therapyDuration = therapyDuration;
         this.dailyDoses = dailyDoses;

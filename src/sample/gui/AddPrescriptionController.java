@@ -52,16 +52,15 @@ public class AddPrescriptionController {
             Datastore.write();
             loadComboBox();
         }
-
     }
 
     @FXML
     void handleConfirm(ActionEvent event){
         if (textboxDuration.getText().isEmpty() || textboxDose.getText().isEmpty() || medList.getSelectionModel().getSelectedItem().isEmpty()){
-            showDialog(Alert.AlertType.WARNING, "Tutti i campi sono obbligatori");
+            showDialog(Alert.AlertType.WARNING, "Warning", "Tutti i campi sono obbligatori");
         } else {
             currentPatient.addPrescription(new Prescription(medList.getSelectionModel().getSelectedItem(), Integer.parseInt(textboxDuration.getText()), Integer.parseInt(textboxDailyDose.getText()), Integer.parseInt(textboxDose.getText()), Datastore.getActiveUser()));
-            showDialog(Alert.AlertType.INFORMATION, "Prescrizione Aggiunta");
+            showDialog(Alert.AlertType.INFORMATION, "Info", "Prescrizione Aggiunta");
             Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
             stage.close();
         }
@@ -70,7 +69,6 @@ public class AddPrescriptionController {
     public void setCurrentPatient(Patient currentpatient){
         this.currentPatient = currentpatient;
         loadComboBox();
-
     }
 
     //carico i dati nella combo box
@@ -83,9 +81,9 @@ public class AddPrescriptionController {
         }
     }
 
-    void showDialog(Alert.AlertType type, String msg){
+    private void showDialog(Alert.AlertType type, String title, String msg){
         Alert alert = new Alert(type);
-        alert.setTitle("Login error");
+        alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(msg);
         alert.showAndWait();

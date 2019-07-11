@@ -66,6 +66,6 @@ public class Patient implements Serializable {
 
     @Override
     public String toString() {
-        return "Patient [cod=" + cod + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate.toString() + ", birthTown=" + birthTown + ", diagnosis=" + diagnosis + ", administrations=" + administrations.toString() + "]";
+        return "Patient [cod=" + cod + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate.toString() + ", birthTown=" + birthTown + ", diagnosis=" + diagnosis + ",prescription=" + prescriptions.toString() + ", administrations=" + administrations.toString() + "]";
     }
 }
