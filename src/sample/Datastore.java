@@ -12,14 +12,19 @@ public class Datastore {
 
 
     //write on file patients array
-    public static void write() throws IOException {
-        FileOutputStream out = new FileOutputStream("datastore");
-        ObjectOutputStream stream = new ObjectOutputStream(out);
-        stream.writeObject(patients);
-        stream.writeObject(users);
-        stream.writeObject(availMeds);
-        stream.flush();
-        System.out.println("Data Written!");
+    public static void write() {
+        try{
+            FileOutputStream out = new FileOutputStream("datastore");
+            ObjectOutputStream stream = new ObjectOutputStream(out);
+            stream.writeObject(patients);
+            stream.writeObject(users);
+            stream.writeObject(availMeds);
+            stream.flush();
+            System.out.println("Data Written!");
+        }
+        catch (IOException e){
+            System.out.println("IOException occurred in Datastore.write()");
+        }
     }
 
     //read from file patients array
@@ -59,15 +64,6 @@ public class Datastore {
     //add patient
     public static void addPatient(Patient patient){
         patients.add(patient);
-    }
-
-    //discharge patient
-    public static void dischargePatient(Patient patient){
-        for (Patient p: patients)
-            if (p.equals(patient)) {
-                p.setHospitalization(false);
-                return;
-            }
     }
 
     public static ArrayList<String> getAvailMeds() {

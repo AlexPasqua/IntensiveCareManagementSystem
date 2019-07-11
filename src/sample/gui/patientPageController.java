@@ -29,44 +29,20 @@ public class patientPageController implements Initializable {
 
     Patient currentPatient = null;
 
-    @FXML
-    private Label labelName;
+    @FXML private Label labelName;
+    @FXML private Label labelBirthTown;
+    @FXML private Label labelCodFis;
+    @FXML private Label labelBirthDate;
+    @FXML private LineChart<?, ?> chartPressure;
+    @FXML private LineChart<?, ?> chartHeartBeat;
+    @FXML private LineChart<?, ?> chartTemperature;
+    @FXML private ImageView imageUser;
+    @FXML private Button buttonDiagnosis;
+    @FXML private Button buttonPrescription;
+    @FXML private Button buttonAdministration;
+    @FXML private Button buttonReport;
+    @FXML private Button buttonDischarge;
 
-    @FXML
-    private Label labelBirthTown;
-
-    @FXML
-    private Label labelCodFis;
-
-    @FXML
-    private Label labelBirthDate;
-
-    @FXML
-    private LineChart<?, ?> chartPressure;
-
-    @FXML
-    private LineChart<?, ?> chartHeartBeat;
-
-    @FXML
-    private LineChart<?, ?> chartTemperature;
-
-    @FXML
-    private ImageView imageUser;
-
-    @FXML
-    private Button buttonDiagnosis;
-
-    @FXML
-    private Button buttonPrescription;
-
-    @FXML
-    private Button buttonAdministration;
-
-    @FXML
-    private Button buttonReport;
-
-    @FXML
-    private Button buttonRelease;
 
     @FXML
     void handleAddAdministration(ActionEvent event) throws Exception {
@@ -95,8 +71,10 @@ public class patientPageController implements Initializable {
     }
 
     @FXML
-    void handleRelease(ActionEvent event) {
-
+    void handleDischarge(ActionEvent event) {
+        currentPatient.setHospitalization(false);
+        //TODO: genera lettera di dimissioni
+        Datastore.write();
     }
 
     @Override
@@ -128,7 +106,7 @@ public class patientPageController implements Initializable {
         switch (Datastore.getActiveUser().getUserType()){
             case CHIEFDOCTOR:{
                 buttonReport.setDisable(false);
-                buttonRelease.setDisable(false);
+                buttonDischarge.setDisable(false);
             }
             case DOCTOR:{
                 buttonPrescription.setDisable(false);
@@ -136,7 +114,6 @@ public class patientPageController implements Initializable {
             }
             case NURSE: {
                 buttonAdministration.setDisable(false);
-
             }
         }
     }

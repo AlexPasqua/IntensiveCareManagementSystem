@@ -97,7 +97,7 @@
                               </AnchorPane>
                               <AnchorPane GridPane.rowIndex="4">
                                  <children>
-                                    <Button fx:id="buttonRelease" disable="true" mnemonicParsing="false" onAction="#handleRelease" prefHeight="33.0" prefWidth="230.0" text="Dimetti" AnchorPane.bottomAnchor="6.399999999999999" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <Button fx:id="buttonDischarge" disable="true" mnemonicParsing="false" onAction="#handleDischarge" prefHeight="33.0" prefWidth="230.0" text="Dimetti" AnchorPane.bottomAnchor="6.399999999999999" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>
