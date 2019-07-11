@@ -8,6 +8,7 @@ public class Datastore {
     private static ArrayList<Patient> patients = new ArrayList<>();
     private static ArrayList<User> users = new ArrayList<>();
     private static User activeUser = null;  //active user
+    private static ArrayList<String> availMeds = new ArrayList<>();
 
 
     //write on file patients array
@@ -16,6 +17,7 @@ public class Datastore {
         ObjectOutputStream stream = new ObjectOutputStream(out);
         stream.writeObject(patients);
         stream.writeObject(users);
+        stream.writeObject(availMeds);
         stream.flush();
         System.out.println("Data Written!");
     }
@@ -27,9 +29,11 @@ public class Datastore {
         ObjectInputStream stream = new ObjectInputStream(in);
         patients = (ArrayList<Patient>) stream.readObject();
         users = (ArrayList<User>) stream.readObject();
+        availMeds = (ArrayList<String>) stream.readObject();
         System.out.println("Data Loaded!");
         System.out.println(patients.toString());
         System.out.println(users.toString());
+        System.out.println(availMeds.toString());
     }
 
     //return active user
@@ -64,6 +68,15 @@ public class Datastore {
                 p.setHospitalization(false);
                 return;
             }
+    }
+
+    public static ArrayList<String> getAvailMeds() {
+        return availMeds;
+    }
+
+    public static void addMed(String med) {
+        if (!availMeds.contains(med))
+            availMeds.add(med);
     }
 
     //add user

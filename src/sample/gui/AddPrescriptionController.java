@@ -39,7 +39,7 @@ public class AddPrescriptionController {
 
     // add a new Medicine
     @FXML
-    void handleAddMed(ActionEvent event){
+    void handleAddMed(ActionEvent event)throws Exception{
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Aggiunta Farmaco");
         dialog.setHeaderText("Aggiunta Farmaco");
@@ -48,7 +48,8 @@ public class AddPrescriptionController {
         Optional<String> result = dialog.showAndWait();
 
         if (result.isPresent()){
-            Prescription.availMeds.add(result.get());
+            Datastore.addMed(result.get());
+            Datastore.write();
             loadComboBox();
         }
 
@@ -74,9 +75,9 @@ public class AddPrescriptionController {
 
     //carico i dati nella combo box
     private void loadComboBox(){
-        if (!Prescription.availMeds.isEmpty()){
+        if (!Datastore.getAvailMeds().isEmpty()){
             medList.getItems().removeAll(medList.getItems());
-            ObservableList<String> meds2 = FXCollections.observableArrayList(Prescription.availMeds);
+            ObservableList<String> meds2 = FXCollections.observableArrayList(Datastore.getAvailMeds());
             medList.getItems().addAll(meds2);
             medList.getSelectionModel().selectLast();
         }

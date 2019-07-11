@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Prescription implements Serializable {
-    public static ArrayList<String> availMeds = new ArrayList<>();
 
     private final String medicine;
     private final Integer therapyDuration; //in days
@@ -17,8 +16,6 @@ public class Prescription implements Serializable {
     
     public Prescription(String medicine, Integer therapyDuration, Integer dailyDoses, Integer mgDose, User doctor) {
 
-        if (!(availMeds.contains(medicine)))
-            availMeds.add(medicine);
 
         this.medicine = medicine;
         this.therapyDuration = therapyDuration;
