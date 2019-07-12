@@ -89,14 +89,10 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleEditPrescription" prefHeight="26.0" prefWidth="150.0" text="Modifica Prescrizione" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
-                           <children>
                               <Button mnemonicParsing="false" onAction="#handleDeletePrescription" prefHeight="26.0" prefWidth="150.0" text="Elimina Prescrizione" />
                            </children>
                         </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                </children>

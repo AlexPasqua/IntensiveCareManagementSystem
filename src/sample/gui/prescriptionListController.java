@@ -56,15 +56,14 @@ public class prescriptionListController {
     }
 
     @FXML
-    void handleEditPrescription(ActionEvent event) throws IOException {
-        System.out.println(prescriptionList.getSelectionModel().getSelectedItem());
-
-
-    }
-
-    @FXML
     void handleDeletePrescription(ActionEvent event) throws IOException {
-        System.out.println(prescriptionList.getSelectionModel().getSelectedItem());
+        for (Prescription p: currentPatient.getPrescriptions()){
+            if(p.equals(prescriptionList.getSelectionModel().getSelectedItem())) {
+                currentPatient.getPrescriptions().remove(prescriptionList.getSelectionModel().getSelectedItem());
+                break;
+            }
+        }
+        loadList();
 
 
 
@@ -72,6 +71,7 @@ public class prescriptionListController {
 
     void setCurrentPatient(Patient patient){
 
+        currentPatient = patient;
 
         pTimestamp.setCellValueFactory(new PropertyValueFactory<Prescription,String>("timestamp"));
         pDoctor.setCellValueFactory(new PropertyValueFactory<Prescription,String>("doctor"));
@@ -82,8 +82,6 @@ public class prescriptionListController {
 
         if (!patient.getPrescriptions().isEmpty())
             loadList();
-
-
 
     }
 
