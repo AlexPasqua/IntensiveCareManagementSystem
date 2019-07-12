@@ -21,9 +21,6 @@ public class Main extends Application{
         catch(IOException | ClassNotFoundException e){
             System.out.println("An error occurred while opening Datastore file");
         }
-
-        Patient hey = new Patient("0000000100000000", "FRa", "fact", LocalDate.now(), "Fra");
-        Datastore.write();
         launch(args); //GUI Start
         Datastore.write();
     }
