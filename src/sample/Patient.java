@@ -78,4 +78,9 @@ public class Patient implements Serializable {
     public String toString() {
         return "Patient [cod=" + cod + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate.toString() + ", birthTown=" + birthTown + ", diagnosis=" + diagnosis + ",prescription=" + prescriptions.toString() + ", administrations=" + administrations.toString() + "]";
     }
+
+    public void generateFakeData(){
+        //pressione 2min ,temp 3 min, hb 5 min
+
+    }
 }
