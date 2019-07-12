@@ -12,7 +12,7 @@ public class HeartBeat {
         this.timestamp = new Date();
     }
 
-    public HeartBeat(int heartBeat, int millis) {
+    public HeartBeat(int heartBeat, long millis) {
         this.heartBeat = heartBeat;
         this.timestamp = new Date(millis);
     }

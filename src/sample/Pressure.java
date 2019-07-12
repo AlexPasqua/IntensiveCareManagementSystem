@@ -13,7 +13,7 @@ public class Pressure {
         this.timestamp = new Date();
     }
 
-    public Pressure(int min, int max, int millis){
+    public Pressure(int min, int max, long millis){
         int[] pressure = {min, max};
         this.pressure = pressure;
         this.timestamp = new Date(millis);

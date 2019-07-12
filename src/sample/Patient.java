@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Random;
 
 public class Patient implements Serializable {
 
@@ -45,7 +46,7 @@ public class Patient implements Serializable {
 
     public void addTemperature(int temp) { Temperatures.add(new Temperature(temp)); }
 
-    public void addPressures(int min, int max) { Pressures.add(new Pressure(min, max)); }
+    public void addPressure(int min, int max) { Pressures.add(new Pressure(min, max)); }
 
     public void setDiagnosis(String diagnosis){
         this.diagnosis = diagnosis;
@@ -81,6 +82,29 @@ public class Patient implements Serializable {
 
     public void generateFakeData(){
         //pressione 2min ,temp 3 min, hb 5 min
+        long current = new Date().getTime();
+        long start = current - 604800000; //una settimana indietro
 
+        for(current=current; current>start; current-=60000){
+            long thiscurrent = current /1000;
+            if (thiscurrent % 5 == 0)
+                HeartBeats.add(new HeartBeat(randomData("hb"), current));
+            if (thiscurrent % 3 == 0)
+                Temperatures.add(new Temperature(randomData("temp"), current));
+            if (thiscurrent % 2 == 0)
+                Pressures.add(new Pressure(randomData("pressMin"), randomData("pressMax"), current));
+        }
+
+    }
+
+    private int randomData(String type){
+        Random rand = new Random();
+        switch(type){
+            case "hb": return rand.nextInt(70)+50;
+            case "temp": return rand.nextInt(16)+25;
+            case "pressMin": return rand.nextInt(110)+50;
+            case "pressMax": return rand.nextInt(110)+70;
+        }
+        return 0;
     }
 }

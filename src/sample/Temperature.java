@@ -12,7 +12,7 @@ public class Temperature {
         this.timestamp = new Date();
     }
 
-    public Temperature(int temp, int millis) {
+    public Temperature(int temp, long millis) {
         this.temp = temp;
         this.timestamp = new Date(millis);
     }
