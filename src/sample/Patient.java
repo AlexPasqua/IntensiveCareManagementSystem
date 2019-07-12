@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class Patient implements Serializable {
@@ -16,6 +17,9 @@ public class Patient implements Serializable {
     private String diagnosis = "";
     private ArrayList<Prescription> prescriptions;
     private ArrayList<Administration> administrations;
+    private ArrayList<HeartBeat> HeartBeats = new ArrayList<>();
+    private ArrayList<Temperature> Temperatures = new ArrayList<>();
+    private ArrayList<Pressure> Pressures = new ArrayList<>();
     private boolean hospitalized;
 
     public Patient(String cod, String name, String surname, LocalDate birthDate, String birthTown) {
@@ -36,6 +40,12 @@ public class Patient implements Serializable {
     public void addAdministration(Administration current){
         administrations.add(current);
     }
+
+    public void addHeartBeat(int heartbeat){ HeartBeats.add(new HeartBeat(heartbeat)); }
+
+    public void addTemperature(int temp) { Temperatures.add(new Temperature(temp)); }
+
+    public void addPressures(int min, int max) { Pressures.add(new Pressure(min, max)); }
 
     public void setDiagnosis(String diagnosis){
         this.diagnosis = diagnosis;
