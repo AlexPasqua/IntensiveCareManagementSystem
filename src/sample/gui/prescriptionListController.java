@@ -71,18 +71,17 @@ public class prescriptionListController {
     }
 
     void setCurrentPatient(Patient patient){
-        this.currentPatient = patient;
 
-        if (!patient.getPrescriptions().isEmpty()){
-            pTimestamp.setCellValueFactory(new PropertyValueFactory<Prescription,String>("timestamp"));
-            pDoctor.setCellValueFactory(new PropertyValueFactory<Prescription,String>("doctor"));
-            pMed.setCellValueFactory(new PropertyValueFactory<Prescription,String>("medicine"));
-            pDuration.setCellValueFactory(new PropertyValueFactory<Prescription,String>("therapyDuration"));
-            pDaily.setCellValueFactory(new PropertyValueFactory<Prescription,String>("dailyDoses"));
-            pQuantity.setCellValueFactory(new PropertyValueFactory<Prescription,String>("mgDose"));
 
+        pTimestamp.setCellValueFactory(new PropertyValueFactory<Prescription,String>("timestamp"));
+        pDoctor.setCellValueFactory(new PropertyValueFactory<Prescription,String>("doctor"));
+        pMed.setCellValueFactory(new PropertyValueFactory<Prescription,String>("medicine"));
+        pDuration.setCellValueFactory(new PropertyValueFactory<Prescription,String>("therapyDuration"));
+        pDaily.setCellValueFactory(new PropertyValueFactory<Prescription,String>("dailyDoses"));
+        pQuantity.setCellValueFactory(new PropertyValueFactory<Prescription,String>("mgDose"));
+
+        if (!patient.getPrescriptions().isEmpty())
             loadList();
-        }
 
 
 
