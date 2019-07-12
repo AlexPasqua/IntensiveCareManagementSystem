@@ -3,6 +3,8 @@ package sample;
 import java.io.Serializable;
 
 public class User implements Serializable {
+
+
     private String name;
     private String surname;
     private String username;
@@ -23,6 +25,10 @@ public class User implements Serializable {
 
     public UserType getUserType(){
         return type;
+    }
+
+    public String getCompleteName(){
+        return ("Dr." + this.surname + " " + this.name);
     }
 
     @Override

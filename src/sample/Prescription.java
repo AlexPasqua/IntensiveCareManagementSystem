@@ -1,6 +1,10 @@
 package sample;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.Serializable;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,6 +26,40 @@ public class Prescription implements Serializable {
         this.doctor = doctor;
         this.timestamp = new Date();
     }
+
+    public String getMedicine() {
+        return medicine;
+    }
+
+    public Integer getTherapyDuration() {
+        return therapyDuration;
+    }
+
+    public Integer getDailyDoses() {
+        return dailyDoses;
+    }
+
+    public Integer getMgDose() {
+        return mgDose;
+    }
+
+    public User getDoctor() {
+        return doctor;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public SimpleStringProperty timestampProperty(){
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleStringProperty s = new SimpleStringProperty(formatter.format(timestamp));
+        return s;
+    }
+    public SimpleStringProperty doctorProperty(){
+        return new SimpleStringProperty(doctor.getCompleteName());
+    }
+
 
     @Override
     public String toString() {
