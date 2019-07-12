@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
@@ -118,6 +119,29 @@ public class patientPageController implements Initializable {
                 buttonAdministration.setDisable(false);
             }
         }
+    }
+
+    @FXML
+    void handleGenerateRand(ActionEvent event) {
+        currentPatient.generateFakeData();
+        showDialog(Alert.AlertType.INFORMATION, "Dati generati corretamente!");
+        Datastore.write();
+    }
+
+    @FXML
+    void handleClearClinicalData(ActionEvent event) {
+        currentPatient.clearClinicalData();
+        showDialog(Alert.AlertType.INFORMATION, "Dati cancellati!");
+        Datastore.write();
+
+    }
+
+    void showDialog(Alert.AlertType type, String msg){
+        Alert alert = new Alert(type);
+        alert.setTitle("Nuovo Utente");
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
     }
 
     FXMLLoader openPopupWindow(String title, String fxml, ActionEvent event) throws IOException {

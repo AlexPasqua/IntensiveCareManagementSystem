@@ -33,7 +33,6 @@ public class Patient implements Serializable {
         this.administrations = new ArrayList<>();
         this.hospitalized = true;
 
-        generateFakeData();
     }
 
     public void addPrescription(Prescription current){
@@ -69,6 +68,24 @@ public class Patient implements Serializable {
     public boolean getHospitalization(){ return hospitalized; }
 
     public ArrayList<Prescription> getPrescriptions(){ return prescriptions; }
+
+    public ArrayList<HeartBeat> getHeartBeats() {
+        return heartBeats;
+    }
+
+    public ArrayList<Temperature> getTemperatures() {
+        return temperatures;
+    }
+
+    public ArrayList<Pressure> getPressures() {
+        return pressures;
+    }
+
+    public void clearClinicalData(){
+        heartBeats.clear();
+        pressures.clear();
+        temperatures.clear();
+    }
 
     @Override
     public boolean equals(Object other){
