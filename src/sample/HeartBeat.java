@@ -1,8 +1,9 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class HeartBeat {
+public class HeartBeat implements Serializable {
 
     private final int heartBeat;
     private final Date timestamp;
@@ -20,5 +21,7 @@ public class HeartBeat {
     public int getHeartBeat(){ return heartBeat; }
 
     public Date getTimestamp(){ return timestamp; }
+
+    public String toString(){ return "HeartBeat [heartBeat=" + heartBeat + ", timestamp=" + timestamp.toString() + "]";  }
 
 }

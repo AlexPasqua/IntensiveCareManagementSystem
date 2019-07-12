@@ -18,9 +18,9 @@ public class Patient implements Serializable {
     private String diagnosis = "";
     private ArrayList<Prescription> prescriptions;
     private ArrayList<Administration> administrations;
-    private ArrayList<HeartBeat> HeartBeats = new ArrayList<>();
-    private ArrayList<Temperature> Temperatures = new ArrayList<>();
-    private ArrayList<Pressure> Pressures = new ArrayList<>();
+    private ArrayList<HeartBeat> heartBeats = new ArrayList<>();
+    private ArrayList<Temperature> temperatures = new ArrayList<>();
+    private ArrayList<Pressure> pressures = new ArrayList<>();
     private boolean hospitalized;
 
     public Patient(String cod, String name, String surname, LocalDate birthDate, String birthTown) {
@@ -29,9 +29,11 @@ public class Patient implements Serializable {
         this.surname = surname;
         this.birthDate = birthDate;
         this.birthTown = birthTown;
-        this.prescriptions = new ArrayList<Prescription>();
-        this.administrations = new ArrayList<Administration>();
+        this.prescriptions = new ArrayList<>();
+        this.administrations = new ArrayList<>();
         this.hospitalized = true;
+
+        generateFakeData();
     }
 
     public void addPrescription(Prescription current){
@@ -42,11 +44,11 @@ public class Patient implements Serializable {
         administrations.add(current);
     }
 
-    public void addHeartBeat(int heartbeat){ HeartBeats.add(new HeartBeat(heartbeat)); }
+    public void addHeartBeat(int heartbeat){ heartBeats.add(new HeartBeat(heartbeat)); }
 
-    public void addTemperature(int temp) { Temperatures.add(new Temperature(temp)); }
+    public void addTemperature(int temp) { temperatures.add(new Temperature(temp)); }
 
-    public void addPressure(int min, int max) { Pressures.add(new Pressure(min, max)); }
+    public void addPressure(int min, int max) { pressures.add(new Pressure(min, max)); }
 
     public void setDiagnosis(String diagnosis){
         this.diagnosis = diagnosis;
@@ -77,7 +79,7 @@ public class Patient implements Serializable {
 
     @Override
     public String toString() {
-        return "Patient [cod=" + cod + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate.toString() + ", birthTown=" + birthTown + ", diagnosis=" + diagnosis + ",prescription=" + prescriptions.toString() + ", administrations=" + administrations.toString() + "]";
+        return "Patient [cod=" + cod + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate.toString() + ", birthTown=" + birthTown + ", diagnosis=" + diagnosis + ",prescription=" + prescriptions.toString() + ", administrations=" + administrations.toString() + ", heartBeats=" + heartBeats.toString() + ", temperatures=" + temperatures.toString() + ", pressures=" + pressures.toString() + "]";
     }
 
     public void generateFakeData(){
@@ -86,13 +88,14 @@ public class Patient implements Serializable {
         long start = current - 604800000; //una settimana indietro
 
         for(current=current; current>start; current-=60000){
-            long thiscurrent = current /1000;
+            long thiscurrent = current /60000;
             if (thiscurrent % 5 == 0)
-                HeartBeats.add(new HeartBeat(randomData("hb"), current));
+                heartBeats.add(new HeartBeat(randomData("hb"), current));
             if (thiscurrent % 3 == 0)
-                Temperatures.add(new Temperature(randomData("temp"), current));
+                temperatures.add(new Temperature(randomData("temp"), current));
             if (thiscurrent % 2 == 0)
-                Pressures.add(new Pressure(randomData("pressMin"), randomData("pressMax"), current));
+                pressures.add(new Pressure(randomData("pressMin"), randomData("pressMax"), current));
+            //System.out.println(thiscurrent);
         }
 
     }

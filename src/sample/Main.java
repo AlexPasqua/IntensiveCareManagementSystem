@@ -9,6 +9,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class Main extends Application{
 
@@ -20,6 +22,8 @@ public class Main extends Application{
             System.out.println("An error occurred while opening Datastore file");
         }
 
+        Patient hey = new Patient("0000000100000000", "FRa", "fact", LocalDate.now(), "Fra");
+        Datastore.write();
         launch(args); //GUI Start
         Datastore.write();
     }

@@ -1,8 +1,9 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Temperature {
+public class Temperature implements Serializable {
 
     private final int temp;
     private final Date timestamp;
@@ -20,5 +21,7 @@ public class Temperature {
     public int getTemperature(){ return temp; }
 
     public Date getTimestamp(){ return timestamp; }
+
+    public String toString(){ return "Temperature [temp=" + temp + ", timestamp=" + timestamp.toString() + "]";  }
 
 }

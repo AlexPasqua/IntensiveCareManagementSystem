@@ -23,7 +23,7 @@ public class Datastore {
             System.out.println("Data Written!");
         }
         catch (IOException e){
-            System.out.println("IOException occurred in Datastore.write()");
+            System.out.println("IOException occurred in Datastore.write()=" + e.toString());
         }
     }
 

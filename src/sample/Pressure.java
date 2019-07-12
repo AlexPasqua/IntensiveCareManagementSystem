@@ -1,8 +1,9 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Pressure {
+public class Pressure implements Serializable {
 
     private final int[] pressure;
     private final Date timestamp;
@@ -22,4 +23,7 @@ public class Pressure {
     public int[] getPressure() { return pressure; }
 
     public Date getTimestamp() { return timestamp; }
+
+    public String toString(){ return "Pressure [pressure=" + pressure.toString() + ", timestamp=" + timestamp.toString() + "]";  }
+
 }
