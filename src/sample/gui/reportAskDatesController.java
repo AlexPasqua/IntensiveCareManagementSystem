@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import sample.Patient;
+import sample.Report;
 
 import java.io.IOException;
 import java.time.ZoneId;
@@ -41,8 +42,10 @@ public class reportAskDatesController {
 
         Date parsedDateFrom = Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date parsedDataTo = Date.from(dateTo.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant().plusSeconds(86399));
+        Report currentReport = new Report(currentPatient, parsedDateFrom, parsedDataTo);
+
         reportPageController controller = fxmlLoader.getController();
-        controller.loadPatient(currentPatient, parsedDateFrom, parsedDataTo);
+        controller.loadPatient(currentReport);
 
         Stage thisstage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         thisstage.close();

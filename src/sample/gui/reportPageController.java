@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,14 +16,18 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.*;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class reportPageController {
 
-    private Patient currentPatient = null;
+    private Report report;
     private Date[] dates = new Date[2];
 
     @FXML
@@ -46,7 +52,7 @@ public class reportPageController {
     private TableColumn<HeartBeat, Integer> colHB;
 
     @FXML
-    private LineChart<?, ?> linechartHB;
+    private LineChart<String, Number> linechartHB;
 
     @FXML
     private TableView<Temperature> tableTemp;
@@ -76,7 +82,7 @@ public class reportPageController {
     private LineChart<?, ?> linechartPressure;
 
     @FXML
-    void handleExportPDF(ActionEvent event) throws Exception{
+    void handleExportPDF(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
 
         //Set extension filter for text files
@@ -85,21 +91,23 @@ public class reportPageController {
         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
-            CreatePDF builder = new CreatePDF(currentPatient, dates[0], dates[1]);
-            builder.createPDF(file.toString());
+            if (report.createPDF(file.toString())) {
+                showDialog(Alert.AlertType.INFORMATION, "Documento esportato con successo!");
+                Desktop.getDesktop().open(file);
+            } else {
+                showDialog(Alert.AlertType.ERROR, "Impossibile salvare il Report come PDF. Assicurati di avere i permessi per salvare il file in quella posizione.");
+            }
         }
 
     }
 
-    public void loadPatient(Patient currentPatient, Date from, Date to){
-        this.currentPatient = currentPatient;
-        dates[0] = from;
-        dates[1] = to;
+    public void loadPatient(Report report){
+        this.report = report;
 
-        labelFullName.setText(currentPatient.getFullName());
-        labelCod.setText(currentPatient.getCodFis());
-        labelBirthDate.setText(currentPatient.getBirthDate().toString());
-        labelBirthTown.setText(currentPatient.getBirthTown());
+        labelFullName.setText(report.getPatient().getFullName());
+        labelCod.setText(report.getPatient().getCodFis());
+        labelBirthDate.setText(report.getPatient().getBirthDate().toString());
+        labelBirthTown.setText(report.getPatient().getBirthTown());
 
         colTimestamp.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         colTimestamp1.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
@@ -109,44 +117,43 @@ public class reportPageController {
         colPressMax.setCellValueFactory(new PropertyValueFactory<>("pressMax"));
         colPressMin.setCellValueFactory(new PropertyValueFactory<>("pressMin"));
 
-        //TODO: cerca di fare una funzione invece di ripetere il codice
-        ArrayList<HeartBeat> heartbeats = new ArrayList<>();
-        for (HeartBeat beat : currentPatient.getHeartBeats()){
-            if (beat.getTimestamp().after(from)){
-                if (beat.getTimestamp().before(to))
-                    heartbeats.add(beat);
-                else break;
-            }
-        }
 
-        ArrayList<Temperature> temperatures = new ArrayList<>();
-        for (Temperature temperature : currentPatient.getTemperatures()){
-            if (temperature.getTimestamp().after(from)){
-                if (temperature.getTimestamp().before(to))
-                    temperatures.add(temperature);
-                else break;
-            }
-        }
-
-        ArrayList<Pressure> pressures = new ArrayList<>();
-        for (Pressure pressure : currentPatient.getPressures()){
-            if (pressure.getTimestamp().after(from)){
-                if (pressure.getTimestamp().before(to))
-                    pressures.add(pressure);
-                else break;
-            }
-        }
-
-        ObservableList<HeartBeat> data = FXCollections.observableArrayList(heartbeats);
+        ObservableList<HeartBeat> data = FXCollections.observableArrayList(report.getHeartBeats());
         tableHB.setItems(data);
-        tableHB.getSelectionModel().selectFirst();
-        ObservableList<Temperature> data1 = FXCollections.observableArrayList(temperatures);
+        ObservableList<Temperature> data1 = FXCollections.observableArrayList(report.getTemperatures());
         tableTemp.setItems(data1);
-        tableTemp.getSelectionModel().selectFirst();
-        ObservableList<Pressure> data2 = FXCollections.observableArrayList(pressures);
+        ObservableList<Pressure> data2 = FXCollections.observableArrayList(report.getPressures());
         tablePressure.setItems(data2);
-        tablePressure.getSelectionModel().selectFirst();
 
+        drawChart();
     }
 
+    private void drawChart() {
+        //hb
+        TreeMap<String, HeartBeat[]> beats = report.getMaxMinHeartBeat();
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        XYChart.Series<String, Number> series2 = new XYChart.Series<>();
+        series1.setName("Minimo");
+        series2.setName("Massimo");
+        for (Map.Entry<String, HeartBeat[]> entry : beats.entrySet()) {
+            String tmpString = entry.getKey();
+            HeartBeat[] tmpValue = entry.getValue();
+            XYChart.Data<String, Number> d1 = new XYChart.Data<>(tmpString, tmpValue[0].getHeartBeat());
+            XYChart.Data<String, Number> d2 = new XYChart.Data<>(tmpString, tmpValue[1].getHeartBeat());
+            series1.getData().add(d1);
+            series2.getData().add(d2);
+        }
+        linechartHB.getData().addAll(series1, series2);
+
+        //TODO: temp
+        //TODO: pression
+    }
+
+    void showDialog(Alert.AlertType type, String msg){
+        Alert alert = new Alert(type);
+        alert.setTitle("Esporta come PDF");
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
 }
