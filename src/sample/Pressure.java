@@ -22,6 +22,10 @@ public class Pressure implements Serializable {
 
     public int[] getPressure() { return pressure; }
 
+    public int getPressMin() { return pressure[0]; }
+
+    public int getPressMax() { return pressure[1]; }
+
     public Date getTimestamp() { return timestamp; }
 
     public String toString(){ return "Pressure [pressure=" + pressure.toString() + ", timestamp=" + timestamp.toString() + "]";  }

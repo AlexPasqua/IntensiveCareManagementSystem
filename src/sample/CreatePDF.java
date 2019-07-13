@@ -12,6 +12,8 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 
+import java.util.ArrayList;
+
 
 class CreatePDF{
     public static void main(String args[]) throws Exception {
@@ -20,7 +22,7 @@ class CreatePDF{
         Patient p1 = Datastore.getPatients().get(0);
 
         //pdf
-        String file = "C:\\Users\\Franc\\Downloads\\test\\test.pdf";
+        String file = "N:\test.pdf";
         PdfDocument pdfDoc = new PdfDocument(new PdfReader(CreatePDF.class.getResourceAsStream("/template.pdf")),new PdfWriter(file));
         Document doc = new Document(pdfDoc);
 
@@ -64,5 +66,16 @@ class CreatePDF{
         cell2.setBorder(Border.NO_BORDER);
         cell2.setMaxWidth((pdfDoc.getPage(1).getPageSizeWithRotation().getWidth()/2)-30);
         table.addCell(cell2);
+    }
+
+    private int[] getMaxMinHeartBeat(ArrayList<HeartBeat> beats){
+        int[] toreturn = {1000,0};
+        for (HeartBeat beat: beats){
+            if (beat.getHeartBeat() < toreturn[0])
+                toreturn[0] = beat.getHeartBeat();
+            if (beat.getHeartBeat() > toreturn[1])
+                toreturn[1] = beat.getHeartBeat();
+        }
+        return toreturn;
     }
 }

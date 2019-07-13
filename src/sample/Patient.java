@@ -66,9 +66,18 @@ public class Patient implements Serializable {
 
     public String getBirthTown(){ return birthTown; }
 
+    public LocalDate getBirthDate(){ return birthDate; }
+
     public boolean getHospitalization(){ return hospitalized; }
 
     public ArrayList<Prescription> getPrescriptions(){ return prescriptions; }
+
+    public ArrayList<HeartBeat> getHeartBeats(){ return heartBeats; }
+
+    public ArrayList<Temperature> getTemperatures(){ return temperatures; }
+
+    public ArrayList<Pressure> getPressures(){ return pressures; }
+
 
     @Override
     public boolean equals(Object other){
