@@ -7,14 +7,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import sample.Patient;
 
 import java.io.IOException;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class reportAskDatesController {
 
     private Patient currentPatient = null;
+    private Window parentWindow = null;
 
     @FXML
     private DatePicker dateFrom;
@@ -30,13 +35,22 @@ public class reportAskDatesController {
         Stage stage = new Stage();
         stage.setTitle("Genera Report");
         stage.setScene(new Scene(root1));
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(parentWindow);
         stage.show();
 
+        Date parsedDateFrom = Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date parsedDataTo = Date.from(dateTo.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant().plusSeconds(86399));
         reportPageController controller = fxmlLoader.getController();
-        controller.loadPatient(currentPatient, dateFrom.getValue(), dateTo.getValue());
+        controller.loadPatient(currentPatient, parsedDateFrom, parsedDataTo);
 
         Stage thisstage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         thisstage.close();
+    }
+
+    public void setCurrentPatient(Patient currentPatient, Window parentWindow) {
+        this.currentPatient = currentPatient;
+        this.parentWindow = parentWindow;
     }
 
 }

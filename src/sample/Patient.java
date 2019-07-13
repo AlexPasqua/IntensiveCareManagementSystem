@@ -3,10 +3,7 @@ package sample;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 public class Patient implements Serializable {
 
@@ -32,8 +29,6 @@ public class Patient implements Serializable {
         this.prescriptions = new ArrayList<>();
         this.administrations = new ArrayList<>();
         this.hospitalized = true;
-
-        generateFakeData();
     }
 
     public void addPrescription(Prescription current){
@@ -72,12 +67,23 @@ public class Patient implements Serializable {
 
     public ArrayList<Prescription> getPrescriptions(){ return prescriptions; }
 
-    public ArrayList<HeartBeat> getHeartBeats(){ return heartBeats; }
+    public ArrayList<HeartBeat> getHeartBeats() {
+        return heartBeats;
+    }
 
-    public ArrayList<Temperature> getTemperatures(){ return temperatures; }
+    public ArrayList<Temperature> getTemperatures() {
+        return temperatures;
+    }
 
-    public ArrayList<Pressure> getPressures(){ return pressures; }
+    public ArrayList<Pressure> getPressures() {
+        return pressures;
+    }
 
+    public void clearClinicalData(){
+        heartBeats.clear();
+        pressures.clear();
+        temperatures.clear();
+    }
 
     @Override
     public boolean equals(Object other){
@@ -92,6 +98,7 @@ public class Patient implements Serializable {
     }
 
     public void generateFakeData(){
+        clearClinicalData();
         //pressione 2min ,temp 3 min, hb 5 min
         long current = new Date().getTime();
         long start = current - 604800000; //una settimana indietro
@@ -104,8 +111,10 @@ public class Patient implements Serializable {
                 temperatures.add(new Temperature(randomData("temp"), current));
             if (thiscurrent % 2 == 0)
                 pressures.add(new Pressure(randomData("pressMin"), randomData("pressMax"), current));
-            //System.out.println(thiscurrent);
         }
+        Collections.reverse(heartBeats);
+        Collections.reverse(pressures);
+        Collections.reverse(temperatures);
 
     }
 
