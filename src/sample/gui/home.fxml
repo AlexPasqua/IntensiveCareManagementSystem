@@ -12,8 +12,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.homeController">
   <children>
@@ -40,7 +42,16 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="550.0" prefWidth="855.0" VBox.vgrow="ALWAYS">
          <children>
-            <ScrollPane fitToWidth="true" layoutX="-1.0" layoutY="-2.0" prefHeight="688.0" prefWidth="1132.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-2.0">
+            <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label text="Nessun Paziente attualmente ricoverato" textFill="#a7a7a7">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" layoutX="-1.0" layoutY="-2.0" prefHeight="688.0" prefWidth="1132.0" style="visibility: false;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-2.0">
                <content>
                   <GridPane gridLinesVisible="true" prefHeight="1481.0" prefWidth="898.0">
                     <columnConstraints>
@@ -59,7 +70,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <AnchorPane prefHeight="190.0" prefWidth="884.0" GridPane.rowIndex="0">
+                        <AnchorPane fx:id="rowPatient0" prefHeight="190.0" prefWidth="884.0" style="visibility: false;" GridPane.rowIndex="0">
                            <children>
                               <Label layoutX="14.0" layoutY="73.0" text="Paziente 1" />
                               <GridPane layoutX="83.0" layoutY="1.0" prefHeight="146.0" prefWidth="798.0" AnchorPane.bottomAnchor="1.4000000000000057" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="2.6000000000000227" AnchorPane.topAnchor="1.0">
@@ -73,32 +84,26 @@
                                 </rowConstraints>
                                  <children>
                                     <LineChart fx:id="grafico01" prefHeight="146.0" prefWidth="270.0">
-                                      <xAxis>
-                                        <NumberAxis />
-                                        <CategoryAxis side="BOTTOM" />
-                                      </xAxis>
-                                      <yAxis>
-                                         <NumberAxis />
-                                        <NumberAxis side="LEFT" />
-                                      </yAxis>
+                                        <xAxis>
+                                            <CategoryAxis side="BOTTOM" />
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis side="LEFT" />
+                                        </yAxis>
                                     </LineChart>
                                     <LineChart fx:id="grafico02" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
                                        <xAxis>
-                                          <NumberAxis />
                                           <CategoryAxis side="BOTTOM" />
                                        </xAxis>
                                        <yAxis>
-                                          <NumberAxis />
                                           <NumberAxis side="LEFT" />
                                        </yAxis>
                                     </LineChart>
                                     <LineChart fx:id="grafico03" prefHeight="150.0" prefWidth="273.0" GridPane.columnIndex="2">
                                        <xAxis>
-                                          <NumberAxis />
                                           <CategoryAxis side="BOTTOM" />
                                        </xAxis>
                                        <yAxis>
-                                          <NumberAxis />
                                           <NumberAxis side="LEFT" />
                                        </yAxis>
                                     </LineChart>
@@ -106,7 +111,7 @@
                               </GridPane>
                            </children>
                         </AnchorPane>
-						<AnchorPane prefHeight="190.0" prefWidth="884.0" GridPane.rowIndex="1">
+						<AnchorPane fx:id="rowPatient1" prefHeight="190.0" prefWidth="884.0" style="visibility: false;" GridPane.rowIndex="1">
                             <children>
                                 <Label layoutX="14.0" layoutY="73.0" text="Paziente 1" />
                                 <GridPane layoutX="83.0" layoutY="1.0" prefHeight="146.0" prefWidth="798.0" AnchorPane.bottomAnchor="1.4000000000000057" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="2.6000000000000227" AnchorPane.topAnchor="1.0">
@@ -121,31 +126,25 @@
                                     <children>
                                         <LineChart fx:id="grafico11" prefHeight="146.0" prefWidth="270.0">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico12" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico13" prefHeight="150.0" prefWidth="273.0" GridPane.columnIndex="2">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
@@ -153,7 +152,7 @@
                                 </GridPane>
                             </children>
                         </AnchorPane>
-						<AnchorPane prefHeight="190.0" prefWidth="884.0" GridPane.rowIndex="2">
+						<AnchorPane fx:id="rowPatient2" prefHeight="190.0" prefWidth="884.0" style="visibility: false;" GridPane.rowIndex="2">
                             <children>
                                 <Label layoutX="14.0" layoutY="73.0" text="Paziente 1" />
                                 <GridPane layoutX="83.0" layoutY="1.0" prefHeight="146.0" prefWidth="798.0" AnchorPane.bottomAnchor="1.4000000000000057" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="2.6000000000000227" AnchorPane.topAnchor="1.0">
@@ -168,31 +167,25 @@
                                     <children>
                                         <LineChart fx:id="grafico21" prefHeight="146.0" prefWidth="270.0">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico22" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico23" prefHeight="150.0" prefWidth="273.0" GridPane.columnIndex="2">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
@@ -200,7 +193,7 @@
                                 </GridPane>
                             </children>
                         </AnchorPane>
-						<AnchorPane prefHeight="190.0" prefWidth="884.0" GridPane.rowIndex="3">
+						<AnchorPane fx:id="rowPatient3" prefHeight="190.0" prefWidth="884.0" style="visibility: false;" GridPane.rowIndex="3">
                             <children>
                                 <Label layoutX="14.0" layoutY="73.0" text="Paziente 1" />
                                 <GridPane layoutX="83.0" layoutY="1.0" prefHeight="146.0" prefWidth="798.0" AnchorPane.bottomAnchor="1.4000000000000057" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="2.6000000000000227" AnchorPane.topAnchor="1.0">
@@ -215,31 +208,25 @@
                                     <children>
                                         <LineChart fx:id="grafico31" prefHeight="146.0" prefWidth="270.0">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico32" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico33" prefHeight="150.0" prefWidth="273.0" GridPane.columnIndex="2">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
@@ -247,7 +234,7 @@
                                 </GridPane>
                             </children>
                         </AnchorPane>
-						<AnchorPane prefHeight="190.0" prefWidth="884.0" GridPane.rowIndex="4">
+						<AnchorPane fx:id="rowPatient4" prefHeight="190.0" prefWidth="884.0" style="visibility: false;" GridPane.rowIndex="4">
                             <children>
                                 <Label layoutX="14.0" layoutY="73.0" text="Paziente 1" />
                                 <GridPane layoutX="83.0" layoutY="1.0" prefHeight="146.0" prefWidth="798.0" AnchorPane.bottomAnchor="1.4000000000000057" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="2.6000000000000227" AnchorPane.topAnchor="1.0">
@@ -262,31 +249,25 @@
                                     <children>
                                         <LineChart fx:id="grafico41" prefHeight="146.0" prefWidth="270.0">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico42" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico43" prefHeight="150.0" prefWidth="273.0" GridPane.columnIndex="2">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
@@ -294,7 +275,7 @@
                                 </GridPane>
                             </children>
                         </AnchorPane>
-						<AnchorPane prefHeight="190.0" prefWidth="884.0" GridPane.rowIndex="5">
+						<AnchorPane fx:id="rowPatient5" prefHeight="190.0" prefWidth="884.0" style="visibility: false;" GridPane.rowIndex="5">
                             <children>
                                 <Label layoutX="14.0" layoutY="73.0" text="Paziente 1" />
                                 <GridPane layoutX="83.0" layoutY="1.0" prefHeight="146.0" prefWidth="798.0" AnchorPane.bottomAnchor="1.4000000000000057" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="2.6000000000000227" AnchorPane.topAnchor="1.0">
@@ -309,31 +290,25 @@
                                     <children>
                                         <LineChart fx:id="grafico51" prefHeight="146.0" prefWidth="270.0">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico52" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico53" prefHeight="150.0" prefWidth="273.0" GridPane.columnIndex="2">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
@@ -341,7 +316,7 @@
                                 </GridPane>
                             </children>
                         </AnchorPane>
-						<AnchorPane prefHeight="190.0" prefWidth="884.0" GridPane.rowIndex="6">
+						<AnchorPane fx:id="rowPatient6" prefHeight="190.0" prefWidth="884.0" style="visibility: false;" GridPane.rowIndex="6">
                             <children>
                                 <Label layoutX="14.0" layoutY="73.0" text="Paziente 1" />
                                 <GridPane layoutX="83.0" layoutY="1.0" prefHeight="146.0" prefWidth="798.0" AnchorPane.bottomAnchor="1.4000000000000057" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="2.6000000000000227" AnchorPane.topAnchor="1.0">
@@ -356,31 +331,25 @@
                                     <children>
                                         <LineChart fx:id="grafico61" prefHeight="146.0" prefWidth="270.0">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico62" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico63" prefHeight="150.0" prefWidth="273.0" GridPane.columnIndex="2">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
@@ -388,7 +357,7 @@
                                 </GridPane>
                             </children>
                         </AnchorPane>
-						<AnchorPane prefHeight="190.0" prefWidth="884.0" GridPane.rowIndex="7">
+						<AnchorPane fx:id="rowPatient7" prefHeight="190.0" prefWidth="884.0" style="visibility: false;" GridPane.rowIndex="7">
                             <children>
                                 <Label layoutX="14.0" layoutY="73.0" text="Paziente 1" />
                                 <GridPane layoutX="83.0" layoutY="1.0" prefHeight="146.0" prefWidth="798.0" AnchorPane.bottomAnchor="1.4000000000000057" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="2.6000000000000227" AnchorPane.topAnchor="1.0">
@@ -403,31 +372,25 @@
                                     <children>
                                         <LineChart fx:id="grafico71" prefHeight="146.0" prefWidth="270.0">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico72" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico73" prefHeight="150.0" prefWidth="273.0" GridPane.columnIndex="2">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
@@ -435,7 +398,7 @@
                                 </GridPane>
                             </children>
                         </AnchorPane>
-						<AnchorPane prefHeight="190.0" prefWidth="884.0" GridPane.rowIndex="8">
+						<AnchorPane fx:id="rowPatient8" prefHeight="190.0" prefWidth="884.0" style="visibility: false;" GridPane.rowIndex="8">
                             <children>
                                 <Label layoutX="14.0" layoutY="73.0" text="Paziente 1" />
                                 <GridPane layoutX="83.0" layoutY="1.0" prefHeight="146.0" prefWidth="798.0" AnchorPane.bottomAnchor="1.4000000000000057" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="2.6000000000000227" AnchorPane.topAnchor="1.0">
@@ -450,31 +413,25 @@
                                     <children>
                                         <LineChart fx:id="grafico81" prefHeight="146.0" prefWidth="270.0">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico82" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico83" prefHeight="150.0" prefWidth="273.0" GridPane.columnIndex="2">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
@@ -482,7 +439,7 @@
                                 </GridPane>
                             </children>
                         </AnchorPane>
-						<AnchorPane prefHeight="190.0" prefWidth="884.0" GridPane.rowIndex="9">
+						<AnchorPane fx:id="rowPatient9" prefHeight="190.0" prefWidth="884.0" style="visibility: false;" GridPane.rowIndex="9">
                             <children>
                                 <Label layoutX="14.0" layoutY="73.0" text="Paziente 1" />
                                 <GridPane layoutX="83.0" layoutY="1.0" prefHeight="146.0" prefWidth="798.0" AnchorPane.bottomAnchor="1.4000000000000057" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="2.6000000000000227" AnchorPane.topAnchor="1.0">
@@ -497,31 +454,25 @@
                                     <children>
                                         <LineChart fx:id="grafico91" prefHeight="146.0" prefWidth="270.0">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico92" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>
                                         <LineChart fx:id="grafico93" prefHeight="150.0" prefWidth="273.0" GridPane.columnIndex="2">
                                             <xAxis>
-                                                <NumberAxis />
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis />
                                                 <NumberAxis side="LEFT" />
                                             </yAxis>
                                         </LineChart>

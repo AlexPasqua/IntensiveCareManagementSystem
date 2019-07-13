@@ -32,7 +32,7 @@ public class Main extends Application{
         primaryStage.setTitle("Dashboard");
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
-
+        /*
         LineChart lineChart = (LineChart) root.lookup("#grafico01");
 
         XYChart.Series series1 = new XYChart.Series();
@@ -75,7 +75,7 @@ public class Main extends Application{
 
         lineChart2.getData().add(series3);
         //lineChart.setTitle("Pressione");
-
+        */
     }
 
 }
