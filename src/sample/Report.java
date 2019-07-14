@@ -136,7 +136,7 @@ public class Report {
             //Adding Table to document
             doc.add(table);
 
-            doc.add(imageHBchart);
+            doc.add(imageHBchart.setWidth(250));
             //Closing the document
             doc.close();
             return true;

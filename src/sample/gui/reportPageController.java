@@ -7,6 +7,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.*;
@@ -85,7 +87,9 @@ public class reportPageController {
 
     @FXML
     void handleExportPDF(ActionEvent event) throws IOException {
-        javafx.scene.image.Image fxImage = linechartHB.snapshot(null, null);
+        SnapshotParameters sp =  new SnapshotParameters();
+        sp.setTransform(Transform.scale(5, 5));
+        javafx.scene.image.Image fxImage = linechartHB.snapshot(sp, null);
         java.awt.Image awtImage = SwingFXUtils.fromFXImage(fxImage, null);
         com.itextpdf.layout.element.Image pdfImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create(awtImage, null));
         report.setImage(pdfImage, 0);
