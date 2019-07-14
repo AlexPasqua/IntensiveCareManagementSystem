@@ -28,6 +28,8 @@ public class Pressure implements Serializable {
 
     public Date getTimestamp() { return timestamp; }
 
+    public String formatted() { return pressure[0] + "-" + pressure[1]; }
+
     public String toString(){ return "Pressure [pressure=" + pressure.toString() + ", timestamp=" + timestamp.toString() + "]";  }
 
 }

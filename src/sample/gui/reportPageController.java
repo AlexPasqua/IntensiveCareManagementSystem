@@ -1,7 +1,9 @@
 package sample.gui;
 
+import com.itextpdf.io.image.ImageDataFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -83,6 +85,11 @@ public class reportPageController {
 
     @FXML
     void handleExportPDF(ActionEvent event) throws IOException {
+        javafx.scene.image.Image fxImage = linechartHB.snapshot(null, null);
+        java.awt.Image awtImage = SwingFXUtils.fromFXImage(fxImage, null);
+        com.itextpdf.layout.element.Image pdfImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create(awtImage, null));
+        report.setImage(pdfImage, 0);
+
         FileChooser fileChooser = new FileChooser();
 
         //Set extension filter for text files
@@ -98,6 +105,7 @@ public class reportPageController {
                 showDialog(Alert.AlertType.ERROR, "Impossibile salvare il Report come PDF. Assicurati di avere i permessi per salvare il file in quella posizione.");
             }
         }
+
 
     }
 

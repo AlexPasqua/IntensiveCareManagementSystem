@@ -6,18 +6,17 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
 
 import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -26,6 +25,7 @@ public class Report {
     private Patient patient;
     private Date dateFrom;
     private Date dateTo;
+    private com.itextpdf.layout.element.Image imageHBchart;
 
     public Report(Patient patient, Date dateFrom, Date dateTo){
         this.patient = patient;
@@ -34,6 +34,15 @@ public class Report {
     }
 
     public Patient getPatient() { return patient; }
+
+    public void setImage(Image img, int type){
+        switch (type){
+            case 0:{
+                imageHBchart = img;
+                break;
+            }
+        }
+    }
 
     public ArrayList<HeartBeat> getHeartBeats(){
         ArrayList<HeartBeat> heartbeats = new ArrayList<>();
@@ -86,18 +95,48 @@ public class Report {
             Paragraph diagnosis = new Paragraph(patient.getDiagnosis());
             doc.add(titleDiagnosis);
             doc.add(diagnosis);
-            doc.add(new Paragraph("\n\n\n\n\n\n\n"));
+            doc.add(new Paragraph("\n\n\nReport Giornaliero").setBold().setTextAlignment(TextAlignment.CENTER));
 
 
             //Creating a table
-            Table table = new Table(2).useAllAvailableWidth();
+            Table table = new Table(5).useAllAvailableWidth();
             //Adding cells to the table
+            table.addCell(new Cell().add(new Paragraph("Data").setBold()));
+            table.addCell(new Cell().add(new Paragraph("Freq Cardiaca").setBold()));
+            table.addCell(new Cell().add(new Paragraph("Sistolica").setBold()));
+            table.addCell(new Cell().add(new Paragraph("Diastolica ").setBold()));
+            table.addCell(new Cell().add(new Paragraph("Temperatura ").setBold()));
 
+            TreeMap<String, HeartBeat[]> hbs = getMaxMinHeartBeat();
+            TreeMap<String, Temperature[]> temps = getMaxMinTemperature();
+            TreeMap<String, Pressure[]> pressuresS = getMaxMinPressure(0);
+            TreeMap<String, Pressure[]> pressuresD = getMaxMinPressure(1);
 
+            for(LocalDate date : getReportDays()){
+                String key = format(date);
+                table.addCell(new Cell().add(new Paragraph(key).setFontSize(10)));
+                if (hbs.containsKey(key))
+                    table.addCell(new Cell().add(new Paragraph("MIN: " + hbs.get(key)[0].getHeartBeat() + "\nMAX: " + hbs.get(key)[1].getHeartBeat()).setFontSize(10)));
+                else
+                    table.addCell(new Cell().add(new Paragraph("N/A")));
+                if (temps.containsKey(key))
+                    table.addCell(new Cell().add(new Paragraph("MIN: " + temps.get(key)[0].getTemperature() + "\nMAX: " + temps.get(key)[1].getTemperature()).setFontSize(10)));
+                else
+                    table.addCell(new Cell().add(new Paragraph("N/A")));
+                if (pressuresS.containsKey(key))
+                    table.addCell(new Cell().add(new Paragraph("MIN: " + pressuresS.get(key)[0].formatted() + "\nMAX: " + pressuresS.get(key)[1].formatted()).setFontSize(10)));
+                else
+                    table.addCell(new Cell().add(new Paragraph("N/A")));
+                if (pressuresD.containsKey(key))
+                    table.addCell(new Cell().add(new Paragraph("MIN: " + pressuresD.get(key)[0].formatted() + "\nMAX: " + pressuresD.get(key)[1].formatted()).setFontSize(10)));
+                else
+                    table.addCell(new Cell().add(new Paragraph("N/A")));
+            }
 
             //Adding Table to document
             doc.add(table);
 
+            doc.add(imageHBchart);
             //Closing the document
             doc.close();
             return true;
@@ -105,7 +144,6 @@ public class Report {
             System.out.println("Error creating PDF: " + e.getMessage());
             return false;
         }
-
     }
 
     private void addHeader(Table table, PdfDocument pdfDoc){
@@ -137,6 +175,35 @@ public class Report {
         return maxmin;
     }
 
+    public TreeMap<String, Temperature[]> getMaxMinTemperature(){
+        TreeMap<String, Temperature[]> maxmin= new TreeMap();
+        Temperature[] empty = {new Temperature(1000),new Temperature(0)};
+
+        for (Temperature temp: getTemperatures()){
+            maxmin.putIfAbsent(format(temp.getTimestamp()), empty);
+            if (temp.getTemperature() < maxmin.get(format(temp.getTimestamp()))[0].getTemperature())
+                maxmin.get(format(temp.getTimestamp()))[0] = temp;
+            if (temp.getTemperature() > maxmin.get(format(temp.getTimestamp()))[1].getTemperature())
+                maxmin.get(format(temp.getTimestamp()))[0] = temp;
+        }
+        return maxmin;
+    }
+
+    public TreeMap<String, Pressure[]> getMaxMinPressure(int type){
+        //type 0=sistolica, type 1=diastolica
+        TreeMap<String, Pressure[]> maxmin= new TreeMap();
+        Pressure[] empty = {new Pressure(1000, 1000),new Pressure(0, 0)};
+
+        for (Pressure pressure: getPressures()){
+            maxmin.putIfAbsent(format(pressure.getTimestamp()), empty);
+            if (pressure.getPressure()[type] < maxmin.get(format(pressure.getTimestamp()))[0].getPressure()[type])
+                maxmin.get(format(pressure.getTimestamp()))[0] = pressure;
+            if (pressure.getPressure()[type] > maxmin.get(format(pressure.getTimestamp()))[1].getPressure()[type])
+                maxmin.get(format(pressure.getTimestamp()))[0] = pressure;
+        }
+        return maxmin;
+    }
+
     private String format(Date date){
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String textdate = formatter.format(date);
@@ -145,10 +212,14 @@ public class Report {
     private String format(LocalDate date){
         Date parsedDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String textdate = formatter.format(date);
+        String textdate = formatter.format(parsedDate);
         return textdate;
     }
     private LocalDate dateToLocalDate(Date date){
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    private List<LocalDate> getReportDays(){
+        return dateToLocalDate(dateFrom).datesUntil(dateToLocalDate(dateTo)).collect(Collectors.toList());
     }
 }
