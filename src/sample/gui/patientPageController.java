@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,9 +35,9 @@ public class patientPageController implements Initializable {
     @FXML private Label labelBirthTown;
     @FXML private Label labelCodFis;
     @FXML private Label labelBirthDate;
-    @FXML private LineChart<?, ?> chartPressure;
-    @FXML private LineChart<?, ?> chartHeartBeat;
-    @FXML private LineChart<?, ?> chartTemperature;
+    @FXML private LineChart<String, Number> chartPressure;
+    @FXML private LineChart<String, Number> chartHeartBeat;
+    @FXML private LineChart<String, Number> chartTemperature;
     @FXML private ImageView imageUser;
     @FXML private Button buttonDiagnosis;
     @FXML private Button buttonPrescription;
@@ -103,6 +104,45 @@ public class patientPageController implements Initializable {
         labelName.setText(currentPatient.getFullName());
         labelBirthDate.setText(currentPatient.getDate().toString());
         labelBirthTown.setText(currentPatient.getBirthTown());
+
+        //HB chart
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("HB");
+        for (HeartBeat beat: currentPatient.getHeartBeats()){
+            if (beat.getTimestamp().after(new Date(System.currentTimeMillis() - 7200 * 1000)))
+                series.getData().add(new XYChart.Data<>(beat.getTimestamp().toString(), beat.getHeartBeat()));
+        }
+        chartHeartBeat.getXAxis().setTickLabelsVisible(false);
+        chartHeartBeat.getXAxis().setOpacity(0);
+        chartHeartBeat.getData().add(series);
+
+        //temp
+        series = new XYChart.Series<>();
+        series.setName("Temp");
+        for (Temperature temp: currentPatient.getTemperatures()){
+            if (temp.getTimestamp().after(new Date(System.currentTimeMillis() - 7200 * 1000)))
+                series.getData().add(new XYChart.Data<>(temp.getTimestamp().toString(), temp.getTemperature()));
+
+        }
+        chartTemperature.getXAxis().setTickLabelsVisible(false);
+        chartTemperature.getXAxis().setOpacity(0);
+        chartTemperature.getData().add(series);
+
+        //pressure
+        series = new XYChart.Series<>();
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        series.setName("Minima");
+        series.setName("Massima");
+        for (Pressure press: currentPatient.getPressures()){
+            if (press.getTimestamp().after(new Date(System.currentTimeMillis() - 7200 * 1000))) {
+                series.getData().add(new XYChart.Data<>(press.getTimestamp().toString(), press.getPressMin()));
+                series1.getData().add(new XYChart.Data<>(press.getTimestamp().toString(), press.getPressMax()));
+            }
+        }
+        chartPressure.getXAxis().setTickLabelsVisible(false);
+        chartPressure.getXAxis().setOpacity(0);
+        chartPressure.getData().add(series);
+        chartPressure.getData().add(series1);
 
     }
 
