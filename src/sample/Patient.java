@@ -41,9 +41,15 @@ public class Patient implements Serializable, Comparable<Patient> {
 
     public void addHeartBeat(int heartbeat){ heartBeats.add(new HeartBeat(heartbeat)); }
 
+    public void addHeartBeat(HeartBeat heartbeat){ heartBeats.add(heartbeat); }
+
     public void addTemperature(int temp) { temperatures.add(new Temperature(temp)); }
 
+    public void addTemperature(Temperature temperature) { temperatures.add(temperature); }
+
     public void addPressure(int min, int max) { pressures.add(new Pressure(min, max)); }
+
+    public void addPressure(Pressure pressure) { pressures.add(pressure); }
 
     public void setDiagnosis(String diagnosis){
         this.diagnosis = diagnosis;

@@ -42,8 +42,13 @@ public class MonitoringSystem {
             e.printStackTrace();
         }
 
+        /*
+        * RMI CLIENT
+         */
+
         RMIinterface server = null;
         try {
+            //get the addres of server side
             server = (RMIinterface) Naming.lookup("rmi://localhost/RMIserver");
         } catch (NotBoundException e) {
             e.printStackTrace();
@@ -57,10 +62,15 @@ public class MonitoringSystem {
         }
         System.out.println("Monitoring System started.");
 
+        /*
+        * MAIN LOOP
+         */
         while (true){
+            //get current timestamp in minute
             long timestamp = new Date().getTime();
             timestamp = timestamp / 60000;
 
+            //call server methods for store data
             try {
                 if (timestamp % 2 == 0){
                     server.updatePressures(getPressures());
@@ -175,6 +185,9 @@ public class MonitoringSystem {
         return pressures;
     }
 
+    /*
+    * INIT OPENM HEALTH DATA
+     */
     private static void initHealthData() throws IOException, ClassNotFoundException {
         FileInputStream in = new FileInputStream("healthData");
         ObjectInputStream stream = new ObjectInputStream(in);
@@ -186,10 +199,12 @@ public class MonitoringSystem {
 
     }
 
+    /*
+     * read from datastore file patients
+     */
+
     private static void readPatients() throws IOException, ClassNotFoundException {
-        /*
-        * read from datastore file patients
-         */
+
         FileInputStream in = new FileInputStream("datastore");
         ObjectInputStream stream = new ObjectInputStream(in);
         patients = (ArrayList<Patient>) stream.readObject();
