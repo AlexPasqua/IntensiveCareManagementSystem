@@ -1,28 +1,25 @@
 package sample;
 
 import com.sun.net.httpserver.Headers;
+import com.sun.source.tree.Tree;
 
 import javax.xml.crypto.Data;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 public class MonitoringSystem {
 
     private static ArrayList<Integer> openHeartBeats;
     private static ArrayList<Integer[]> openPressures;
     private static ArrayList<Integer> openTemps;
+    private static ArrayList<Patient> patients = new ArrayList<>();
 
     /*
     ** map patient, array of 3 elements
@@ -30,9 +27,9 @@ public class MonitoringSystem {
     ** - temp indx
     ** - pressure idx
      */
-    private static Map<Patient, int[]> patientIndex;
+    private static Map<Patient, int[]> patientIndex = new TreeMap<Patient, int[]>();
 
-    public static void main (String[] args){
+    public static void main (String[] args) {
 
         //get openMHealth data
         try {
@@ -66,20 +63,17 @@ public class MonitoringSystem {
 
             try {
                 if (timestamp % 2 == 0){
-                    //System.out.println(getPressures());
-                    //server.updatePressures(getPressures());
+                    server.updatePressures(getPressures());
                 }
                 if (timestamp % 3 == 0){
-                    System.out.println(getTemperatures());
-                    //server.updateTemperatures(getTemperature());
+                    server.updateTemperatures(getTemperatures());
                 }
                 if (timestamp % 5 == 0){
-                    System.out.println(getHeartbeats());
                     server.updateHeartbeats(getHeartbeats());
                 }
 
 
-            } catch (RemoteException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Server unreachble.. closing");
                 System.exit(0);
             }
@@ -94,7 +88,7 @@ public class MonitoringSystem {
 
     }
 
-    private static Map<Patient, HeartBeat> getHeartbeats() {
+    private static Map<Patient, HeartBeat> getHeartbeats() throws IOException, ClassNotFoundException {
         Map<Patient, HeartBeat> heartbeats = new TreeMap<Patient, HeartBeat>();
 
         /*
@@ -102,7 +96,8 @@ public class MonitoringSystem {
         * if is a new patient add it to patinetindx (with a rand number)
         * then, get his index and use it for get data from openH health data
         */
-        for (Patient p: Datastore.getPatients()){
+        readPatients();
+        for (Patient p: patients){
             if (!patientIndex.containsKey(p)){
                 int rand_indx = ThreadLocalRandom.current().nextInt(0,  2000 + 1);
                 int rand_array[] = {rand_indx, rand_indx, rand_indx};
@@ -122,7 +117,7 @@ public class MonitoringSystem {
         return heartbeats;
     }
 
-    private static Map<Patient, Temperature> getTemperatures() {
+    private static Map<Patient, Temperature> getTemperatures() throws IOException, ClassNotFoundException {
         Map<Patient, Temperature> temperatures = new TreeMap<Patient, Temperature>();
 
         /*
@@ -130,10 +125,10 @@ public class MonitoringSystem {
          * if is a new patient add it to patinetindx (with a rand number)
          * then, get his index and use it for get data from openH health data
          */
-        System.out.println(Datastore.getPatients().size());
-        for (Patient p: Datastore.getPatients()){
+        readPatients();
+        for (Patient p: patients){
 
-            if (!patientIndex.containsKey(p)){
+            if (!(patientIndex.containsKey(p))){
                 int rand_indx = ThreadLocalRandom.current().nextInt(0,  2000 + 1);
                 int rand_array[] = {rand_indx, rand_indx, rand_indx};
                 patientIndex.put(p, rand_array);
@@ -152,15 +147,15 @@ public class MonitoringSystem {
         return temperatures;
     }
 
-    private static Map<Patient, Pressure> getPressures() {
+    private static Map<Patient, Pressure> getPressures() throws IOException, ClassNotFoundException {
         Map<Patient, Pressure> pressures = new TreeMap<Patient, Pressure>();
-
+        readPatients();
         /*
          * for every patient
          * if is a new patient add it to patinetindx (with a rand number)
          * then, get his index and use it for get data from openH health data
          */
-        for (Patient p: Datastore.getPatients()){
+        for (Patient p: patients){
             if (!patientIndex.containsKey(p)){
                 int rand_indx = ThreadLocalRandom.current().nextInt(0,  2000 + 1);
                 int rand_array[] = {rand_indx, rand_indx, rand_indx};
@@ -188,6 +183,16 @@ public class MonitoringSystem {
         openPressures = (ArrayList<Integer[]>) stream.readObject();
         System.out.println("Health Data Loaded!");
 
+
+    }
+
+    private static void readPatients() throws IOException, ClassNotFoundException {
+        /*
+        * read from datastore file patients
+         */
+        FileInputStream in = new FileInputStream("datastore");
+        ObjectInputStream stream = new ObjectInputStream(in);
+        patients = (ArrayList<Patient>) stream.readObject();
     }
 
 }

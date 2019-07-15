@@ -5,7 +5,7 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Patient implements Serializable {
+public class Patient implements Serializable, Comparable<Patient> {
 
     private final String cod;
     private final String name;
@@ -127,5 +127,10 @@ public class Patient implements Serializable {
             case "pressMax": return rand.nextInt(110)+70;
         }
         return 0;
+    }
+
+    @Override
+    public int compareTo(Patient o) {
+        return cod.compareTo(o.getCodFis());
     }
 }
