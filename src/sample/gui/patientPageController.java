@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
 public class patientPageController implements Initializable {
 
     Patient currentPatient = null;
+    Stage thisStage;
 
     @FXML private Label labelName;
     @FXML private Label labelBirthTown;
@@ -70,17 +71,39 @@ public class patientPageController implements Initializable {
     @FXML
     void handleGenerateReport(ActionEvent event) throws Exception {
         FXMLLoader fxmlLoader = openPopupWindow("Genera Report", "reportAskDates.fxml", event);
-
         Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
         reportAskDatesController controller = fxmlLoader.getController();
         controller.setCurrentPatient(currentPatient, thiswindow);
     }
 
     @FXML
-    void handleDischarge(ActionEvent event) {
-        currentPatient.setHospitalization(false);
-        //TODO: genera lettera di dimissioni
-        Datastore.write();
+    void handleDischarge(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addDischargeLetter.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Window thisWindow = ((Node)event.getTarget()).getScene().getWindow();
+        thisStage = (Stage)((Node)event.getTarget()).getScene().getWindow();
+
+        Stage dischargeStage = new Stage();
+        dischargeStage.setTitle("Aggiungi lettera di dimissioni");
+        dischargeStage.initModality(Modality.WINDOW_MODAL);
+        dischargeStage.initOwner(thisWindow);
+        dischargeStage.setScene(new Scene(root));
+        dischargeStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+        dischargeStage.show();
+
+        AddDischargeLetterController controller = fxmlLoader.<AddDischargeLetterController>getController();
+        controller.setCurrentPatient(currentPatient);
+    }
+
+    private void closeWindowEvent(WindowEvent event) {
+        if (!this.currentPatient.getDischargeLetter().isEmpty()) {
+            //TODO: sostituire thisStage.close() con il pannello che diceva francesco e togliere tutta la roba per ottenere lo stage di questa pagina, che non serve più
+            thisStage.close();
+            System.out.println("Patient discharged");
+        }
+        else
+            System.out.println("AAAAAAAAAAAAAAAAA"); //TODO: remove the println
     }
 
     @Override
@@ -190,11 +213,11 @@ public class patientPageController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
         Parent root = fxmlLoader.load();
 
-        Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
+        Window thisWindow = ((Node)event.getTarget()).getScene().getWindow();
         Stage stage = new Stage();
         stage.setTitle(title);
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(thiswindow);
+        stage.initOwner(thisWindow);
         stage.setScene(new Scene(root));
         stage.show();
 

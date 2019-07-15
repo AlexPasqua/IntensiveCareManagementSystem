@@ -101,6 +101,5 @@ public class patientListController implements Initializable  {
     private void closeWindowEvent(WindowEvent event) {
         System.out.println("Updating patient list");
         loadList();
-
     }
 }

@@ -19,6 +19,8 @@ public class Patient implements Serializable {
     private ArrayList<Temperature> temperatures = new ArrayList<>();
     private ArrayList<Pressure> pressures = new ArrayList<>();
     private boolean hospitalized;
+    private String dischargeLetter = "";
+
 
     public Patient(String cod, String name, String surname, LocalDate birthDate, String birthTown) {
         this.cod = cod;
@@ -79,6 +81,10 @@ public class Patient implements Serializable {
         return pressures;
     }
 
+    public void setDischargeLetter(String letter){ dischargeLetter = letter; }
+
+    public String getDischargeLetter() { return dischargeLetter; }
+
     public void clearClinicalData(){
         heartBeats.clear();
         pressures.clear();
@@ -115,7 +121,6 @@ public class Patient implements Serializable {
         Collections.reverse(heartBeats);
         Collections.reverse(pressures);
         Collections.reverse(temperatures);
-
     }
 
     private int randomData(String type){
