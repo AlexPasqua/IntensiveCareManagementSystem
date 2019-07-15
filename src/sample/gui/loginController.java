@@ -54,7 +54,9 @@ public class loginController {
         Stage stage = new Stage();
         stage.setTitle("Lista Pazienti");
         stage.setScene(new Scene(root1));
+        stage.setUserData(fxmlLoader);
         stage.show();
+        Datastore.allLoaders.put("patientslist", fxmlLoader);
 
         //chiudo login
         stage = (Stage)((Node)event.getTarget()).getScene().getWindow();

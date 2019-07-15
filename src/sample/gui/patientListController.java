@@ -98,6 +98,12 @@ public class patientListController implements Initializable  {
         }
     }
 
+    public void reset(){
+        for (Node btn :gridPatients.getChildren()){
+            btn.setStyle("visibility: false");
+        }
+    }
+
     private void closeWindowEvent(WindowEvent event) {
         System.out.println("Updating patient list");
         loadList();

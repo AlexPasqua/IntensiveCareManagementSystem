@@ -1,7 +1,10 @@
 package sample;
 
+import javafx.fxml.FXMLLoader;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Datastore {
 
@@ -9,7 +12,7 @@ public class Datastore {
     private static ArrayList<User> users = new ArrayList<>();
     private static User activeUser = null;  //active user
     private static ArrayList<String> availMeds = new ArrayList<>();
-
+    public static HashMap<String, FXMLLoader> allLoaders = new HashMap<>();
 
     //write on file patients array
     public static void write() {

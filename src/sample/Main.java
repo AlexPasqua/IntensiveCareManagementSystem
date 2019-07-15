@@ -28,10 +28,12 @@ public class Main extends Application{
     @Override
     @SuppressWarnings("unchecked")
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("gui/home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui/home.fxml"));
+        Parent root = fxmlLoader.load();
         primaryStage.setTitle("Dashboard");
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
+        Datastore.allLoaders.put("dashboard", fxmlLoader);
         /*
         LineChart lineChart = (LineChart) root.lookup("#grafico01");
 

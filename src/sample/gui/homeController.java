@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -17,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import sample.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -148,12 +150,14 @@ public class homeController implements Initializable {
     @FXML
     LineChart<String, Number> grafico93;
 
+    private AnchorPane[] rows = {rowPatient0, rowPatient1, rowPatient2, rowPatient3, rowPatient4, rowPatient5, rowPatient6,  rowPatient7,  rowPatient8, rowPatient9};
+
     @FXML
-    void handleAddValue(ActionEvent event) {
+    void handleAddValue(ActionEvent event){
         //pressione max value is 8
         //addDataTo(grafico1,  20, 0);
-        //addDataTo(grafico1,  55, 1);
-        addDataTo(grafico11, 55, 0);
+        //addDataTo(grafico01,  55, 1);
+        reset();
     }
 
     @FXML
@@ -202,11 +206,14 @@ public class homeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadList();
+    }
+
+    public void loadList(){
         ArrayList<Patient> patients = Datastore.getPatients();
         AnchorPane[] rows = {rowPatient0, rowPatient1, rowPatient2, rowPatient3, rowPatient4, rowPatient5, rowPatient6,  rowPatient7,  rowPatient8, rowPatient9};
         LineChart[] charts = {grafico01, grafico02, grafico03, grafico11, grafico12, grafico13,  grafico21, grafico22, grafico23, grafico31, grafico32, grafico33, grafico41, grafico42,
-                             grafico43, grafico52, grafico53, grafico61, grafico62, grafico63, grafico71, grafico72, grafico73, grafico81, grafico82, grafico83, grafico91, grafico92, grafico93};
-
+                grafico43, grafico52, grafico53, grafico61, grafico62, grafico63, grafico71, grafico72, grafico73, grafico81, grafico82, grafico83, grafico91, grafico92, grafico93};
         if (patients.size() > 0){
             scrollPane.setStyle("");
             int rowstatus = 0;
@@ -255,7 +262,32 @@ public class homeController implements Initializable {
                 chart.getXAxis().setOpacity(0);
                 chart.getData().add(series);
                 chart.getData().add(series1);
+                rowstatus++;
             }
+        }
+    }
+
+    public void reset() {
+        ArrayList<Node> nodes = new ArrayList<Node>();
+        addAllDescendents(Datastore.allLoaders.get("dashboard").getRoot(), nodes);
+        for (Node node: nodes){
+            if (node instanceof LineChart){
+                LineChart chart = (LineChart) node;
+                chart.getData().removeAll();
+            } else if (node instanceof AnchorPane){
+                try{
+                    if (node.getId().contains("rowPatient"))
+                        node.setStyle("visibility: false");
+                } catch (Exception e) {}
+            }
+        }
+    }
+
+    private static void addAllDescendents(Parent parent, ArrayList<Node> nodes) {
+        for (Node node : parent.getChildrenUnmodifiable()) {
+            nodes.add(node);
+            if (node instanceof Parent)
+                addAllDescendents((Parent)node, nodes);
         }
     }
 }

@@ -1,13 +1,19 @@
 package sample.gui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import sample.Datastore;
 import sample.Patient;
+
+import java.util.Map;
 
 
 public class AddDischargeLetterController {
@@ -29,9 +35,22 @@ public class AddDischargeLetterController {
         currentPatient.setDischargeLetter(letter);
         currentPatient.setHospitalization(false);
         Datastore.write();
-
-
-        //showDialog(Alert.AlertType.INFORMATION, "Lettera di dimissioni compilata");
+        //updating all other windows
+        for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
+            switch (entry.getKey()){
+                case "dashboard":{
+                    homeController controller = entry.getValue().getController();
+                    controller.reset();
+                    controller.loadList();
+                    break;
+                }
+                case "patientslist":{
+                    patientListController controller = entry.getValue().getController();
+                    controller.reset();
+                    controller.loadList();
+                }
+            }
+        }
 
         Stage stage = (Stage) ((Node) event.getTarget()).getScene().getWindow();
         stage.close();
@@ -41,7 +60,7 @@ public class AddDischargeLetterController {
 
     private void showDialog(Alert.AlertType type, String msg){
         Alert alert = new Alert(type);
-        alert.setTitle("Scrivi lettera di dimissioni");
+        alert.setTitle("Lettera di Dimissione");
         alert.setHeaderText(null);
         alert.setContentText(msg);
         alert.showAndWait();
