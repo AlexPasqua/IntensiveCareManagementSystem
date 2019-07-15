@@ -209,10 +209,13 @@ public class homeController implements Initializable {
 
         if (patients.size() > 0){
             scrollPane.setStyle("");
+            int rowstatus = 0;
             for (int i=0; i<patients.size(); i++){
-                rows[i].setStyle("");
+                if (!patients.get(i).getHospitalization()) continue;
+
+                rows[rowstatus].setStyle("");
                 //HB chart
-                LineChart chart = charts[3*i];
+                LineChart chart = charts[3*rowstatus];
                 XYChart.Series<String, Number> series = new XYChart.Series<>();
                 series.setName("HB");
                 for (HeartBeat beat: patients.get(i).getHeartBeats()){
@@ -224,7 +227,7 @@ public class homeController implements Initializable {
                 chart.getData().add(series);
 
                 //temp
-                chart = charts[(3*i)+1];
+                chart = charts[(3*rowstatus)+1];
                 series = new XYChart.Series<>();
                 series.setName("Temp");
                 for (Temperature temp: patients.get(i).getTemperatures()){
@@ -237,7 +240,7 @@ public class homeController implements Initializable {
                 chart.getData().add(series);
 
                 //pressure
-                chart = charts[(3*i)+2];
+                chart = charts[(3*rowstatus)+2];
                 series = new XYChart.Series<>();
                 XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                 series.setName("Minima");

@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -30,6 +31,7 @@ import java.util.ResourceBundle;
 public class patientPageController implements Initializable {
 
     Patient currentPatient = null;
+    Stage thisStage;
 
     @FXML private Label labelName;
     @FXML private Label labelBirthTown;
@@ -44,7 +46,8 @@ public class patientPageController implements Initializable {
     @FXML private Button buttonAdministration;
     @FXML private Button buttonReport;
     @FXML private Button buttonDischarge;
-
+    @FXML private GridPane gridCharts;
+    @FXML private Label labelLetter;
 
     @FXML
     void handleAddAdministration(ActionEvent event) throws Exception {
@@ -70,17 +73,36 @@ public class patientPageController implements Initializable {
     @FXML
     void handleGenerateReport(ActionEvent event) throws Exception {
         FXMLLoader fxmlLoader = openPopupWindow("Genera Report", "reportAskDates.fxml", event);
-
         Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
         reportAskDatesController controller = fxmlLoader.getController();
         controller.setCurrentPatient(currentPatient, thiswindow);
     }
 
     @FXML
-    void handleDischarge(ActionEvent event) {
-        currentPatient.setHospitalization(false);
-        //TODO: genera lettera di dimissioni
-        Datastore.write();
+    void handleDischarge(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addDischargeLetter.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Window thisWindow = ((Node)event.getTarget()).getScene().getWindow();
+        thisStage = (Stage)((Node)event.getTarget()).getScene().getWindow();
+
+        Stage dischargeStage = new Stage();
+        dischargeStage.setTitle("Aggiungi lettera di dimissioni");
+        dischargeStage.initModality(Modality.WINDOW_MODAL);
+        dischargeStage.initOwner(thisWindow);
+        dischargeStage.setScene(new Scene(root));
+        dischargeStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+        dischargeStage.show();
+
+        AddDischargeLetterController controller = fxmlLoader.<AddDischargeLetterController>getController();
+        controller.setCurrentPatient(currentPatient);
+    }
+
+    private void closeWindowEvent(WindowEvent event) {
+        if (!this.currentPatient.getDischargeLetter().isEmpty()) {
+            showHospitalizedView();
+            System.out.println("Patient discharged");
+        }
     }
 
     @Override
@@ -144,16 +166,16 @@ public class patientPageController implements Initializable {
         chartPressure.getData().add(series);
         chartPressure.getData().add(series1);
 
+        if (!currentPatient.getHospitalization()) showHospitalizedView();
     }
 
     public void enableButtons(){
-        System.out.println("Current power: " + Datastore.getActiveUser().getUserType());
-        switch (Datastore.getActiveUser().getUserType()){
-            case CHIEFDOCTOR:{
+        switch (Datastore.getActiveUser().getUserType()) {
+            case CHIEFDOCTOR: {
                 buttonReport.setDisable(false);
                 buttonDischarge.setDisable(false);
             }
-            case DOCTOR:{
+            case DOCTOR: {
                 buttonPrescription.setDisable(false);
                 buttonDiagnosis.setDisable(false);
             }
@@ -190,14 +212,21 @@ public class patientPageController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
         Parent root = fxmlLoader.load();
 
-        Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
+        Window thisWindow = ((Node)event.getTarget()).getScene().getWindow();
         Stage stage = new Stage();
         stage.setTitle(title);
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(thiswindow);
+        stage.initOwner(thisWindow);
         stage.setScene(new Scene(root));
         stage.show();
 
         return fxmlLoader;
+    }
+
+    private void showHospitalizedView(){
+        gridCharts.setVisible(false);
+        buttonDiagnosis.setDisable(true);
+        buttonDischarge.setDisable(true);
+        labelLetter.setText(currentPatient.getDischargeLetter());
     }
 }
