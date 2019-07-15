@@ -156,6 +156,7 @@ public class homeController implements Initializable {
     void handleAddValue(ActionEvent event){
         //pressione max value is 8
         //addDataTo(grafico1,  20, 0);
+
         //addDataTo(grafico01,  55, 1);
         reset();
     }

@@ -24,9 +24,10 @@ import sample.*;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.Timer;
 
 public class patientPageController implements Initializable {
 
@@ -115,6 +116,8 @@ public class patientPageController implements Initializable {
         imageUser.setImage(image);
 
         enableButtons();
+        chartHeartBeat.getXAxis().setAutoRanging(true);
+
     }
 
 
@@ -167,6 +170,9 @@ public class patientPageController implements Initializable {
         chartPressure.getData().add(series1);
 
         if (!currentPatient.getHospitalization()) showHospitalizedView();
+
+        Timer timer = new Timer(true);
+        timer.schedule(new TimerTask(), 10000,10000);
     }
 
     public void enableButtons(){
@@ -228,5 +234,42 @@ public class patientPageController implements Initializable {
         buttonDiagnosis.setDisable(true);
         buttonDischarge.setDisable(true);
         labelLetter.setText(currentPatient.getDischargeLetter());
+    }
+
+    private void removeOld(LineChart chart){
+        XYChart.Series<String, Number> currentSeries = (XYChart.Series<String, Number>) chart.getData().get(0);
+        try{
+            Date first =new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(currentSeries.getData().get(0).getXValue());
+            if (first.before(new Date(System.currentTimeMillis() - 7200 * 1000))){
+                currentSeries.getData().remove(0);
+                System.out.println("Removed firse");
+                removeOld(chart);
+            }
+        } catch (Exception e) { System.out.println(e.getMessage());}
+
+    }
+
+    private class TimerTask extends java.util.TimerTask {
+
+        @Override
+        public void run() {
+            System.out.println("TimerTask started!");
+            if (chartHeartBeat.getData().size() > 0){
+                //remove old data
+                removeOld(chartHeartBeat);
+                //TODO: aggiungere nuovi dati
+            } else {
+                if (currentPatient.getHeartBeats().size() > 0){
+                    XYChart.Series<String, Number> series = chartHeartBeat.getData().get(0);
+                    for (HeartBeat beat : currentPatient.getHeartBeats()){
+                        if (beat.getTimestamp().after(new Date(System.currentTimeMillis() - 7200 * 1000)))
+                            series.getData().add(new XYChart.Data<>(beat.getTimestamp().toString(), beat.getHeartBeat()));
+                    }
+                    if (series.getData().size() > 0){
+                        chartHeartBeat.getData().add(series);
+                    }
+                }
+            }
+        }
     }
 }
