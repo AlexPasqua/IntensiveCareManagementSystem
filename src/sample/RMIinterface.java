@@ -2,10 +2,11 @@ package sample;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Map;
 
 public interface RMIinterface extends Remote{
-    public void updateHeartbeat(int heartbeat) throws RemoteException;
-    public void updatePression(int pressions[]) throws RemoteException;
-    public void updateTemperature(int temp) throws RemoteException;
+    public void updateHeartbeats(Map<Patient, HeartBeat> heartbeats) throws RemoteException;
+    public void updatePressures(Map<Patient, Pressure> pressures) throws RemoteException;
+    public void updateTemperatures(Map<Patient, Temperature> temps) throws RemoteException;
 
 }
