@@ -107,5 +107,11 @@ public class patientListController implements Initializable  {
     private void closeWindowEvent(WindowEvent event) {
         System.out.println("Updating patient list");
         loadList();
+        if (Datastore.allLoaders.containsKey("dashboard")){
+            homeController controller = Datastore.allLoaders.get("dashboard").getController();
+            controller.reset();
+            controller.loadList();
+        }
+
     }
 }
