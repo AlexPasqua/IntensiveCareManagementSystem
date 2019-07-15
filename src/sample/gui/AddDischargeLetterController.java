@@ -18,10 +18,10 @@ public class AddDischargeLetterController {
     private TextArea textarea;
 
     @FXML
-    private void saveDischargeLetter(ActionEvent event){
+    private void saveDischargeLetter(ActionEvent event) {
         String letter = textarea.getText();
 
-        if (letter.isEmpty()){
+        if (letter.isEmpty()) {
             showDialog(Alert.AlertType.WARNING, "Per salvare è necessario prima inserire del testo");
             return;
         }
@@ -33,15 +33,13 @@ public class AddDischargeLetterController {
 
         //showDialog(Alert.AlertType.INFORMATION, "Lettera di dimissioni compilata");
 
-        Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
-        try { stage.close(); }
-        catch (IllegalStateException e) {}
-
-        }
+        Stage stage = (Stage) ((Node) event.getTarget()).getScene().getWindow();
+        stage.close();
+    }
 
     void setCurrentPatient(Patient currentPatient){ this.currentPatient = currentPatient; }
 
-     private void showDialog(Alert.AlertType type, String msg){
+    private void showDialog(Alert.AlertType type, String msg){
         Alert alert = new Alert(type);
         alert.setTitle("Scrivi lettera di dimissioni");
         alert.setHeaderText(null);

@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -45,7 +46,8 @@ public class patientPageController implements Initializable {
     @FXML private Button buttonAdministration;
     @FXML private Button buttonReport;
     @FXML private Button buttonDischarge;
-
+    @FXML private GridPane gridCharts;
+    @FXML private Label labelLetter;
 
     @FXML
     void handleAddAdministration(ActionEvent event) throws Exception {
@@ -98,12 +100,9 @@ public class patientPageController implements Initializable {
 
     private void closeWindowEvent(WindowEvent event) {
         if (!this.currentPatient.getDischargeLetter().isEmpty()) {
-            //TODO: sostituire thisStage.close() con il pannello che diceva francesco e togliere tutta la roba per ottenere lo stage di questa pagina, che non serve più
-            thisStage.close();
+            showHospitalizedView();
             System.out.println("Patient discharged");
         }
-        else
-            System.out.println("AAAAAAAAAAAAAAAAA"); //TODO: remove the println
     }
 
     @Override
@@ -167,16 +166,16 @@ public class patientPageController implements Initializable {
         chartPressure.getData().add(series);
         chartPressure.getData().add(series1);
 
+        if (!currentPatient.getHospitalization()) showHospitalizedView();
     }
 
     public void enableButtons(){
-        System.out.println("Current power: " + Datastore.getActiveUser().getUserType());
-        switch (Datastore.getActiveUser().getUserType()){
-            case CHIEFDOCTOR:{
+        switch (Datastore.getActiveUser().getUserType()) {
+            case CHIEFDOCTOR: {
                 buttonReport.setDisable(false);
                 buttonDischarge.setDisable(false);
             }
-            case DOCTOR:{
+            case DOCTOR: {
                 buttonPrescription.setDisable(false);
                 buttonDiagnosis.setDisable(false);
             }
@@ -222,5 +221,12 @@ public class patientPageController implements Initializable {
         stage.show();
 
         return fxmlLoader;
+    }
+
+    private void showHospitalizedView(){
+        gridCharts.setVisible(false);
+        buttonDiagnosis.setDisable(true);
+        buttonDischarge.setDisable(true);
+        labelLetter.setText(currentPatient.getDischargeLetter());
     }
 }
