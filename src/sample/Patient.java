@@ -103,7 +103,7 @@ public class Patient implements Serializable {
         long current = new Date().getTime();
         long start = current - 604800000; //una settimana indietro
 
-        for(current=current; current>start; current-=60000){
+        for( ; current>start; current-=60000){
             long thiscurrent = current /60000;
             if (thiscurrent % 5 == 0)
                 heartBeats.add(new HeartBeat(randomData("hb"), current));

@@ -23,6 +23,7 @@ import sample.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,7 +69,7 @@ public class reportPageController {
     private TableColumn<Temperature, Integer> colTemp;
 
     @FXML
-    private LineChart<?, ?> linechartTemp;
+    private LineChart<String, Number> linechartTemp;
 
     @FXML
     private TableView<Pressure> tablePressure;
@@ -83,7 +84,7 @@ public class reportPageController {
     private TableColumn<Pressure, Integer> colPressMax;
 
     @FXML
-    private LineChart<?, ?> linechartPressure;
+    private LineChart<String, Number> linechartPressure;
 
     @FXML
     void handleExportPDF(ActionEvent event) throws IOException {
@@ -157,8 +158,44 @@ public class reportPageController {
         }
         linechartHB.getData().addAll(series1, series2);
 
-        //TODO: temp
-        //TODO: pression
+        //Temps
+        TreeMap<String, Temperature[]> temps = report.getMaxMinTemperature();
+        series1 = new XYChart.Series<>();
+        series2 = new XYChart.Series<>();
+        series1.setName("Minimo");
+        series2.setName("Massimo");
+        for (Map.Entry<String, Temperature[]> entry : temps.entrySet()) {
+            String tmpString = entry.getKey();
+            Temperature[] tmpValue = entry.getValue();
+            XYChart.Data<String, Number> d1 = new XYChart.Data<>(tmpString, tmpValue[0].getTemperature());
+            XYChart.Data<String, Number> d2 = new XYChart.Data<>(tmpString, tmpValue[1].getTemperature());
+            series1.getData().add(d1);
+            series2.getData().add(d2);
+        }
+        linechartTemp.getData().addAll(series1, series2);
+
+        //Pressions
+        TreeMap<String, ArrayList<Pressure>> pressures = report.getDailyPressure();
+        series1 = new XYChart.Series<>();
+        series2 = new XYChart.Series<>();
+        series1.setName("Minimo");
+        series2.setName("Massimo");
+        for (Map.Entry<String, ArrayList<Pressure>> listpress  : pressures.entrySet()){
+            int[] maxmin = {0,0};
+            for (Pressure press: listpress.getValue()) {
+                maxmin[0] += press.getPressMin();
+                maxmin[1] += press.getPressMax();
+            }
+            maxmin[0] /= listpress.getValue().size();
+            maxmin[1] /= listpress.getValue().size();
+            XYChart.Data<String, Number> d1 = new XYChart.Data<>(listpress.getKey(), maxmin[0]);
+            XYChart.Data<String, Number> d2 = new XYChart.Data<>(listpress.getKey(), maxmin[1]);
+            series1.getData().add(d1);
+            series2.getData().add(d2);
+        }
+
+
+        linechartPressure.getData().addAll(series1, series2);
     }
 
     void showDialog(Alert.AlertType type, String msg){

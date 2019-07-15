@@ -170,7 +170,7 @@ public class Report {
             if (beat.getHeartBeat() < maxmin.get(format(beat.getTimestamp()))[0].getHeartBeat())
                 maxmin.get(format(beat.getTimestamp()))[0] = beat;
             if (beat.getHeartBeat() > maxmin.get(format(beat.getTimestamp()))[1].getHeartBeat())
-                maxmin.get(format(beat.getTimestamp()))[0] = beat;
+                maxmin.get(format(beat.getTimestamp()))[1] = beat;
         }
         return maxmin;
     }
@@ -184,7 +184,7 @@ public class Report {
             if (temp.getTemperature() < maxmin.get(format(temp.getTimestamp()))[0].getTemperature())
                 maxmin.get(format(temp.getTimestamp()))[0] = temp;
             if (temp.getTemperature() > maxmin.get(format(temp.getTimestamp()))[1].getTemperature())
-                maxmin.get(format(temp.getTimestamp()))[0] = temp;
+                maxmin.get(format(temp.getTimestamp()))[1] = temp;
         }
         return maxmin;
     }
@@ -199,9 +199,19 @@ public class Report {
             if (pressure.getPressure()[type] < maxmin.get(format(pressure.getTimestamp()))[0].getPressure()[type])
                 maxmin.get(format(pressure.getTimestamp()))[0] = pressure;
             if (pressure.getPressure()[type] > maxmin.get(format(pressure.getTimestamp()))[1].getPressure()[type])
-                maxmin.get(format(pressure.getTimestamp()))[0] = pressure;
+                maxmin.get(format(pressure.getTimestamp()))[1] = pressure;
         }
         return maxmin;
+    }
+
+    public TreeMap<String, ArrayList<Pressure>> getDailyPressure(){
+        TreeMap<String, ArrayList<Pressure>> days = new TreeMap();
+
+        for (Pressure pressure: getPressures()){
+            days.putIfAbsent(format(pressure.getTimestamp()), new ArrayList<>());
+            days.get(format(pressure.getTimestamp())).add(pressure);
+        }
+        return days;
     }
 
     private String format(Date date){
