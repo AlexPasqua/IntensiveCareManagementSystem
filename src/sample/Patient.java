@@ -5,7 +5,7 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Patient implements Serializable {
+public class Patient implements Serializable, Comparable<Patient> {
 
     private final String cod;
     private final String name;
@@ -43,9 +43,15 @@ public class Patient implements Serializable {
 
     public void addHeartBeat(int heartbeat){ heartBeats.add(new HeartBeat(heartbeat)); }
 
+    public void addHeartBeat(HeartBeat heartbeat){ heartBeats.add(heartbeat); }
+
     public void addTemperature(int temp) { temperatures.add(new Temperature(temp)); }
 
+    public void addTemperature(Temperature temperature) { temperatures.add(temperature); }
+
     public void addPressure(int min, int max) { pressures.add(new Pressure(min, max)); }
+
+    public void addPressure(Pressure pressure) { pressures.add(pressure); }
 
     public void setDiagnosis(String diagnosis){
         this.diagnosis = diagnosis;
@@ -134,5 +140,10 @@ public class Patient implements Serializable {
             case "pressMax": return rand.nextInt(110)+70;
         }
         return 0;
+    }
+
+    @Override
+    public int compareTo(Patient o) {
+        return cod.compareTo(o.getCodFis());
     }
 }

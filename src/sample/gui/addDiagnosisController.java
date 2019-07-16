@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import sample.Datastore;
 import sample.Patient;
 
 public class addDiagnosisController {
@@ -18,12 +19,13 @@ public class addDiagnosisController {
     @FXML
     void saveDiagnosis(ActionEvent event) {
         if (textarea.getText().isEmpty()) {
-            showDialog(Alert.AlertType.WARNING, "Per salvare è necessario inserire una diagnosi");
+            showDialog(Alert.AlertType.ERROR, "Per salvare è necessario inserire una diagnosi");
             return;
         }
 
         currentPatient.setDiagnosis(textarea.getText());
-        showDialog(Alert.AlertType.INFORMATION, "Diagnosi iniziale aggiornata");
+        Datastore.write();
+        showDialog(Alert.AlertType.INFORMATION, "Diagnosi iniziale aggiornata!");
 
         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         stage.close();

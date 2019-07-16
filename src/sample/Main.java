@@ -9,6 +9,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 
 import java.io.IOException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -21,8 +24,33 @@ public class Main extends Application{
         catch(IOException | ClassNotFoundException e){
             System.out.println("An error occurred while opening Datastore file");
         }
+
+        /*
+        ** RMI SECTION
+         */
+        RMIinterface server = new RMIimplements();
+
+        try{
+            RMIinterface stub = (RMIinterface) UnicastRemoteObject.exportObject(server, 0);
+            Registry registry = LocateRegistry.createRegistry(1099);
+
+            registry.bind("RMIserver", stub);
+
+        }catch(Throwable cause) {
+            System.out.println("Error on RMI sever: " +  cause.getMessage());
+        }
+
+        /*
+         ** END RMI SECTION
+         */
+
         launch(args); //GUI Start
+
+
         Datastore.write();
+
+        //force closing - if the user close GUI, force shutdown so the server rmi stop.
+        System.exit(0);
     }
 
     @Override
