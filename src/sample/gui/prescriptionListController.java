@@ -64,9 +64,6 @@ public class prescriptionListController {
             }
         }
         loadList();
-
-
-
     }
 
     void setCurrentPatient(Patient patient){
@@ -103,7 +100,6 @@ public class prescriptionListController {
 
     private void closeWindowEvent(WindowEvent event) {
         loadList();
-
     }
 
     private void loadList() {

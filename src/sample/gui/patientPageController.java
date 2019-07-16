@@ -152,6 +152,7 @@ public class patientPageController implements Initializable {
         }
         chartHeartBeat.getXAxis().setTickLabelsVisible(false);
         chartHeartBeat.getXAxis().setOpacity(0);
+        chartHeartBeat.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
         chartHeartBeat.getData().add(series);
         chartHeartBeat.setTitle("Battito");
         chartHeartBeat.setAnimated(false);
@@ -166,7 +167,9 @@ public class patientPageController implements Initializable {
         }
         chartTemperature.getXAxis().setTickLabelsVisible(false);
         chartTemperature.getXAxis().setOpacity(0);
+        chartTemperature.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
         chartTemperature.getData().add(series);
+        chartTemperature.setTitle("Temperatura");
         chartTemperature.setAnimated(false);
 
         //pressure
@@ -182,8 +185,10 @@ public class patientPageController implements Initializable {
         }
         chartPressure.getXAxis().setTickLabelsVisible(false);
         chartPressure.getXAxis().setOpacity(0);
+        chartPressure.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
         chartPressure.getData().add(series);
         chartPressure.getData().add(series1);
+        chartPressure.setTitle("Pressione");
         chartPressure.setAnimated(false);
     }
 

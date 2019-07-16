@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
@@ -26,6 +27,7 @@ import javafx.util.Duration;
 import sample.Datastore;
 import sample.Patient;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +49,9 @@ public class patientListController implements Initializable  {
 
     @FXML
     private GridPane gridPatients;
+
+    @FXML
+    private Label labelHi;
 
     @FXML
     void handleAddPatient(ActionEvent event) throws Exception{
@@ -79,9 +84,24 @@ public class patientListController implements Initializable  {
         stage.show();
     }
 
+    @FXML
+    void handleAllPatients(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientAllList.fxml"));
+        Parent root1 = fxmlLoader.load();
+
+        Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
+        Stage stage = new Stage();
+        stage.setTitle("Lista Tutti i Pazienti");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(thiswindow);
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateList();
+        labelHi.setText("Ciao, " + Datastore.getActiveUser().getCompleteName());
     }
 
     public void loadList(){
