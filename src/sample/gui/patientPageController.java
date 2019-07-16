@@ -51,7 +51,7 @@ public class patientPageController implements Initializable {
     @FXML private Label labelLetter;
 
     @FXML
-    void handleAddAdministration(ActionEvent event) throws Exception {
+    void handleAdministrationsList(ActionEvent event) throws Exception {
         FXMLLoader fxmlLoader = openPopupWindow("Lista Somministrazioni", "addAdministration.fxml", event);
         AddAdministrationController controller = fxmlLoader.<AddAdministrationController>getController();
         controller.setCurrentPatient(currentPatient);
@@ -65,7 +65,7 @@ public class patientPageController implements Initializable {
     }
 
     @FXML
-    void handleAddPrescription(ActionEvent event) throws Exception {
+    void handlePrescriptionsList(ActionEvent event) throws Exception {
         FXMLLoader fxmlLoader = openPopupWindow("Lista Prescrizioni", "prescriptionList.fxml", event);
         prescriptionListController controller = fxmlLoader.<prescriptionListController>getController();
         controller.setCurrentPatient(currentPatient);
