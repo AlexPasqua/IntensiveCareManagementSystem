@@ -152,6 +152,7 @@ public class homeController implements Initializable {
 
     private AnchorPane[] rows = {rowPatient0, rowPatient1, rowPatient2, rowPatient3, rowPatient4, rowPatient5, rowPatient6,  rowPatient7,  rowPatient8, rowPatient9};
 
+
     @FXML
     void handleAddValue(ActionEvent event){
         //pressione max value is 8
@@ -284,6 +285,7 @@ public class homeController implements Initializable {
         }
     }
 
+    //ottiene tutti i nodi figli
     private static void addAllDescendents(Parent parent, ArrayList<Node> nodes) {
         for (Node node : parent.getChildrenUnmodifiable()) {
             nodes.add(node);

@@ -1,5 +1,8 @@
 package sample.gui;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,15 +18,18 @@ import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import sample.*;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
@@ -130,6 +136,13 @@ public class patientPageController implements Initializable {
         labelBirthDate.setText(currentPatient.getDate().toString());
         labelBirthTown.setText(currentPatient.getBirthTown());
 
+        if (!currentPatient.getHospitalization()) showHospitalizedView();
+        //load charts and update them automaticaly updates charts every x time
+        loadCharts();
+        updateCharts();
+    }
+
+    private void loadCharts(){
         //HB chart
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("HB");
@@ -140,6 +153,8 @@ public class patientPageController implements Initializable {
         chartHeartBeat.getXAxis().setTickLabelsVisible(false);
         chartHeartBeat.getXAxis().setOpacity(0);
         chartHeartBeat.getData().add(series);
+        chartHeartBeat.setTitle("Battito");
+        chartHeartBeat.setAnimated(false);
 
         //temp
         series = new XYChart.Series<>();
@@ -152,6 +167,7 @@ public class patientPageController implements Initializable {
         chartTemperature.getXAxis().setTickLabelsVisible(false);
         chartTemperature.getXAxis().setOpacity(0);
         chartTemperature.getData().add(series);
+        chartTemperature.setAnimated(false);
 
         //pressure
         series = new XYChart.Series<>();
@@ -168,11 +184,7 @@ public class patientPageController implements Initializable {
         chartPressure.getXAxis().setOpacity(0);
         chartPressure.getData().add(series);
         chartPressure.getData().add(series1);
-
-        if (!currentPatient.getHospitalization()) showHospitalizedView();
-
-        Timer timer = new Timer(true);
-        timer.schedule(new TimerTask(), 10000,10000);
+        chartPressure.setAnimated(false);
     }
 
     public void enableButtons(){
@@ -235,11 +247,11 @@ public class patientPageController implements Initializable {
         buttonDischarge.setDisable(true);
         labelLetter.setText(currentPatient.getDischargeLetter());
     }
-
+    /*
     private void removeOld(LineChart chart){
         XYChart.Series<String, Number> currentSeries = (XYChart.Series<String, Number>) chart.getData().get(0);
         try{
-            Date first =new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(currentSeries.getData().get(0).getXValue());
+            Date first = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(currentSeries.getData().get(0).getXValue());
             if (first.before(new Date(System.currentTimeMillis() - 7200 * 1000))){
                 currentSeries.getData().remove(0);
                 System.out.println("Removed firse");
@@ -248,28 +260,19 @@ public class patientPageController implements Initializable {
         } catch (Exception e) { System.out.println(e.getMessage());}
 
     }
+    */ //TODO cancellare se dopo controllo ottimizzazione non serve più
 
-    private class TimerTask extends java.util.TimerTask {
+    public void updateCharts() {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
+                System.out.println("Updating charts!");
+                chartHeartBeat.getData().clear();
+                chartPressure.getData().clear();
+                chartTemperature.getData().clear();
+                loadCharts();
+            }));
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.play();
 
-        @Override
-        public void run() {
-            System.out.println("TimerTask started!");
-            if (chartHeartBeat.getData().size() > 0){
-                //remove old data
-                removeOld(chartHeartBeat);
-                //TODO: aggiungere nuovi dati
-            } else {
-                if (currentPatient.getHeartBeats().size() > 0){
-                    XYChart.Series<String, Number> series = chartHeartBeat.getData().get(0);
-                    for (HeartBeat beat : currentPatient.getHeartBeats()){
-                        if (beat.getTimestamp().after(new Date(System.currentTimeMillis() - 7200 * 1000)))
-                            series.getData().add(new XYChart.Data<>(beat.getTimestamp().toString(), beat.getHeartBeat()));
-                    }
-                    if (series.getData().size() > 0){
-                        chartHeartBeat.getData().add(series);
-                    }
-                }
-            }
-        }
     }
+
 }

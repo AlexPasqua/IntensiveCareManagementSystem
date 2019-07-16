@@ -149,7 +149,7 @@
                                           <NumberAxis side="LEFT" />
                                        </yAxis>
                                     </LineChart>
-                                    <LineChart fx:id="chartHeartBeat" prefHeight="182.0" prefWidth="642.0" GridPane.rowIndex="1">
+                                    <LineChart fx:id="chartHeartBeat" prefHeight="182.0" prefWidth="642.0" style="-fx-stroke: blue;" GridPane.rowIndex="1">
                                        <xAxis>
                                           <CategoryAxis side="BOTTOM" />
                                        </xAxis>
