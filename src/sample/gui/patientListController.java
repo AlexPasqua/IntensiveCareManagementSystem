@@ -1,5 +1,8 @@
 package sample.gui;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -19,6 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import sample.Datastore;
 import sample.Patient;
 
@@ -77,7 +81,7 @@ public class patientListController implements Initializable  {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadList();
+        updateList();
     }
 
     public void loadList(){
@@ -112,6 +116,17 @@ public class patientListController implements Initializable  {
             controller.reset();
             controller.loadList();
         }
+
+    }
+
+    private void updateList(){
+        loadList();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
+            reset();
+            loadList();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
     }
 }

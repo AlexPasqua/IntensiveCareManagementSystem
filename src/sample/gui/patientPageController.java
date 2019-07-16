@@ -263,16 +263,15 @@ public class patientPageController implements Initializable {
     */ //TODO cancellare se dopo controllo ottimizzazione non serve più
 
     public void updateCharts() {
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
-                System.out.println("Updating charts!");
-                chartHeartBeat.getData().clear();
-                chartPressure.getData().clear();
-                chartTemperature.getData().clear();
-                loadCharts();
-            }));
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();
-
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
+            System.out.println("Updating charts!");
+            chartHeartBeat.getData().clear();
+            chartPressure.getData().clear();
+            chartTemperature.getData().clear();
+            loadCharts();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
 }
