@@ -1,12 +1,16 @@
 package sample;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.Serializable;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Administration implements Serializable{
 
     private final Prescription prescription;
-    private final int mgDose;
+    private final Integer mgDose;
     private final String notes;
     private final Date timestamp;
 
@@ -17,9 +21,18 @@ public class Administration implements Serializable{
         this.timestamp = new Date();
     }
 
-    String getMedicine(){ return prescription.getMedicine(); }
-    Date getTimestamp() { return timestamp; }
-    int getMgDose() { return mgDose; }
+    public Integer getMgDose() { return mgDose; }
+    public Date getTimestamp() { return timestamp; }
+    public String getMedicine() { return prescription.getMedicine(); }
+
+    SimpleStringProperty medicineProperty(){ return new SimpleStringProperty(prescription.getMedicine()); }
+    SimpleStringProperty mgDoseProperty(){ return new SimpleStringProperty(mgDose.toString()); }
+
+    SimpleStringProperty timestampProperty(){
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleStringProperty result = new SimpleStringProperty(formatter.format(timestamp));
+        return result;
+    }
 
     @Override
     public String toString() {

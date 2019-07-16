@@ -33,7 +33,7 @@ public class AdministrationsListController {
 
 
     @FXML
-    private void handleNewAdministration(ActionEvent event) throws IOException{
+    void handleNewAdministration(ActionEvent event) throws IOException{
         FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Somministrazione", "addAdministration.fxml", event);
         AddAdministrationController controller = fxmlLoader.<AddAdministrationController>getController();
         controller.setCurrentPatient(currentPatient);
@@ -52,12 +52,15 @@ public class AdministrationsListController {
     }
 
 
-    private void setCurrentPatient(Patient patient){
+    void setCurrentPatient(Patient patient){
         this.currentPatient = patient;
         associateTableCols();
     }
 
     private void associateTableCols(){
+        if (!currentPatient.getAdministrations().isEmpty())
+            loadList();
+
         aMed.setCellValueFactory(new PropertyValueFactory<Administration, String>("medicine"));
         aDose.setCellValueFactory(new PropertyValueFactory<Administration, String>("mgDose"));
         aTimestamp.setCellValueFactory(new PropertyValueFactory<Administration, String>("timestamp"));
@@ -88,5 +91,5 @@ public class AdministrationsListController {
     }
 
 
-    private void closeWindowEvent(WindowEvent event){}
+    private void closeWindowEvent(WindowEvent event){ loadList(); }
 }

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.prescriptionListController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.AdministrationsListController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -57,7 +57,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView fx:id="prescriptionList" editable="true" layoutX="-3.0" layoutY="76.0" minHeight="0.0" minWidth="0.0" prefHeight="299.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+            <TableView fx:id="administrationsList" editable="true" layoutX="-3.0" layoutY="76.0" minHeight="0.0" minWidth="0.0" prefHeight="299.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
               <columns>
                   <TableColumn fx:id="aMed" prefWidth="75.0" text="Farmaco prescritto" />
                   <TableColumn fx:id="aDose" prefWidth="108.0" text="Dose" />

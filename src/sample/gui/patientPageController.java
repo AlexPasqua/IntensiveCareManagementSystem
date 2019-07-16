@@ -52,8 +52,8 @@ public class patientPageController implements Initializable {
 
     @FXML
     void handleAdministrationsList(ActionEvent event) throws Exception {
-        FXMLLoader fxmlLoader = openPopupWindow("Lista Somministrazioni", "addAdministration.fxml", event);
-        AddAdministrationController controller = fxmlLoader.<AddAdministrationController>getController();
+        FXMLLoader fxmlLoader = openPopupWindow("Lista Somministrazioni", "administrationsList.fxml", event);
+        AdministrationsListController controller = fxmlLoader.<AdministrationsListController>getController();
         controller.setCurrentPatient(currentPatient);
     }
 
