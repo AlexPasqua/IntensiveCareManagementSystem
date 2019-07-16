@@ -60,6 +60,7 @@ public class AddPrescriptionController {
             showDialog(Alert.AlertType.WARNING, "Warning", "Tutti i campi sono obbligatori");
         } else {
             currentPatient.addPrescription(new Prescription(medList.getSelectionModel().getSelectedItem(), Integer.parseInt(textboxDuration.getText()), Integer.parseInt(textboxDailyDose.getText()), Integer.parseInt(textboxDose.getText()), Datastore.getActiveUser()));
+            Datastore.write();
             showDialog(Alert.AlertType.INFORMATION, "Info", "Prescrizione Aggiunta");
             Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
             stage.close();

@@ -16,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import sample.Datastore;
 import sample.Patient;
 import sample.Prescription;
 import java.io.IOException;
@@ -63,6 +64,7 @@ public class prescriptionListController {
                 break;
             }
         }
+        Datastore.write();
         loadList();
 
 

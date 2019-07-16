@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import sample.Datastore;
 import sample.Patient;
 
 public class addDiagnosisController {
@@ -23,10 +24,12 @@ public class addDiagnosisController {
         }
 
         currentPatient.setDiagnosis(textarea.getText());
+        Datastore.write();
         showDialog(Alert.AlertType.INFORMATION, "Diagnosi iniziale aggiornata!");
 
         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         stage.close();
+
     }
 
     public void setCurrentPatient(Patient currentPatient){
