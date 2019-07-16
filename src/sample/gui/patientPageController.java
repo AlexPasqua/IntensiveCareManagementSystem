@@ -18,7 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -26,14 +25,9 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import sample.*;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
-import java.util.Timer;
 
 public class patientPageController implements Initializable {
 
@@ -58,8 +52,8 @@ public class patientPageController implements Initializable {
 
     @FXML
     void handleAddAdministration(ActionEvent event) throws Exception {
-        FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Prescrizione", "addAdministration.fxml", event);
-        AddAministrationController controller = fxmlLoader.<AddAministrationController>getController();
+        FXMLLoader fxmlLoader = openPopupWindow("Lista Somministrazioni", "addAdministration.fxml", event);
+        AddAdministrationController controller = fxmlLoader.<AddAdministrationController>getController();
         controller.setCurrentPatient(currentPatient);
     }
 
@@ -72,7 +66,7 @@ public class patientPageController implements Initializable {
 
     @FXML
     void handleAddPrescription(ActionEvent event) throws Exception {
-        FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Prescrizione", "prescriptionList.fxml", event);
+        FXMLLoader fxmlLoader = openPopupWindow("Lista Prescrizioni", "prescriptionList.fxml", event);
         prescriptionListController controller = fxmlLoader.<prescriptionListController>getController();
         controller.setCurrentPatient(currentPatient);
     }

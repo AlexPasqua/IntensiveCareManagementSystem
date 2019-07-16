@@ -20,7 +20,7 @@ import sample.Prescription;
 import java.io.IOException;
 import java.util.*;
 
-public class AddAministrationController {
+public class AddAdministrationController {
 
     private Patient currentPatient = null;
 

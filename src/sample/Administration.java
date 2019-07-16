@@ -6,7 +6,7 @@ import java.util.Date;
 public class Administration implements Serializable{
 
     private final Prescription prescription;
-    private final Integer mgDose;
+    private final int mgDose;
     private final String notes;
     private final Date timestamp;
 
@@ -16,6 +16,10 @@ public class Administration implements Serializable{
         this.notes = notes;
         this.timestamp = new Date();
     }
+
+    String getMedicine(){ return prescription.getMedicine(); }
+    Date getTimestamp() { return timestamp; }
+    int getMgDose() { return mgDose; }
 
     @Override
     public String toString() {

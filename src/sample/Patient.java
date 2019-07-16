@@ -69,6 +69,8 @@ public class Patient implements Serializable {
 
     public ArrayList<Prescription> getPrescriptions(){ return prescriptions; }
 
+    public ArrayList<Administration> getAdministrations() { return administrations; }
+
     public ArrayList<HeartBeat> getHeartBeats() {
         return heartBeats;
     }

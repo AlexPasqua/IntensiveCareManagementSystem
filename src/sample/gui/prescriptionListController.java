@@ -52,7 +52,6 @@ public class prescriptionListController {
         FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Prescrizione", "addPrescription.fxml", event);
         AddPrescriptionController controller = fxmlLoader.<AddPrescriptionController>getController();
         controller.setCurrentPatient(currentPatient);
-
     }
 
     @FXML
@@ -63,10 +62,8 @@ public class prescriptionListController {
                 break;
             }
         }
+
         loadList();
-
-
-
     }
 
     void setCurrentPatient(Patient patient){
@@ -103,7 +100,6 @@ public class prescriptionListController {
 
     private void closeWindowEvent(WindowEvent event) {
         loadList();
-
     }
 
     private void loadList() {
