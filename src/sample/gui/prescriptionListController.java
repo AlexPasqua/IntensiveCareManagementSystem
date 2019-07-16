@@ -62,7 +62,6 @@ public class prescriptionListController {
                 break;
             }
         }
-
         loadList();
     }
 

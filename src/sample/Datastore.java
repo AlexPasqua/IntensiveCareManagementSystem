@@ -83,6 +83,14 @@ public class Datastore {
         users.add(user);
     }
 
+    public static ArrayList<Patient> getHospitalizedPatients(){
+        ArrayList<Patient> toreturn = new ArrayList<>();
+        for (Patient patient: patients){
+            if (patient.getHospitalization())
+                toreturn.add(patient);
+        }
+        return toreturn;
+    }
     //get logged user power
     /*public static UserType getActivePower(){
         if (activeUser.getClass().getSimpleName().equals("Nurse"))

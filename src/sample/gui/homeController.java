@@ -1,7 +1,10 @@
 package sample.gui;
 
-import javafx.application.Application;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,15 +13,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.chart.LineChart;
 import javafx.event.ActionEvent;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.util.Duration;
 import sample.*;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -150,8 +154,8 @@ public class homeController implements Initializable {
     @FXML
     LineChart<String, Number> grafico93;
 
-    private AnchorPane[] rows = {rowPatient0, rowPatient1, rowPatient2, rowPatient3, rowPatient4, rowPatient5, rowPatient6,  rowPatient7,  rowPatient8, rowPatient9};
-
+    @FXML
+    GridPane gridRows;
 
     @FXML
     void handleAddValue(ActionEvent event){
@@ -208,23 +212,20 @@ public class homeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadList();
+        updateCharts();
     }
 
     public void loadList(){
-        ArrayList<Patient> patients = Datastore.getPatients();
-        AnchorPane[] rows = {rowPatient0, rowPatient1, rowPatient2, rowPatient3, rowPatient4, rowPatient5, rowPatient6,  rowPatient7,  rowPatient8, rowPatient9};
-        LineChart[] charts = {grafico01, grafico02, grafico03, grafico11, grafico12, grafico13,  grafico21, grafico22, grafico23, grafico31, grafico32, grafico33, grafico41, grafico42,
-                grafico43, grafico52, grafico53, grafico61, grafico62, grafico63, grafico71, grafico72, grafico73, grafico81, grafico82, grafico83, grafico91, grafico92, grafico93};
+        ArrayList<Patient> patients = Datastore.getHospitalizedPatients();
+        ObservableList<Node> rows = gridRows.getChildren();
+
         if (patients.size() > 0){
             scrollPane.setStyle("");
-            int rowstatus = 0;
-            for (int i=0; i<patients.size(); i++){
-                if (!patients.get(i).getHospitalization()) continue;
-
-                rows[rowstatus].setStyle("");
+            for (int i = 0; i<patients.size(); i++){
+                AnchorPane thisrow = (AnchorPane) rows.get(i);
+                thisrow.setStyle("");
                 //HB chart
-                LineChart chart = charts[3*rowstatus];
+                LineChart chart =  getChartByRow(thisrow, 0);
                 XYChart.Series<String, Number> series = new XYChart.Series<>();
                 series.setName("HB");
                 for (HeartBeat beat: patients.get(i).getHeartBeats()){
@@ -233,10 +234,11 @@ public class homeController implements Initializable {
                 }
                 chart.getXAxis().setTickLabelsVisible(false);
                 chart.getXAxis().setOpacity(0);
+                chart.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
                 chart.getData().add(series);
 
                 //temp
-                chart = charts[(3*rowstatus)+1];
+                chart = getChartByRow(thisrow, 1);
                 series = new XYChart.Series<>();
                 series.setName("Temp");
                 for (Temperature temp: patients.get(i).getTemperatures()){
@@ -246,10 +248,11 @@ public class homeController implements Initializable {
                 }
                 chart.getXAxis().setTickLabelsVisible(false);
                 chart.getXAxis().setOpacity(0);
+                chart.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
                 chart.getData().add(series);
 
                 //pressure
-                chart = charts[(3*rowstatus)+2];
+                chart = getChartByRow(thisrow, 2);
                 series = new XYChart.Series<>();
                 XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                 series.setName("Minima");
@@ -262,35 +265,50 @@ public class homeController implements Initializable {
                 }
                 chart.getXAxis().setTickLabelsVisible(false);
                 chart.getXAxis().setOpacity(0);
+                chart.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
                 chart.getData().add(series);
                 chart.getData().add(series1);
-                rowstatus++;
             }
         }
     }
 
     public void reset() {
-        ArrayList<Node> nodes = new ArrayList<Node>();
-        addAllDescendents(Datastore.allLoaders.get("dashboard").getRoot(), nodes);
-        for (Node node: nodes){
-            if (node instanceof LineChart){
-                LineChart chart = (LineChart) node;
-                chart.getData().removeAll();
-            } else if (node instanceof AnchorPane){
-                try{
-                    if (node.getId().contains("rowPatient"))
-                        node.setStyle("visibility: false");
-                } catch (Exception e) {}
+        for (Node node : gridRows.getChildren()){
+            if (node instanceof AnchorPane){
+                node.setStyle("visibility: false");
+                GridPane grid = (GridPane) ((AnchorPane) node).getChildren().get(1);
+                for (Node childnode: grid.getChildren()){
+                    if (childnode instanceof LineChart){
+                        LineChart chart = (LineChart) childnode;
+                        chart.getData().clear();
+                        chart.setAnimated(false);
+                    }
+                }
             }
         }
     }
 
-    //ottiene tutti i nodi figli
-    private static void addAllDescendents(Parent parent, ArrayList<Node> nodes) {
-        for (Node node : parent.getChildrenUnmodifiable()) {
-            nodes.add(node);
-            if (node instanceof Parent)
-                addAllDescendents((Parent)node, nodes);
+    private LineChart getChartByRow(AnchorPane pane, int index){
+        int currentindex = 0;
+        GridPane grid = (GridPane) pane.getChildren().get(1);
+        for(Node node: grid.getChildren()){
+            if (node instanceof LineChart){
+                if (currentindex == index)
+                    return (LineChart) node;
+                currentindex++;
+            }
         }
+        return null;
+    }
+
+    public void updateCharts(){
+        loadList();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
+            reset();
+            loadList();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
     }
 }

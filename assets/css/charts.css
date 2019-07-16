@@ -1,0 +1,120 @@
+#grafico01 .default-color0.chart-series-line ,
+#grafico11 .default-color0.chart-series-line ,
+#grafico21 .default-color0.chart-series-line ,
+#grafico31 .default-color0.chart-series-line ,
+#grafico41 .default-color0.chart-series-line ,
+#grafico51 .default-color0.chart-series-line ,
+#grafico61 .default-color0.chart-series-line ,
+#grafico71 .default-color0.chart-series-line ,
+#grafico81 .default-color0.chart-series-line ,
+#grafico91 .default-color0.chart-series-line ,
+#chartHeartBeat .default-color0.chart-series-line
+{
+    -fx-stroke: red;
+}
+
+#grafico01 .default-color0.chart-line-symbol ,
+#grafico11 .default-color0.chart-line-symbol ,
+#grafico21 .default-color0.chart-line-symbol ,
+#grafico31 .default-color0.chart-line-symbol ,
+#grafico41 .default-color0.chart-line-symbol ,
+#grafico51 .default-color0.chart-line-symbol ,
+#grafico61 .default-color0.chart-line-symbol ,
+#grafico71 .default-color0.chart-line-symbol ,
+#grafico81 .default-color0.chart-line-symbol ,
+#grafico91 .default-color0.chart-line-symbol ,
+#chartHeartBeat .default-color0.chart-line-symbol
+{
+    -fx-background-color: red, #ffffff;
+}
+
+#grafico02 .default-color0.chart-line-symbol ,
+#grafico12 .default-color0.chart-line-symbol ,
+#grafico22 .default-color0.chart-line-symbol ,
+#grafico32 .default-color0.chart-line-symbol ,
+#grafico42 .default-color0.chart-line-symbol ,
+#grafico52 .default-color0.chart-line-symbol ,
+#grafico62 .default-color0.chart-line-symbol ,
+#grafico72 .default-color0.chart-line-symbol ,
+#grafico82 .default-color0.chart-line-symbol ,
+#grafico92 .default-color0.chart-line-symbol ,
+#chartTemperature .default-color0.chart-line-symbol
+{
+    -fx-background-color: #ff731f, #ffffff;
+}
+
+#grafico02 .default-color0.chart-series-line ,
+#grafico12 .default-color0.chart-series-line ,
+#grafico22 .default-color0.chart-series-line ,
+#grafico32 .default-color0.chart-series-line ,
+#grafico42 .default-color0.chart-series-line ,
+#grafico52 .default-color0.chart-series-line ,
+#grafico62 .default-color0.chart-series-line ,
+#grafico72 .default-color0.chart-series-line ,
+#grafico82 .default-color0.chart-series-line ,
+#grafico92 .default-color0.chart-series-line ,
+#chartTemperature .default-color0.chart-series-line
+{
+    -fx-stroke: #ff731f;
+}
+
+#grafico03 .default-color0.chart-line-symbol ,
+#grafico13 .default-color0.chart-line-symbol ,
+#grafico23 .default-color0.chart-line-symbol ,
+#grafico33 .default-color0.chart-line-symbol ,
+#grafico43 .default-color0.chart-line-symbol ,
+#grafico53 .default-color0.chart-line-symbol ,
+#grafico63 .default-color0.chart-line-symbol ,
+#grafico73 .default-color0.chart-line-symbol ,
+#grafico83 .default-color0.chart-line-symbol ,
+#grafico93 .default-color0.chart-line-symbol ,
+#chartPressure .default-color0.chart-line-symbol
+{
+    -fx-background-color: #59c5e5, #ffffff;
+}
+
+#grafico03 .default-color0.chart-series-line ,
+#grafico13 .default-color0.chart-series-line ,
+#grafico23 .default-color0.chart-series-line ,
+#grafico33 .default-color0.chart-series-line ,
+#grafico43 .default-color0.chart-series-line ,
+#grafico53 .default-color0.chart-series-line ,
+#grafico63 .default-color0.chart-series-line ,
+#grafico73 .default-color0.chart-series-line ,
+#grafico83 .default-color0.chart-series-line ,
+#grafico93 .default-color0.chart-series-line ,
+#chartPressure .default-color0.chart-series-line
+{
+    -fx-stroke: #59c5e5;
+}
+
+
+#grafico03 .default-color1.chart-line-symbol ,
+#grafico13 .default-color1.chart-line-symbol ,
+#grafico23 .default-color1.chart-line-symbol ,
+#grafico33 .default-color1.chart-line-symbol ,
+#grafico43 .default-color1.chart-line-symbol ,
+#grafico53 .default-color1.chart-line-symbol ,
+#grafico63 .default-color1.chart-line-symbol ,
+#grafico73 .default-color1.chart-line-symbol ,
+#grafico83 .default-color1.chart-line-symbol ,
+#grafico93 .default-color1.chart-line-symbol ,
+#chartPressure .default-color0.chart-line-symbol
+{
+    -fx-background-color: #58b758, #ffffff;
+}
+
+#grafico03 .default-color1.chart-series-line ,
+#grafico13 .default-color1.chart-series-line ,
+#grafico23 .default-color1.chart-series-line ,
+#grafico33 .default-color1.chart-series-line ,
+#grafico43 .default-color1.chart-series-line ,
+#grafico53 .default-color1.chart-series-line ,
+#grafico63 .default-color1.chart-series-line ,
+#grafico73 .default-color1.chart-series-line ,
+#grafico83 .default-color1.chart-series-line ,
+#grafico93 .default-color1.chart-series-line ,
+#chartPressure .default-color0.chart-series-line
+{
+    -fx-stroke: #58b758;
+}

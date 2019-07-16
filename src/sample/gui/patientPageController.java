@@ -146,6 +146,7 @@ public class patientPageController implements Initializable {
         }
         chartHeartBeat.getXAxis().setTickLabelsVisible(false);
         chartHeartBeat.getXAxis().setOpacity(0);
+        chartHeartBeat.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
         chartHeartBeat.getData().add(series);
         chartHeartBeat.setTitle("Battito");
         chartHeartBeat.setAnimated(false);
@@ -160,7 +161,9 @@ public class patientPageController implements Initializable {
         }
         chartTemperature.getXAxis().setTickLabelsVisible(false);
         chartTemperature.getXAxis().setOpacity(0);
+        chartTemperature.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
         chartTemperature.getData().add(series);
+        chartTemperature.setTitle("Temperatura");
         chartTemperature.setAnimated(false);
 
         //pressure
@@ -176,8 +179,10 @@ public class patientPageController implements Initializable {
         }
         chartPressure.getXAxis().setTickLabelsVisible(false);
         chartPressure.getXAxis().setOpacity(0);
+        chartPressure.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
         chartPressure.getData().add(series);
         chartPressure.getData().add(series1);
+        chartPressure.setTitle("Pressione");
         chartPressure.setAnimated(false);
     }
 
@@ -257,16 +262,15 @@ public class patientPageController implements Initializable {
     */ //TODO cancellare se dopo controllo ottimizzazione non serve più
 
     public void updateCharts() {
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
-                System.out.println("Updating charts!");
-                chartHeartBeat.getData().clear();
-                chartPressure.getData().clear();
-                chartTemperature.getData().clear();
-                loadCharts();
-            }));
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();
-
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
+            System.out.println("Updating charts!");
+            chartHeartBeat.getData().clear();
+            chartPressure.getData().clear();
+            chartTemperature.getData().clear();
+            loadCharts();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
 }

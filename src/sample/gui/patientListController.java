@@ -1,5 +1,8 @@
 package sample.gui;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -10,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
@@ -19,9 +23,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import sample.Datastore;
 import sample.Patient;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,6 +49,9 @@ public class patientListController implements Initializable  {
 
     @FXML
     private GridPane gridPatients;
+
+    @FXML
+    private Label labelHi;
 
     @FXML
     void handleAddPatient(ActionEvent event) throws Exception{
@@ -75,9 +84,24 @@ public class patientListController implements Initializable  {
         stage.show();
     }
 
+    @FXML
+    void handleAllPatients(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientAllList.fxml"));
+        Parent root1 = fxmlLoader.load();
+
+        Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
+        Stage stage = new Stage();
+        stage.setTitle("Lista Tutti i Pazienti");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(thiswindow);
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadList();
+        updateList();
+        labelHi.setText("Ciao, " + Datastore.getActiveUser().getCompleteName());
     }
 
     public void loadList(){
@@ -112,6 +136,17 @@ public class patientListController implements Initializable  {
             controller.reset();
             controller.loadList();
         }
+
+    }
+
+    private void updateList(){
+        loadList();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
+            reset();
+            loadList();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
     }
 }
