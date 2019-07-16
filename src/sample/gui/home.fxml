@@ -91,7 +91,7 @@
                                             <NumberAxis side="LEFT" />
                                         </yAxis>
                                     </LineChart>
-                                    <LineChart fx:id="grafico02" prefHeight="146.0" prefWidth="270.0" GridPane.columnIndex="1">
+                                    <LineChart fx:id="grafico02" prefHeight="146.0" prefWidth="270.0" style="-fx-stroke: #000000;" GridPane.columnIndex="1">
                                        <xAxis>
                                           <CategoryAxis side="BOTTOM" />
                                        </xAxis>

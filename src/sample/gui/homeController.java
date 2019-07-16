@@ -3,7 +3,6 @@ package sample.gui;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +23,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.util.Duration;
 import sample.*;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -236,6 +234,7 @@ public class homeController implements Initializable {
                 }
                 chart.getXAxis().setTickLabelsVisible(false);
                 chart.getXAxis().setOpacity(0);
+                chart.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
                 chart.getData().add(series);
 
                 //temp
@@ -249,6 +248,7 @@ public class homeController implements Initializable {
                 }
                 chart.getXAxis().setTickLabelsVisible(false);
                 chart.getXAxis().setOpacity(0);
+                chart.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
                 chart.getData().add(series);
 
                 //pressure
@@ -265,6 +265,7 @@ public class homeController implements Initializable {
                 }
                 chart.getXAxis().setTickLabelsVisible(false);
                 chart.getXAxis().setOpacity(0);
+                chart.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
                 chart.getData().add(series);
                 chart.getData().add(series1);
             }
@@ -275,11 +276,12 @@ public class homeController implements Initializable {
         for (Node node : gridRows.getChildren()){
             if (node instanceof AnchorPane){
                 node.setStyle("visibility: false");
-                AnchorPane pane = (AnchorPane) node;
-                for (Node childnode: pane.getChildren()){
+                GridPane grid = (GridPane) ((AnchorPane) node).getChildren().get(1);
+                for (Node childnode: grid.getChildren()){
                     if (childnode instanceof LineChart){
                         LineChart chart = (LineChart) childnode;
                         chart.getData().clear();
+                        chart.setAnimated(false);
                     }
                 }
             }

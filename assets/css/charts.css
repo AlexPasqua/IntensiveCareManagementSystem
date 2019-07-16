@@ -1,0 +1,55 @@
+#grafico01 .default-color0.chart-series-line ,
+#grafico11 .default-color0.chart-series-line ,
+#grafico21 .default-color0.chart-series-line ,
+#grafico31 .default-color0.chart-series-line ,
+#grafico41 .default-color0.chart-series-line ,
+#grafico51 .default-color0.chart-series-line ,
+#grafico61 .default-color0.chart-series-line ,
+#grafico71 .default-color0.chart-series-line ,
+#grafico81 .default-color0.chart-series-line ,
+#grafico91 .default-color0.chart-series-line
+{
+    -fx-stroke: red;
+}
+
+#grafico02 .default-color0.chart-series-line ,
+#grafico12 .default-color0.chart-series-line ,
+#grafico22 .default-color0.chart-series-line ,
+#grafico32 .default-color0.chart-series-line ,
+#grafico42 .default-color0.chart-series-line ,
+#grafico52 .default-color0.chart-series-line ,
+#grafico62 .default-color0.chart-series-line ,
+#grafico72 .default-color0.chart-series-line ,
+#grafico82 .default-color0.chart-series-line ,
+#grafico92 .default-color0.chart-series-line
+{
+    -fx-stroke: blue;
+}
+
+#grafico03 .default-color0.chart-series-line ,
+#grafico13 .default-color0.chart-series-line ,
+#grafico23 .default-color0.chart-series-line ,
+#grafico33 .default-color0.chart-series-line ,
+#grafico43 .default-color0.chart-series-line ,
+#grafico53 .default-color0.chart-series-line ,
+#grafico63 .default-color0.chart-series-line ,
+#grafico73 .default-color0.chart-series-line ,
+#grafico83 .default-color0.chart-series-line ,
+#grafico93 .default-color0.chart-series-line
+{
+    -fx-stroke: lightblue;
+}
+
+#grafico03 .default-color1.chart-series-line ,
+#grafico13 .default-color1.chart-series-line ,
+#grafico23 .default-color1.chart-series-line ,
+#grafico33 .default-color1.chart-series-line ,
+#grafico43 .default-color1.chart-series-line ,
+#grafico53 .default-color1.chart-series-line ,
+#grafico63 .default-color1.chart-series-line ,
+#grafico73 .default-color1.chart-series-line ,
+#grafico83 .default-color1.chart-series-line ,
+#grafico93 .default-color1.chart-series-line
+{
+    -fx-stroke: green;
+}
