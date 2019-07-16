@@ -1,18 +1,13 @@
 package sample;
 
-import com.sun.net.httpserver.Headers;
-import com.sun.source.tree.Tree;
 
-import javax.xml.crypto.Data;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 public class MonitoringSystem {
 
@@ -20,6 +15,8 @@ public class MonitoringSystem {
     private static ArrayList<Integer[]> openPressures;
     private static ArrayList<Integer> openTemps;
     private static ArrayList<Patient> patients = new ArrayList<>();
+    private static Map <String, Integer> allarms = Map.of("Aritmia", 1, "Tachicardia", 1, "Fibrillazione ventricolare", 3,
+            "Ipertensione", 2, "Ipotensione", 2, "Ipertermia", 2, "Ipotermia", 2);
 
     /*
     ** map patient, array of 3 elements
@@ -66,9 +63,35 @@ public class MonitoringSystem {
         * MAIN LOOP
          */
         while (true){
+            //get update list of patient
+            try {
+                readPatients();
+            } catch (IOException e) {
+                System.out.println("Can't read datastore file");
+            } catch (ClassNotFoundException e) {
+                System.out.println("Can't read datastore file");
+            }
             //get current timestamp in minute
             long timestamp = new Date().getTime();
             timestamp = timestamp / 60000;
+
+            //allarm generation
+            if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 3 == 0){
+
+                int rand_number = ThreadLocalRandom.current().nextInt(0,  allarms.keySet().size());
+                for (String event: allarms.keySet()){
+                    if (rand_number == 0) {
+                        try {
+                            server.allarm(patients.get(ThreadLocalRandom.current().nextInt(0, patients.size())), event, allarms.get(event));
+                        } catch (RemoteException e) {
+                            System.out.println("Error calling allarm SERVER RMI");
+                        }
+                        break;
+                    }
+                    rand_number--;
+
+                }
+            }
 
             //call server methods for store data
             try {
@@ -82,7 +105,6 @@ public class MonitoringSystem {
                     server.updateHeartbeats(getHeartbeats());
                 }
 
-
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Server unreachble.. closing");
                 System.exit(0);
@@ -93,9 +115,7 @@ public class MonitoringSystem {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 
     private static Map<Patient, HeartBeat> getHeartbeats() throws IOException, ClassNotFoundException {
@@ -106,7 +126,6 @@ public class MonitoringSystem {
         * if is a new patient add it to patinetindx (with a rand number)
         * then, get his index and use it for get data from openH health data
         */
-        readPatients();
         for (Patient p: patients){
             if (!patientIndex.containsKey(p)){
                 int rand_indx = ThreadLocalRandom.current().nextInt(0,  2000 + 1);
@@ -135,7 +154,6 @@ public class MonitoringSystem {
          * if is a new patient add it to patinetindx (with a rand number)
          * then, get his index and use it for get data from openH health data
          */
-        readPatients();
         for (Patient p: patients){
 
             if (!(patientIndex.containsKey(p))){
@@ -159,7 +177,6 @@ public class MonitoringSystem {
 
     private static Map<Patient, Pressure> getPressures() throws IOException, ClassNotFoundException {
         Map<Patient, Pressure> pressures = new TreeMap<Patient, Pressure>();
-        readPatients();
         /*
          * for every patient
          * if is a new patient add it to patinetindx (with a rand number)
@@ -195,8 +212,6 @@ public class MonitoringSystem {
         openTemps = (ArrayList<Integer>) stream.readObject();
         openPressures = (ArrayList<Integer[]>) stream.readObject();
         System.out.println("Health Data Loaded!");
-
-
     }
 
     /*

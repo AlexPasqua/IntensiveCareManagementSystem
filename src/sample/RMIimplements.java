@@ -31,4 +31,9 @@ public class RMIimplements implements RMIinterface {
 
 
     }
+
+    @Override
+    public void allarm(Patient patient, String event, int severity) {
+        System.out.println("ALLARM! Patient: " + patient.getFullName() + " Event: "+ event + " Severity: "+severity);
+    }
 }
