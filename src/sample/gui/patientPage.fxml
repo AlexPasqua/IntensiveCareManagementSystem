@@ -87,12 +87,12 @@
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                  <children>
-                                    <Button fx:id="buttonPrescription" disable="true" mnemonicParsing="false" onAction="#handleAddPrescription" prefHeight="34.0" prefWidth="230.0" text="Prescrizioni" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <Button fx:id="buttonPrescription" disable="true" mnemonicParsing="false" onAction="#handlePrescriptionsList" prefHeight="34.0" prefWidth="230.0" text="Prescrizioni" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                                  <children>
-                                    <Button fx:id="buttonAdministration" disable="true" mnemonicParsing="false" onAction="#handleAddAdministration" prefHeight="34.0" prefWidth="230.0" text="Somministrazioni" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <Button fx:id="buttonAdministration" disable="true" mnemonicParsing="false" onAction="#handleAdministrationsList" prefHeight="34.0" prefWidth="230.0" text="Somministrazioni" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
