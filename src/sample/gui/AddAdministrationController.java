@@ -1,9 +1,6 @@
 package sample.gui;
 
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -17,21 +14,14 @@ import sample.Datastore;
 import sample.Patient;
 import sample.Prescription;
 
-import java.io.IOException;
 import java.util.*;
 
 public class AddAdministrationController {
 
     private Patient currentPatient = null;
-
-    @FXML
-    private ComboBox<String> comboboxPrescriptions;
-
-    @FXML
-    private TextField textboxDose;
-
-    @FXML
-    private TextArea textareaExtra;
+    @FXML private ComboBox<String> comboboxPrescriptions;
+    @FXML private TextField textboxDose;
+    @FXML private TextArea textareaExtra;
 
 
     public void setCurrentPatient(Patient currentPatient){
@@ -49,11 +39,9 @@ public class AddAdministrationController {
     }
 
     @FXML
-    private void addAdministration(ActionEvent event) throws IOException {
+    private void addAdministration(ActionEvent event) {
         int dose = 0;
-        try{
-            dose = Integer.parseInt(textboxDose.getText().trim());
-        }
+        try{ dose = Integer.parseInt(textboxDose.getText().trim()); }
         catch (NumberFormatException e){
             showDialog(Alert.AlertType.ERROR, "Error", "Il campo \"Dose somministrata\" deve contenere un numero");
             return;

@@ -19,9 +19,8 @@ import java.util.Map;
 public class AddDischargeLetterController {
 
     Patient currentPatient;
+    @FXML private TextArea textarea;
 
-    @FXML
-    private TextArea textarea;
 
     @FXML
     private void saveDischargeLetter(ActionEvent event) {
@@ -56,7 +55,9 @@ public class AddDischargeLetterController {
         stage.close();
     }
 
+
     void setCurrentPatient(Patient currentPatient){ this.currentPatient = currentPatient; }
+
 
     private void showDialog(Alert.AlertType type, String msg){
         Alert alert = new Alert(type);

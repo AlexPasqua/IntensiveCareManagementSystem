@@ -12,9 +12,8 @@ import sample.Patient;
 public class addDiagnosisController {
 
     Patient currentPatient = null;
+    @FXML private TextArea textarea;
 
-    @FXML
-    private TextArea textarea;
 
     @FXML
     void saveDiagnosis(ActionEvent event) {
@@ -31,10 +30,12 @@ public class addDiagnosisController {
         stage.close();
     }
 
+
     public void setCurrentPatient(Patient currentPatient){
         this.currentPatient = currentPatient;
         textarea.setText(currentPatient.getDiagnosis());
     }
+
 
     void showDialog(Alert.AlertType type, String msg){
         Alert alert = new Alert(type);

@@ -37,11 +37,12 @@ public class AdministrationsListController {
 
 
     @FXML
-    void handleNewAdministration(ActionEvent event) throws IOException{
+    void handleNewAdministration(ActionEvent event) /*throws IOException*/{
         FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Somministrazione", "addAdministration.fxml", event);
         AddAdministrationController controller = fxmlLoader.<AddAdministrationController>getController();
         controller.setCurrentPatient(currentPatient);
     }
+
 
     @FXML
     void handleClick(MouseEvent event) {
@@ -49,19 +50,17 @@ public class AdministrationsListController {
         if (event.getClickCount() == 2 ){
             showDialog(Alert.AlertType.INFORMATION, administrationsList.getSelectionModel().getSelectedItem().getNotes() );
         }
-
     }
-
 
 
     void setCurrentPatient(Patient patient){
         this.currentPatient = patient;
         if (!patient.getHospitalization())
             newAdministrationButton.setDisable(true);
+
         associateTableCols();
-
-
     }
+
 
     private void associateTableCols(){
         if (!currentPatient.getAdministrations().isEmpty())
@@ -96,6 +95,7 @@ public class AdministrationsListController {
         return fxmlLoader;
     }
 
+
     void showDialog(Alert.AlertType type, String msg){
         Alert alert = new Alert(type);
         alert.setTitle("Note Somministrazione");
@@ -103,7 +103,6 @@ public class AdministrationsListController {
         alert.setContentText("Note somministrazione: \n"+ msg);
         alert.showAndWait();
     }
-
 
     private void closeWindowEvent(WindowEvent event){ loadList(); }
 }
