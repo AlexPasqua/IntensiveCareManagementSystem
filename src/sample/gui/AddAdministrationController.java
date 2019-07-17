@@ -15,7 +15,6 @@ import sample.Patient;
 import sample.Prescription;
 import java.util.*;
 
-
 public class AddAdministrationController {
 
     private Patient currentPatient = null;
@@ -36,19 +35,28 @@ public class AddAdministrationController {
         }
         System.out.println(items);
         comboboxPrescriptions.setItems(FXCollections.observableArrayList(items));
+        //select last of the list items
+        comboboxPrescriptions.getSelectionModel().selectLast();
     }
 
     @FXML
     private void addAdministration(ActionEvent event) {
         int dose = 0;
-        try{ dose = Integer.parseInt(textboxDose.getText().trim()); }
-        catch (NumberFormatException e){
+
+        try{ dose = Integer.parseInt(textboxDose.getText().trim());
+        } catch (NumberFormatException e){
             GUI.showDialog(Alert.AlertType.ERROR, "Error", "Il campo \"Dose somministrata\" deve contenere un numero");
+            return;
+        }
+
+        if(comboboxPrescriptions.getSelectionModel().getSelectedItem() == null){
+            showDialog(Alert.AlertType.ERROR, "Error", "Il campo Prescrizione deve contenere un farmaco");
             return;
         }
 
         Prescription presc = currentPatient.getPrescriptions().get(comboboxPrescriptions.getSelectionModel().getSelectedIndex());
 
+        //add the administration
         currentPatient.addAdministration(new Administration(presc, dose, textareaExtra.getText()));
         GUI.showDialog(Alert.AlertType.INFORMATION, "Info", "Somministrazione aggiunta");
         Datastore.write();

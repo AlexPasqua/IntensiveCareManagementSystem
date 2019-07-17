@@ -99,7 +99,7 @@ public class MonitoringSystem {
                             try {
                                 server.allarm(patients.get(ThreadLocalRandom.current().nextInt(0, patients.size())), event, allarms.get(event));
                                 //save when the alarm time out
-                                endAlarmTimestamp = new Date(System.currentTimeMillis() + ((4 - allarms.get(event))*60000));
+                                endAlarmTimestamp = new Date(System.currentTimeMillis() + ((4 - allarms.get(event))*60000) + 20000);
                             } catch (RemoteException e) {
                                 System.out.println("Error calling allarm SERVER RMI");
                             }

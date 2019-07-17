@@ -207,6 +207,10 @@ public class patientPageController implements Initializable {
     void handleGenerateRand(ActionEvent event) {
         currentPatient.generateFakeData();
         showDialog(Alert.AlertType.INFORMATION, "Dati generati corretamente!");
+        chartHeartBeat.getData().clear();
+        chartPressure.getData().clear();
+        chartTemperature.getData().clear();
+        loadCharts();
         Datastore.write();
     }
 
@@ -214,6 +218,23 @@ public class patientPageController implements Initializable {
     void handleClearClinicalData(ActionEvent event) {
         currentPatient.clearClinicalData();
         showDialog(Alert.AlertType.INFORMATION, "Dati cancellati!");
+        //updating all other windows
+        for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
+            switch (entry.getKey()){
+                case "dashboard":{
+                    homeController controller = entry.getValue().getController();
+                    controller.reset();
+                    controller.loadList();
+                    break;
+                }
+            }
+        }
+
+        chartHeartBeat.getData().clear();
+        chartPressure.getData().clear();
+        chartTemperature.getData().clear();
+        loadCharts();
+
         Datastore.write();
 
     }
