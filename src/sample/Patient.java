@@ -6,12 +6,14 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.gui.alertController;
+import sample.gui.homeController;
+import sample.gui.patientListController;
 
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Patient implements Serializable, Comparable<Patient> {
 
@@ -119,36 +121,68 @@ public class Patient implements Serializable, Comparable<Patient> {
         return "Patient [cod=" + cod + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate.toString() + ", birthTown=" + birthTown + ", diagnosis=" + diagnosis + ",prescription=" + prescriptions.toString() + ", administrations=" + administrations.toString() + ", heartBeats=" + heartBeats.toString() + ", temperatures=" + temperatures.toString() + ", pressures=" + pressures.toString() + "]";
     }
 
+    /*
+    * Generate a random index for the open health data
+    * take data from the index and put it in patient data array
+    * To cover one week we need:
+    * 5040 pressure values
+    * 3360 temp values
+    * 2016 heartbeat values
+     */
     public void generateFakeData(){
         clearClinicalData();
-        //pressione 2min ,temp 3 min, hb 5 min
+        ArrayList<Integer> openHeartBeats = null;
+        ArrayList<Integer> openTemps = null;
+        ArrayList<Integer[]> openPressures = null;
+        int rand_indx = ThreadLocalRandom.current().nextInt(0,  4000 + 1);
+
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream("healthData");
+        } catch (FileNotFoundException e) {
+            System.out.println("Can't generate fake data:" + e.getMessage());
+        }
+        ObjectInputStream stream = null;
+        try {
+            stream = new ObjectInputStream(in);
+            openHeartBeats = (ArrayList<Integer>) stream.readObject();
+            openTemps = (ArrayList<Integer>) stream.readObject();
+            openPressures = (ArrayList<Integer[]>) stream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Can't generate fake data:" + e.getMessage());
+        }
+
+        int heartbeatsIndx = rand_indx;
+        int tempsIndx = rand_indx;
+        int pressuresIndx = rand_indx;
+
         long current = new Date().getTime();
         long start = current - 604800000; //una settimana indietro
 
-        for( ; current>start; current-=60000){
+        //scorro da adesso a una settimana fa
+        for(  ; current>start; current-=60000){
             long thiscurrent = current /60000;
             if (thiscurrent % 5 == 0)
-                heartBeats.add(new HeartBeat(randomData("hb"), current));
+                //System.out.println("");
+                heartBeats.add(new HeartBeat(openHeartBeats.get(heartbeatsIndx++), current));
             if (thiscurrent % 3 == 0)
-                temperatures.add(new Temperature(randomData("temp"), current));
+                //System.out.println("");
+                temperatures.add(new Temperature(openTemps.get(tempsIndx++), current));
             if (thiscurrent % 2 == 0)
-                pressures.add(new Pressure(randomData("pressMin"), randomData("pressMax"), current));
+                //System.out.println("");
+                pressures.add(new Pressure(openPressures.get(pressuresIndx)[0], openPressures.get(pressuresIndx++)[1], current));
         }
-        Collections.reverse(heartBeats);
-        Collections.reverse(pressures);
-        Collections.reverse(temperatures);
+
+        //updating all graphs
+        for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
+            if (entry.getKey() == "dashboard"){
+                homeController controller = entry.getValue().getController();
+                controller.reset();
+                controller.loadList();
+            }
+        }
     }
 
-    private int randomData(String type){
-        Random rand = new Random();
-        switch(type){
-            case "hb": return rand.nextInt(70)+50;
-            case "temp": return rand.nextInt(16)+25;
-            case "pressMin": return rand.nextInt(110)+50;
-            case "pressMax": return rand.nextInt(110)+70;
-        }
-        return 0;
-    }
 
     @Override
     public int compareTo(Patient o) {

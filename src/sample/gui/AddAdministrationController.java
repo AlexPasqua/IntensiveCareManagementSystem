@@ -1,9 +1,6 @@
 package sample.gui;
 
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -46,11 +43,17 @@ public class AddAdministrationController {
         }
         System.out.println(items);
         comboboxPrescriptions.setItems(FXCollections.observableArrayList(items));
+        //select last of the list items
+        comboboxPrescriptions.getSelectionModel().selectLast();
     }
 
     @FXML
-    private void addAdministration(ActionEvent event) throws IOException {
+    private void addAdministration(ActionEvent event) {
         int dose = 0;
+
+        /*
+        * check that the input fileds are ok
+         */
         try{
             dose = Integer.parseInt(textboxDose.getText().trim());
         }
@@ -59,8 +62,14 @@ public class AddAdministrationController {
             return;
         }
 
+        if(comboboxPrescriptions.getSelectionModel().getSelectedItem() == null){
+            showDialog(Alert.AlertType.ERROR, "Error", "Il campo Prescrizione deve contenere un farmaco");
+            return;
+        }
+
         Prescription presc = currentPatient.getPrescriptions().get(comboboxPrescriptions.getSelectionModel().getSelectedIndex());
 
+        //add the administration
         currentPatient.addAdministration(new Administration(presc, dose, textareaExtra.getText()));
         showDialog(Alert.AlertType.INFORMATION, "Info", "Somministrazione aggiunta");
         Datastore.write();
