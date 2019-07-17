@@ -41,18 +41,6 @@ public class AdministrationsListController {
         controller.setCurrentPatient(currentPatient);
     }
 
-
-    @FXML
-    private void handleDeleteAdministration(ActionEvent event){
-        for (Administration adm: currentPatient.getAdministrations()){
-            if(adm.equals(administrationsList.getSelectionModel().getSelectedItem())) {
-                currentPatient.getAdministrations().remove(administrationsList.getSelectionModel().getSelectedItem());
-                break;
-            }
-        }
-        loadList();
-    }
-
     @FXML
     void handleClick(MouseEvent event) {
         System.out.println("Mouse click");

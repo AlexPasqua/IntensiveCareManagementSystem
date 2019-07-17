@@ -84,11 +84,7 @@
                               <Button mnemonicParsing="false" onAction="#handleNewAdministration" prefHeight="26.0" prefWidth="170.0" text="Aggiungi Somministrazione" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#handleDeleteAdministration" prefHeight="26.0" prefWidth="170.0" text="Elimina Somministrazione" />
-                           </children>
-                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
