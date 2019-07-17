@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -20,10 +19,7 @@ import sample.Datastore;
 import sample.Patient;
 import sample.User;
 import sample.UserType;
-import javafx.scene.media.MediaPlayer;
-
 import javax.sound.sampled.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -33,56 +29,37 @@ import java.util.ResourceBundle;
 
 
 public class alertController implements Initializable {
-
     private Patient currentPatient;
     private int severity;
     private Date endTimer;
     private Animation animation;
     private Clip clip;
 
-    @FXML
-    private Label labelPatientName;
+    @FXML private Label labelPatientName;
+    @FXML private Label labelPatientName1;
+    @FXML private Label labelSeverity;
+    @FXML private Label labelText;
+    @FXML private AnchorPane background;
+    @FXML private Label labelTimer;
+    @FXML private Label labelTimer1;
+    @FXML private VBox vboxTimer;
+    @FXML private VBox vboxDead;
+    @FXML private VBox main;
+    @FXML private ImageView imageGrave;
 
-    @FXML
-    private Label labelPatientName1;
-
-    @FXML
-    private Label labelSeverity;
-
-    @FXML
-    private Label labelText;
-
-    @FXML
-    private AnchorPane background;
-
-    @FXML
-    private Label labelTimer;
-
-    @FXML
-    private Label labelTimer1;
-
-    @FXML
-    private VBox vboxTimer;
-
-    @FXML
-    private VBox vboxDead;
-
-    @FXML
-    private VBox main;
-
-    @FXML
-    private ImageView imageGrave;
 
     @FXML
     void handleDisable(ActionEvent event) {
         openLogin(event);
     }
 
+
     @FXML
     void handleClose(ActionEvent event){
         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         stage.close();
     }
+
 
     public void loadData(Patient currentPatient, int severity, String text){
         this.currentPatient = currentPatient;
@@ -103,16 +80,12 @@ public class alertController implements Initializable {
             clip.open(audioIn);
             clip.loop(1000);
             clip.start();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
         }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e){ e.printStackTrace(); }
 
         updateTimer();
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -179,6 +152,7 @@ public class alertController implements Initializable {
         timeline.play();
     }
 
+
     private void openLogin(ActionEvent event){
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Accesso");
@@ -228,15 +202,8 @@ public class alertController implements Initializable {
                 }
             }
             //error message
-            if (!logged) showDialog(Alert.AlertType.ERROR, "Credenziali Errate\nNB: Solo Medici e Primari possono disabilitare l'allarme");
+            if (!logged)
+                GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Credenziali Errate\nNB: Solo Medici e Primari possono disabilitare l'allarme");
         });
-    }
-
-    void showDialog(Alert.AlertType type, String msg){
-        Alert alert = new Alert(type);
-        alert.setTitle("Login error");
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 }

@@ -41,13 +41,20 @@ public class homeController implements Initializable {
     GridPane gridRows;
 
     @FXML
-    void handleLogin(ActionEvent event) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
-        Parent root1 = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setTitle("Login");
-        stage.setScene(new Scene(root1));
-        stage.show();
+    void handleLogin(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root1 = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Login");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }
+        catch (IOException e){
+            GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Impossibile eseguire login");
+            handleQuit();
+        }
+
     }
 
     @FXML
@@ -79,7 +86,8 @@ public class homeController implements Initializable {
     }
 
     @FXML
-    private void handleQuit() throws Exception {
+    private void handleQuit() {
+        Datastore.write();
         Platform.exit();
         System.exit(0);
     }
@@ -202,8 +210,10 @@ public class homeController implements Initializable {
 
                     alertController controller = fxmlLoader.getController();
                     controller.loadData(patient, severity, event);
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
+                }
+                catch (IOException e) {
+                    String message = "Il paziente " + patient.getFullName() + " ha generato un'allarme!";
+                    GUI.showDialog(Alert.AlertType.WARNING, "ATTENTION!", message);
                 }
             }
         });

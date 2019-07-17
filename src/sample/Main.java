@@ -17,14 +17,8 @@ import java.util.Date;
 
 public class Main extends Application{
 
-    public static void main(String[] args)throws Exception{
-        try {
-            Datastore.read();
-        }
-        catch(IOException | ClassNotFoundException e){
-            System.out.println("An error occurred while opening Datastore file");
-        }
-
+    public static void main(String[] args) {
+        Datastore.read();
         /*
         ** RMI SECTION
          */
