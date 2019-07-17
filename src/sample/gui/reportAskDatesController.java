@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -30,6 +31,18 @@ public class reportAskDatesController {
 
     @FXML
     void handleShow(ActionEvent event) throws IOException {
+
+        if (dateFrom.getValue() == null || dateTo.getValue() != null){
+            showDialog(Alert.AlertType.ERROR, "Genera Report", "Tutti i campi sono obbligatori");
+            return;
+        }
+
+        if (dateFrom.getValue().isAfter(dateTo.getValue())){
+            showDialog(Alert.AlertType.ERROR, "Genera Report", "La prima data deve essere minore della seconda!");
+            return;
+        }
+
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportPage.fxml"));
         Parent root1 = fxmlLoader.load();
 
@@ -56,4 +69,11 @@ public class reportAskDatesController {
         this.parentWindow = parentWindow;
     }
 
+    void showDialog(Alert.AlertType type, String title, String msg){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
 }
