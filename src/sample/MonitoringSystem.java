@@ -237,6 +237,7 @@ public class MonitoringSystem {
         openTemps = (ArrayList<Integer>) stream.readObject();
         openPressures = (ArrayList<Integer[]>) stream.readObject();
         System.out.println("Health Data Loaded!");
+        endAlarmTimestamp = new Date(System.currentTimeMillis() + 60000);
     }
 
     /*

@@ -8,9 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -51,6 +53,16 @@ public class AdministrationsListController {
         loadList();
     }
 
+    @FXML
+    void handleClick(MouseEvent event) {
+        System.out.println("Mouse click");
+        if (event.getClickCount() == 2 ){
+            showDialog(Alert.AlertType.INFORMATION, administrationsList.getSelectionModel().getSelectedItem().getNotes() );
+        }
+
+    }
+
+
 
     void setCurrentPatient(Patient patient){
         this.currentPatient = patient;
@@ -88,6 +100,14 @@ public class AdministrationsListController {
         stage.show();
 
         return fxmlLoader;
+    }
+
+    void showDialog(Alert.AlertType type, String msg){
+        Alert alert = new Alert(type);
+        alert.setTitle("Note Somministrazione");
+        alert.setHeaderText(null);
+        alert.setContentText("Note somministrazione: \n"+ msg);
+        alert.showAndWait();
     }
 
 
