@@ -84,12 +84,12 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleNewPrescription" prefHeight="26.0" prefWidth="150.0" text="Aggiungi Prescrizione" />
+                              <Button fx:id="addNewButton" mnemonicParsing="false" onAction="#handleNewPrescription" prefHeight="26.0" prefWidth="150.0" text="Aggiungi Prescrizione" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleDeletePrescription" prefHeight="26.0" prefWidth="150.0" text="Elimina Prescrizione" />
+                              <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeletePrescription" prefHeight="26.0" prefWidth="150.0" text="Elimina Prescrizione" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" />

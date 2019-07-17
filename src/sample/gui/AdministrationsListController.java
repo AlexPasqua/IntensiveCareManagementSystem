@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,6 +33,7 @@ public class AdministrationsListController {
     @FXML private TableColumn<Administration, String> aMed;
     @FXML private TableColumn<Administration, String> aDose;
     @FXML private TableColumn<Administration, String> aTimestamp;
+    @FXML private Button newAdministrationButton;
 
 
     @FXML
@@ -54,7 +56,11 @@ public class AdministrationsListController {
 
     void setCurrentPatient(Patient patient){
         this.currentPatient = patient;
+        if (!patient.getHospitalization())
+            newAdministrationButton.setDisable(true);
         associateTableCols();
+
+
     }
 
     private void associateTableCols(){

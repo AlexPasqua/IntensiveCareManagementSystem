@@ -90,7 +90,7 @@ public class MonitoringSystem {
             timestamp = timestamp / 60000;
 
             //allarm generation
-            if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 3 == 0){
+            if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 1 == 0){
                 if (!isThereAlarm()) {
                     System.out.println("Invoking Alarm...");
                     int rand_number = ThreadLocalRandom.current().nextInt(0, allarms.keySet().size());
@@ -124,7 +124,7 @@ public class MonitoringSystem {
                     server.updateHeartbeats(getHeartbeats());
                 }
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 System.out.println("Server unreachble.. closing");
                 System.exit(0);
             }
@@ -143,7 +143,7 @@ public class MonitoringSystem {
         return false;
     }
 
-    private static Map<Patient, HeartBeat> getHeartbeats() throws IOException, ClassNotFoundException {
+    private static Map<Patient, HeartBeat> getHeartbeats() {
         Map<Patient, HeartBeat> heartbeats = new TreeMap<Patient, HeartBeat>();
 
         /*
@@ -171,7 +171,7 @@ public class MonitoringSystem {
         return heartbeats;
     }
 
-    private static Map<Patient, Temperature> getTemperatures() throws IOException, ClassNotFoundException {
+    private static Map<Patient, Temperature> getTemperatures() {
         Map<Patient, Temperature> temperatures = new TreeMap<Patient, Temperature>();
 
         /*
@@ -200,7 +200,7 @@ public class MonitoringSystem {
         return temperatures;
     }
 
-    private static Map<Patient, Pressure> getPressures() throws IOException, ClassNotFoundException {
+    private static Map<Patient, Pressure> getPressures(){
         Map<Patient, Pressure> pressures = new TreeMap<Patient, Pressure>();
         /*
          * for every patient
@@ -249,6 +249,10 @@ public class MonitoringSystem {
         FileInputStream in = new FileInputStream("datastore");
         ObjectInputStream stream = new ObjectInputStream(in);
         patients = (ArrayList<Patient>) stream.readObject();
+        for (Patient p: patients){
+            if (!p.getHospitalization())
+                patients.remove(p);
+        }
     }
 
 }
