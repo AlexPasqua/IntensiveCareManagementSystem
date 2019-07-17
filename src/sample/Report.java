@@ -103,9 +103,9 @@ public class Report {
             //Adding cells to the table
             table.addCell(new Cell().add(new Paragraph("Data").setBold()));
             table.addCell(new Cell().add(new Paragraph("Freq Cardiaca").setBold()));
+            table.addCell(new Cell().add(new Paragraph("Temperatura").setBold()));
             table.addCell(new Cell().add(new Paragraph("Sistolica").setBold()));
             table.addCell(new Cell().add(new Paragraph("Diastolica ").setBold()));
-            table.addCell(new Cell().add(new Paragraph("Temperatura ").setBold()));
 
             TreeMap<String, HeartBeat[]> hbs = getMaxMinHeartBeat();
             TreeMap<String, Temperature[]> temps = getMaxMinTemperature();

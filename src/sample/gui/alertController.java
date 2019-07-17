@@ -3,6 +3,7 @@ package sample.gui;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -26,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -153,6 +155,24 @@ public class alertController implements Initializable {
                 //set patient
                 currentPatient.setDischargeLetter("Paziente Deceduto per Allarme di Gravità " + severity);
                 currentPatient.setHospitalization(false);
+                Datastore.write();
+                //updating all other windows
+                for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
+                    switch (entry.getKey()){
+                        case "dashboard":{
+                            homeController controller = entry.getValue().getController();
+                            controller.reset();
+                            controller.loadList();
+                            break;
+                        }
+                        case "patientslist":{
+                            patientListController controller = entry.getValue().getController();
+                            controller.reset();
+                            controller.loadList();
+                        }
+                    }
+                }
+                System.out.println("dimesso");
             }
         }));
         timeline.setCycleCount(60*(4-severity));

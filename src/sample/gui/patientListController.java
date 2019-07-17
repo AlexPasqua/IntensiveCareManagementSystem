@@ -12,9 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,10 +25,12 @@ import javafx.util.Duration;
 import sample.Datastore;
 import sample.Patient;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class patientListController implements Initializable  {
@@ -65,6 +65,7 @@ public class patientListController implements Initializable  {
         stage.initOwner(thiswindow);
         stage.setScene(new Scene(root1));
         stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+        Datastore.allLoaders.put("addPatient", fxmlLoader);
         stage.show();
     }
 
@@ -81,6 +82,10 @@ public class patientListController implements Initializable  {
         Stage stage = new Stage();
         stage.setTitle("Paziente");
         stage.setScene(new Scene(root1));
+        Datastore.allLoaders.put("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis(), fxmlLoader);
+        stage.setOnCloseRequest((WindowEvent event1) -> {
+            Datastore.allLoaders.remove("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis());
+        });
         stage.show();
     }
 
@@ -98,6 +103,25 @@ public class patientListController implements Initializable  {
         stage.show();
     }
 
+    @FXML
+    private void handleLogOut(ActionEvent event){
+        for (Map.Entry<String, FXMLLoader> node : Datastore.allLoaders.entrySet()){
+            if (node.getKey().contains("patientPage")){
+                showDialog(Alert.AlertType.ERROR, "Chiudi tutte le pagine relative ai pazienti prima");
+                return;
+            }
+        }
+        Datastore.setActiveUser(null);
+
+        //chiudo login
+        Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void handleAddUser(ActionEvent event){
+
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateList();
@@ -147,6 +171,13 @@ public class patientListController implements Initializable  {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
 
+    void showDialog(Alert.AlertType type, String msg){
+        Alert alert = new Alert(type);
+        alert.setTitle("Login error");
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
     }
 }

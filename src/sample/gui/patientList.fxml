@@ -2,9 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,20 +13,6 @@
 
 <VBox prefHeight="544.0" prefWidth="864.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.patientListController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu fx:id="menuAddPatient" mnemonicParsing="false" onAction="#handleAddPatient" text="Aggiungi Paziente">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
-            <Menu fx:id="menuLogout" mnemonicParsing="false" text="Logout">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-               </items>
-            </Menu>
-         </menus>
-    </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="807.0" VBox.vgrow="ALWAYS">
          <children>
             <Button layoutX="718.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAllPatients" prefHeight="26.0" prefWidth="132.0" text="Mostra Tutti" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
@@ -138,12 +121,14 @@
                   </Button>
                </children>
             </GridPane>
-            <Label fx:id="labelHi" layoutX="19.0" layoutY="16.0" text="Ciao, %user%">
+            <Label fx:id="labelHi" alignment="CENTER" layoutX="295.0" layoutY="16.0" prefHeight="22.0" prefWidth="276.0" text="Ciao, %user%">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
             <Button layoutX="577.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddPatient" prefHeight="26.0" prefWidth="132.0" text="Aggiungi Paziente" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="14.0" />
+            <Button layoutX="155.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddUser" prefHeight="26.0" prefWidth="132.0" text="Aggiungi Utente" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+            <Button layoutX="152.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="26.0" prefWidth="132.0" text="Log Out" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="14.0" />
          </children>
     </AnchorPane>
   </children>

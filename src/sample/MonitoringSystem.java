@@ -88,7 +88,7 @@ public class MonitoringSystem {
             timestamp = timestamp / 60000;
 
             //allarm generation
-            if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 3 == 0){
+            if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 1 == 0){
                 System.out.println("Invoking Alarm...");
                 int rand_number = ThreadLocalRandom.current().nextInt(0,  allarms.keySet().size());
                 for (String event: allarms.keySet()){
