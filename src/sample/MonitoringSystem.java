@@ -18,6 +18,8 @@ public class MonitoringSystem {
     private static Map <String, Integer> allarms = Map.of("Aritmia", 1, "Tachicardia", 1, "Fibrillazione ventricolare", 3,
             "Ipertensione", 2, "Ipotensione", 2, "Ipertermia", 2, "Ipotermia", 2);
 
+    private static Date endAlarmTimestamp;
+
     /*
     ** map patient, array of 3 elements
     ** - heartbeat indx
@@ -89,19 +91,24 @@ public class MonitoringSystem {
 
             //allarm generation
             if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 3 == 0){
-                System.out.println("Invoking Alarm...");
-                int rand_number = ThreadLocalRandom.current().nextInt(0,  allarms.keySet().size());
-                for (String event: allarms.keySet()){
-                    if (rand_number == 0) {
-                        try {
-                            server.allarm(patients.get(ThreadLocalRandom.current().nextInt(0, patients.size())), event, allarms.get(event));
-                        } catch (RemoteException e) {
-                            System.out.println("Error calling allarm SERVER RMI");
+                if (!isThereAlarm()) {
+                    System.out.println("Invoking Alarm...");
+                    int rand_number = ThreadLocalRandom.current().nextInt(0, allarms.keySet().size());
+                    for (String event : allarms.keySet()) {
+                        if (rand_number == 0) {
+                            try {
+                                server.allarm(patients.get(ThreadLocalRandom.current().nextInt(0, patients.size())), event, allarms.get(event));
+                                //save when the alarm time out
+                                endAlarmTimestamp = new Date(System.currentTimeMillis() + ((4 - allarms.get(event))*60000));
+                            } catch (RemoteException e) {
+                                System.out.println("Error calling allarm SERVER RMI");
+                            }
+                            break;
                         }
-                        break;
+                        rand_number--;
                     }
-                    rand_number--;
-
+                }else{
+                    System.out.println("There is already an alarm.. ");
                 }
             }
 
@@ -128,6 +135,12 @@ public class MonitoringSystem {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static boolean isThereAlarm() {
+        if (new Date().before(endAlarmTimestamp))
+            return true;
+        return false;
     }
 
     private static Map<Patient, HeartBeat> getHeartbeats() throws IOException, ClassNotFoundException {
