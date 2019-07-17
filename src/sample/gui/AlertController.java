@@ -133,13 +133,13 @@ public class AlertController implements Initializable {
                 for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
                     switch (entry.getKey()){
                         case "dashboard":{
-                            homeController controller = entry.getValue().getController();
+                            HomeController controller = entry.getValue().getController();
                             controller.reset();
                             controller.loadList();
                             break;
                         }
                         case "patientslist":{
-                            patientListController controller = entry.getValue().getController();
+                            PatientListController controller = entry.getValue().getController();
                             controller.reset();
                             controller.loadList();
                         }

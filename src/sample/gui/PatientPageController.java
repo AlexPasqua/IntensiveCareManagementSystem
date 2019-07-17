@@ -24,12 +24,11 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import sample.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class patientPageController implements Initializable {
+public class PatientPageController implements Initializable {
 
     Patient currentPatient = null;
     Stage thisStage;
@@ -51,52 +50,71 @@ public class patientPageController implements Initializable {
     @FXML private Label labelLetter;
 
     @FXML
-    void handleAdministrationsList(ActionEvent event) throws Exception {
-        FXMLLoader fxmlLoader = openPopupWindow("Lista Somministrazioni", "administrationsList.fxml", event);
-        AdministrationsListController controller = fxmlLoader.<AdministrationsListController>getController();
-        controller.setCurrentPatient(currentPatient);
+    void handleAdministrationsList(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = openPopupWindow("Lista Somministrazioni", "administrationsList.fxml", event);
+            AdministrationsListController controller = fxmlLoader.<AdministrationsListController>getController();
+            controller.setCurrentPatient(currentPatient);
+        } catch (IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aprire lista somministrazioni");
+        }
     }
 
     @FXML
-    void handleAddDiagnosis(ActionEvent event) throws Exception {
-        FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Diagnosi", "addDiagnosis.fxml", event);
-        AddDiagnosisController controller = fxmlLoader.<AddDiagnosisController>getController();
-        controller.setCurrentPatient(currentPatient);
+    void handleAddDiagnosis(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Diagnosi", "addDiagnosis.fxml", event);
+            AddDiagnosisController controller = fxmlLoader.<AddDiagnosisController>getController();
+            controller.setCurrentPatient(currentPatient);
+        } catch (IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aggiungere una diagnosi");
+        }
     }
 
     @FXML
     void handlePrescriptionsList(ActionEvent event) throws Exception {
-        FXMLLoader fxmlLoader = openPopupWindow("Lista Prescrizioni", "prescriptionList.fxml", event);
-        prescriptionListController controller = fxmlLoader.<prescriptionListController>getController();
-        controller.setCurrentPatient(currentPatient);
+        try {
+            FXMLLoader fxmlLoader = openPopupWindow("Lista Prescrizioni", "prescriptionList.fxml", event);
+            prescriptionListController controller = fxmlLoader.<prescriptionListController>getController();
+            controller.setCurrentPatient(currentPatient);
+        } catch(IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aprire la lista delle prescrizioni");
+        }
     }
 
     @FXML
     void handleGenerateReport(ActionEvent event) throws Exception {
-        FXMLLoader fxmlLoader = openPopupWindow("Genera Report", "reportAskDates.fxml", event);
-        Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
-        reportAskDatesController controller = fxmlLoader.getController();
-        controller.setCurrentPatient(currentPatient, thiswindow);
+        try {
+            FXMLLoader fxmlLoader = openPopupWindow("Genera Report", "reportAskDates.fxml", event);
+            Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
+            reportAskDatesController controller = fxmlLoader.getController();
+            controller.setCurrentPatient(currentPatient, thiswindow);
+        } catch(IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile generare report");
+        }
     }
 
     @FXML
-    void handleDischarge(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addDischargeLetter.fxml"));
-        Parent root = fxmlLoader.load();
+    void handleDischarge(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addDischargeLetter.fxml"));
+            Parent root = fxmlLoader.load();
+            Window thisWindow = ((Node) event.getTarget()).getScene().getWindow();
+            thisStage = (Stage) ((Node) event.getTarget()).getScene().getWindow();
 
-        Window thisWindow = ((Node)event.getTarget()).getScene().getWindow();
-        thisStage = (Stage)((Node)event.getTarget()).getScene().getWindow();
+            Stage dischargeStage = new Stage();
+            dischargeStage.setTitle("Aggiungi lettera di dimissioni");
+            dischargeStage.initModality(Modality.WINDOW_MODAL);
+            dischargeStage.initOwner(thisWindow);
+            dischargeStage.setScene(new Scene(root));
+            dischargeStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+            dischargeStage.show();
 
-        Stage dischargeStage = new Stage();
-        dischargeStage.setTitle("Aggiungi lettera di dimissioni");
-        dischargeStage.initModality(Modality.WINDOW_MODAL);
-        dischargeStage.initOwner(thisWindow);
-        dischargeStage.setScene(new Scene(root));
-        dischargeStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
-        dischargeStage.show();
-
-        AddDischargeLetterController controller = fxmlLoader.<AddDischargeLetterController>getController();
-        controller.setCurrentPatient(currentPatient);
+            AddDischargeLetterController controller = fxmlLoader.<AddDischargeLetterController>getController();
+            controller.setCurrentPatient(currentPatient);
+        } catch (IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile dimettere paziente");
+        }
     }
 
     private void closeWindowEvent(WindowEvent event) {
@@ -205,7 +223,7 @@ public class patientPageController implements Initializable {
     @FXML
     void handleGenerateRand(ActionEvent event) {
         currentPatient.generateFakeData();
-        showDialog(Alert.AlertType.INFORMATION, "Dati generati corretamente!");
+        GUI.showDialog(Alert.AlertType.INFORMATION, "Info", "Dati generati corretamente!");
         chartHeartBeat.getData().clear();
         chartPressure.getData().clear();
         chartTemperature.getData().clear();
@@ -216,12 +234,12 @@ public class patientPageController implements Initializable {
     @FXML
     void handleClearClinicalData(ActionEvent event) {
         currentPatient.clearClinicalData();
-        showDialog(Alert.AlertType.INFORMATION, "Dati cancellati!");
+        GUI.showDialog(Alert.AlertType.INFORMATION, "Info", "Dati cancellati!");
         //updating all other windows
         for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
             switch (entry.getKey()){
                 case "dashboard":{
-                    homeController controller = entry.getValue().getController();
+                    HomeController controller = entry.getValue().getController();
                     controller.reset();
                     controller.loadList();
                     break;
@@ -236,14 +254,6 @@ public class patientPageController implements Initializable {
 
         Datastore.write();
 
-    }
-
-    void showDialog(Alert.AlertType type, String msg){
-        Alert alert = new Alert(type);
-        alert.setTitle("Nuovo Utente");
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 
     FXMLLoader openPopupWindow(String title, String fxml, ActionEvent event) throws IOException {

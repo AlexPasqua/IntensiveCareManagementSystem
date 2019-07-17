@@ -10,35 +10,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.Datastore;
 import sample.Patient;
-import sample.Prescription;
-
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class patientAllListController implements Initializable {
-
-    @FXML
-    private TableView<Patient> patientsList;
-
-    @FXML
-    private TableColumn<Patient, String> colFullName;
-
-    @FXML
-    private TableColumn<Patient, String> colCod;
-
-    @FXML
-    private TableColumn<Patient, String> colBirth;
-
-    @FXML
-    private TableColumn<Patient, String> colCity;
-
-    @FXML
-    private TableColumn<Patient, String> colHospitalized;
-
-    @FXML
-    private TextField textSearch;
+public class PatientAllListController implements Initializable {
+    @FXML private TableView<Patient> patientsList;
+    @FXML private TableColumn<Patient, String> colFullName;
+    @FXML private TableColumn<Patient, String> colCod;
+    @FXML private TableColumn<Patient, String> colBirth;
+    @FXML private TableColumn<Patient, String> colCity;
+    @FXML private TableColumn<Patient, String> colHospitalized;
+    @FXML private TextField textSearch;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,8 +37,6 @@ public class patientAllListController implements Initializable {
             patientsList.setItems(data);
             patientsList.getSelectionModel().selectFirst();
         }
-
-
     }
 
     @FXML
@@ -66,7 +47,6 @@ public class patientAllListController implements Initializable {
             if (patient.getFullName().contains(text) || patient.getCodFis().contains(text)){
                 found = true;
                 //TODO; finisci
-
             }
         }
     }

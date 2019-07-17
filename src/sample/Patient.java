@@ -1,7 +1,7 @@
 package sample;
 
 import javafx.fxml.FXMLLoader;
-import sample.gui.homeController;
+import sample.gui.HomeController;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -169,7 +169,7 @@ public class Patient implements Serializable, Comparable<Patient> {
         //updating all graphs
         for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
             if (entry.getKey() == "dashboard"){
-                homeController controller = entry.getValue().getController();
+                HomeController controller = entry.getValue().getController();
                 controller.reset();
                 controller.loadList();
             }

@@ -1,6 +1,6 @@
 package sample;
 
-import sample.gui.homeController;
+import sample.gui.HomeController;
 
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public class RMIimplements implements RMIinterface {
     @Override
     public void allarm(Patient patient, String event, int severity) {
         try{
-            homeController controller = Datastore.allLoaders.get("dashboard").getController();
+            HomeController controller = Datastore.allLoaders.get("dashboard").getController();
             controller.runAlarmLater(patient, event, severity);
         } catch (Exception e) { System.out.println(e.getMessage()); }
     }

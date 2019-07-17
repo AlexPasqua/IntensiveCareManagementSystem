@@ -3,8 +3,6 @@ package sample.gui;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,39 +22,27 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import sample.Datastore;
 import sample.Patient;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class patientListController implements Initializable  {
+
+public class PatientListController implements Initializable  {
+    @FXML private GridPane gridPatients;
+    @FXML private Label labelHi;
 
     @FXML
-    private Menu menuAddPatient;
-
-    @FXML
-    private Menu menuLogout;
-
-    @FXML
-    private Button patient1;
-
-    @FXML
-    private ImageView imageP1;
-
-    @FXML
-    private GridPane gridPatients;
-
-    @FXML
-    private Label labelHi;
-
-    @FXML
-    void handleAddPatient(ActionEvent event) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addPatient.fxml"));
-        Parent root1 = fxmlLoader.load();
+    void handleAddPatient(ActionEvent event) {
+        FXMLLoader fxmlLoader = null;
+        Parent root1 = null;
+        try {
+            fxmlLoader = new FXMLLoader(getClass().getResource("addPatient.fxml"));
+            root1 = fxmlLoader.load();
+        } catch(IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aggiungere nuovi pazienti");
+        }
 
         Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
         Stage stage = new Stage();
@@ -70,44 +56,53 @@ public class patientListController implements Initializable  {
     }
 
     @FXML
-    void handleOpenPatient(ActionEvent event) throws Exception{
+    void handleOpenPatient(ActionEvent event) {
         Button clicked = (Button) event.getSource();
         String patientId = clicked.getStyle().replace("npatient: ", "");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientPage.fxml"));
-        Parent root1 = fxmlLoader.load();
 
-        patientPageController controller = fxmlLoader.<patientPageController>getController();
-        controller.loadPatient(Integer.parseInt(patientId));
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientPage.fxml"));
+            Parent root1 = fxmlLoader.load();
+            PatientPageController controller = fxmlLoader.<PatientPageController>getController();
+            controller.loadPatient(Integer.parseInt(patientId));
 
-        Stage stage = new Stage();
-        stage.setTitle("Paziente");
-        stage.setScene(new Scene(root1));
-        Datastore.allLoaders.put("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis(), fxmlLoader);
-        stage.setOnCloseRequest((WindowEvent event1) -> {
-            Datastore.allLoaders.remove("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis());
-        });
-        stage.show();
+            Stage stage = new Stage();
+            stage.setTitle("Paziente");
+            stage.setScene(new Scene(root1));
+            Datastore.allLoaders.put("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis(), fxmlLoader);
+            stage.setOnCloseRequest((WindowEvent event1) -> {
+                Datastore.allLoaders.remove("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis());
+            });
+            stage.show();
+        }
+        catch(IOException e){
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente non è possibile aprire la pagina del paziente");
+        }
     }
 
     @FXML
-    void handleAllPatients(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientAllList.fxml"));
-        Parent root1 = fxmlLoader.load();
-
-        Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
-        Stage stage = new Stage();
-        stage.setTitle("Lista Tutti i Pazienti");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(thiswindow);
-        stage.setScene(new Scene(root1));
-        stage.show();
+    void handleAllPatients(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientAllList.fxml"));
+            Parent root1 = fxmlLoader.load();
+            Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
+            Stage stage = new Stage();
+            stage.setTitle("Lista Tutti i Pazienti");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(thiswindow);
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }
+        catch(IOException e){
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente non è possibile mostrare tutti i pazienti");
+        }
     }
 
     @FXML
     private void handleLogOut(ActionEvent event){
         for (Map.Entry<String, FXMLLoader> node : Datastore.allLoaders.entrySet()){
             if (node.getKey().contains("patientPage")){
-                showDialog(Alert.AlertType.ERROR, "Chiudi tutte le pagine relative ai pazienti prima");
+                GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Chiudi tutte le pagine relative ai pazienti prima");
                 return;
             }
         }
@@ -120,8 +115,9 @@ public class patientListController implements Initializable  {
 
     @FXML
     private void handleAddUser(ActionEvent event){
-
+        //TODO: implementa
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateList();
@@ -156,7 +152,7 @@ public class patientListController implements Initializable  {
         System.out.println("Updating patient list");
         loadList();
         if (Datastore.allLoaders.containsKey("dashboard")){
-            homeController controller = Datastore.allLoaders.get("dashboard").getController();
+            HomeController controller = Datastore.allLoaders.get("dashboard").getController();
             controller.reset();
             controller.loadList();
         }
@@ -171,13 +167,5 @@ public class patientListController implements Initializable  {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-    }
-
-    void showDialog(Alert.AlertType type, String msg){
-        Alert alert = new Alert(type);
-        alert.setTitle("Login error");
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 }

@@ -52,7 +52,7 @@ title __ELABORATOINGEGNERIA's Class Diagram__\n
 
   namespace sample {
     namespace gui {
-      class sample.gui.homeController {
+      class sample.gui.HomeController {
       }
     }
   }
@@ -60,7 +60,7 @@ title __ELABORATOINGEGNERIA's Class Diagram__\n
 
   namespace sample {
     namespace gui {
-      class sample.gui.loginController {
+      class sample.gui.LoginController {
       }
     }
   }
@@ -68,7 +68,7 @@ title __ELABORATOINGEGNERIA's Class Diagram__\n
 
   namespace sample {
     namespace gui {
-      class sample.gui.patientListController {
+      class sample.gui.PatientListController {
       }
     }
   }
@@ -76,7 +76,7 @@ title __ELABORATOINGEGNERIA's Class Diagram__\n
 
   namespace sample {
     namespace gui {
-      class sample.gui.patientPageController {
+      class sample.gui.PatientPageController {
       }
     }
   }
@@ -91,8 +91,8 @@ title __ELABORATOINGEGNERIA's Class Diagram__\n
   sample.Patient .up.|> java.io.Serializable
   sample.Prescription .up.|> java.io.Serializable
   sample.Prescription o-- sample.User : doctor
-  sample.gui.patientListController .up.|> javafx.fxml.Initializable
-  sample.gui.patientPageController .up.|> javafx.fxml.Initializable
+  sample.gui.PatientListController .up.|> javafx.fxml.Initializable
+  sample.gui.PatientPageController .up.|> javafx.fxml.Initializable
 
 
 right footer

@@ -15,7 +15,7 @@ import sample.*;
 import java.io.IOException;
 
 
-public class loginController {
+public class LoginController {
     @FXML private TextField user;
     @FXML private PasswordField password;
 

@@ -24,7 +24,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.util.Duration;
 import sample.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,13 +31,9 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 
-public class homeController implements Initializable {
-
-    @FXML
-    private ScrollPane scrollPane;
-
-    @FXML
-    GridPane gridRows;
+public class HomeController implements Initializable {
+    @FXML private ScrollPane scrollPane;
+    @FXML GridPane gridRows;
 
     @FXML
     void handleLogin(ActionEvent event) {
@@ -54,7 +49,6 @@ public class homeController implements Initializable {
             GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Impossibile eseguire login");
             handleQuit();
         }
-
     }
 
     @FXML
@@ -192,7 +186,6 @@ public class homeController implements Initializable {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
     }
 
     public void runAlarmLater(Patient patient, String event, int severity){
