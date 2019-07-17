@@ -1,7 +1,5 @@
 package sample.gui;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import sample.Datastore;
 import sample.Patient;
-
 import java.util.Map;
 
 
@@ -27,7 +23,7 @@ public class AddDischargeLetterController {
         String letter = textarea.getText();
 
         if (letter.isEmpty()) {
-            showDialog(Alert.AlertType.WARNING, "Per salvare è necessario prima inserire del testo");
+            GUI.showDialog(Alert.AlertType.WARNING, "Warning", "Per salvare è necessario prima inserire del testo");
             return;
         }
 
@@ -57,13 +53,4 @@ public class AddDischargeLetterController {
 
 
     void setCurrentPatient(Patient currentPatient){ this.currentPatient = currentPatient; }
-
-
-    private void showDialog(Alert.AlertType type, String msg){
-        Alert alert = new Alert(type);
-        alert.setTitle("Lettera di Dimissione");
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
 }

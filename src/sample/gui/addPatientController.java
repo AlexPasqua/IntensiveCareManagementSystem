@@ -24,12 +24,12 @@ public class addPatientController {
         //controllo codice fiscale
         String code = textboxCod.getText().trim();
         if (code.isEmpty() || code.length() != 16) {
-            showDialog(Alert.AlertType.ERROR, "Codice Fiscale vuoto o non valido");
+            GUI.showDialog(Alert.AlertType.WARNING, "Warning", "Codice Fiscale vuoto o non valido");
             return;
         }
 
         if (textboxSurname.getText().isEmpty() || textboxName.getText().isEmpty() || textboxBirthTown.getText().isEmpty() || textboxBirthDate.getValue() == null){
-            showDialog(Alert.AlertType.WARNING, "Tutti i campi sono obbligatori");
+            GUI.showDialog(Alert.AlertType.WARNING, "Warning", "Tutti i campi sono obbligatori");
             return;
         }
 
@@ -37,18 +37,9 @@ public class addPatientController {
         Datastore.addPatient(newpatient);
         Datastore.write();
 
-        showDialog(Alert.AlertType.INFORMATION, "Paziente Aggiunto correttamente!");
+        GUI.showDialog(Alert.AlertType.INFORMATION, "Info", "Paziente Aggiunto correttamente!");
 
         Stage stage = (Stage)((Node)e.getTarget()).getScene().getWindow();
         stage.close();
-    }
-
-
-    void showDialog(Alert.AlertType type, String msg){
-        Alert alert = new Alert(type);
-        alert.setTitle("Nuovo Utente");
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 }

@@ -32,132 +32,36 @@ import java.util.ResourceBundle;
 
 
 public class homeController implements Initializable {
+    @FXML private ScrollPane scrollPane;
+    @FXML LineChart<String, Number> grafico11;
+    @FXML LineChart<String, Number> grafico12;
+    @FXML LineChart<String, Number> grafico13;
+    @FXML LineChart<String, Number> grafico21;
+    @FXML LineChart<String, Number> grafico22;
+    @FXML LineChart<String, Number> grafico23;
+    @FXML LineChart<String, Number> grafico31;
+    @FXML LineChart<String, Number> grafico32;
+    @FXML LineChart<String, Number> grafico33;
+    @FXML LineChart<String, Number> grafico41;
+    @FXML LineChart<String, Number> grafico42;
+    @FXML LineChart<String, Number> grafico43;
+    @FXML LineChart<String, Number> grafico51;
+    @FXML LineChart<String, Number> grafico52;
+    @FXML LineChart<String, Number> grafico53;
+    @FXML LineChart<String, Number> grafico61;
+    @FXML LineChart<String, Number> grafico62;
+    @FXML LineChart<String, Number> grafico63;
+    @FXML LineChart<String, Number> grafico71;
+    @FXML LineChart<String, Number> grafico72;
+    @FXML LineChart<String, Number> grafico73;
+    @FXML LineChart<String, Number> grafico81;
+    @FXML LineChart<String, Number> grafico82;
+    @FXML LineChart<String, Number> grafico83;
+    @FXML LineChart<String, Number> grafico91;
+    @FXML LineChart<String, Number> grafico92;
+    @FXML LineChart<String, Number> grafico93;
+    @FXML GridPane gridRows;
 
-    @FXML
-    private ScrollPane scrollPane;
-
-    @FXML
-    private AnchorPane rowPatient0;
-
-    @FXML
-    private LineChart<String, Number> grafico01;
-
-    @FXML
-    private LineChart<String, Number> grafico02;
-
-    @FXML
-    private LineChart<String, Number> grafico03;
-
-    @FXML
-    private AnchorPane rowPatient1;
-
-    @FXML
-    LineChart<String, Number> grafico11;
-
-    @FXML
-    LineChart<String, Number> grafico12;
-
-    @FXML
-    LineChart<String, Number> grafico13;
-
-    @FXML
-    private AnchorPane rowPatient2;
-
-    @FXML
-    LineChart<String, Number> grafico21;
-
-    @FXML
-    LineChart<String, Number> grafico22;
-
-    @FXML
-    LineChart<String, Number> grafico23;
-
-    @FXML
-    private AnchorPane rowPatient3;
-
-    @FXML
-    LineChart<String, Number> grafico31;
-
-    @FXML
-    LineChart<String, Number> grafico32;
-
-    @FXML
-    LineChart<String, Number> grafico33;
-
-    @FXML
-    private AnchorPane rowPatient4;
-
-    @FXML
-    LineChart<String, Number> grafico41;
-
-    @FXML
-    LineChart<String, Number> grafico42;
-
-    @FXML
-    LineChart<String, Number> grafico43;
-
-    @FXML
-    private AnchorPane rowPatient5;
-
-    @FXML
-    LineChart<String, Number> grafico51;
-
-    @FXML
-    LineChart<String, Number> grafico52;
-
-    @FXML
-    LineChart<String, Number> grafico53;
-
-    @FXML
-    private AnchorPane rowPatient6;
-
-    @FXML
-    LineChart<String, Number> grafico61;
-
-    @FXML
-    LineChart<String, Number> grafico62;
-
-    @FXML
-    LineChart<String, Number> grafico63;
-
-    @FXML
-    private AnchorPane rowPatient7;
-
-    @FXML
-    LineChart<String, Number> grafico71;
-
-    @FXML
-    LineChart<String, Number> grafico72;
-
-    @FXML
-    LineChart<String, Number> grafico73;
-
-    @FXML
-    private AnchorPane rowPatient8;
-
-    @FXML
-    LineChart<String, Number> grafico81;
-
-    @FXML
-    LineChart<String, Number> grafico82;
-
-    @FXML
-    LineChart<String, Number> grafico83;
-
-    @FXML
-    private AnchorPane rowPatient9;
-
-    @FXML
-    LineChart<String, Number> grafico91;
-
-    @FXML
-    LineChart<String, Number> grafico92;
-
-    @FXML
-    LineChart<String, Number> grafico93;
-
-    @FXML
-    GridPane gridRows;
 
     @FXML
     void handleAddValue(ActionEvent event){
@@ -168,15 +72,24 @@ public class homeController implements Initializable {
         reset();
     }
 
+
     @FXML
-    void handleLogin(ActionEvent event) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
-        Parent root1 = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setTitle("Login");
-        stage.setScene(new Scene(root1));
-        stage.show();
+    void handleLogin(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root1 = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Login");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }
+        catch (IOException e){
+            GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Impossibile eseguire login");
+            handleQuit();
+        }
+
     }
+
 
     @FXML
     void handleAbout(ActionEvent event) {
@@ -206,17 +119,20 @@ public class homeController implements Initializable {
         currentSeries.getData().add(new XYChart.Data<>(numOfPoint, y));
     }
 
+
     @FXML
-    private void handleQuit() throws Exception {
+    private void handleQuit() {
         Datastore.write();
         Platform.exit();
         System.exit(0);
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateCharts();
     }
+
 
     public void loadList(){
         ArrayList<Patient> patients = Datastore.getHospitalizedPatients();
@@ -275,6 +191,7 @@ public class homeController implements Initializable {
         }
     }
 
+
     public void reset() {
         for (Node node : gridRows.getChildren()){
             if (node instanceof AnchorPane){
@@ -291,6 +208,7 @@ public class homeController implements Initializable {
         }
     }
 
+
     private LineChart getChartByRow(AnchorPane pane, int index){
         int currentindex = 0;
         GridPane grid = (GridPane) pane.getChildren().get(1);
@@ -304,6 +222,7 @@ public class homeController implements Initializable {
         return null;
     }
 
+
     public void updateCharts(){
         loadList();
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
@@ -314,6 +233,7 @@ public class homeController implements Initializable {
         timeline.play();
 
     }
+
 
     public void runAlarmLater(Patient patient, String event, int severity){
         Platform.runLater(new Runnable() {
@@ -330,8 +250,10 @@ public class homeController implements Initializable {
 
                     alertController controller = fxmlLoader.getController();
                     controller.loadData(patient, severity, event);
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
+                }
+                catch (IOException e) {
+                    String message = "Il paziente " + patient.getFullName() + " ha generato un'allarme!";
+                    GUI.showDialog(Alert.AlertType.WARNING, "ATTENTION!", message);
                 }
             }
         });

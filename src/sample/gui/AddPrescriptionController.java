@@ -43,11 +43,11 @@ public class AddPrescriptionController {
     @FXML
     void handleConfirm(ActionEvent event){
         if (textboxDuration.getText().isEmpty() || textboxDose.getText().isEmpty() || medList.getSelectionModel().getSelectedItem().isEmpty()){
-            showDialog(Alert.AlertType.WARNING, "Warning", "Tutti i campi sono obbligatori");
+            GUI.showDialog(Alert.AlertType.WARNING, "Warning", "Tutti i campi sono obbligatori");
         } else {
             currentPatient.addPrescription(new Prescription(medList.getSelectionModel().getSelectedItem(), Integer.parseInt(textboxDuration.getText()), Integer.parseInt(textboxDailyDose.getText()), Integer.parseInt(textboxDose.getText()), Datastore.getActiveUser()));
             Datastore.write();
-            showDialog(Alert.AlertType.INFORMATION, "Info", "Prescrizione Aggiunta");
+            GUI.showDialog(Alert.AlertType.INFORMATION, "Info", "Prescrizione aggiunta correttamente");
             Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
             stage.close();
         }
@@ -68,14 +68,5 @@ public class AddPrescriptionController {
             medList.getItems().addAll(meds2);
             medList.getSelectionModel().selectLast();
         }
-    }
-
-
-    private void showDialog(Alert.AlertType type, String title, String msg){
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 }

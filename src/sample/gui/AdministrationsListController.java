@@ -20,11 +20,8 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import sample.Administration;
 import sample.Patient;
-import sample.Prescription;
-
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
+
 
 public class AdministrationsListController {
 
@@ -37,10 +34,15 @@ public class AdministrationsListController {
 
 
     @FXML
-    void handleNewAdministration(ActionEvent event) /*throws IOException*/{
-        FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Somministrazione", "addAdministration.fxml", event);
-        AddAdministrationController controller = fxmlLoader.<AddAdministrationController>getController();
-        controller.setCurrentPatient(currentPatient);
+    void handleNewAdministration(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Somministrazione", "addAdministration.fxml", event);
+            AddAdministrationController controller = fxmlLoader.<AddAdministrationController>getController();
+            controller.setCurrentPatient(currentPatient);
+        }
+        catch (IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error!", "Impossibile aggiungere somministrazione");
+        }
     }
 
 
@@ -48,7 +50,7 @@ public class AdministrationsListController {
     void handleClick(MouseEvent event) {
         System.out.println("Mouse click");
         if (event.getClickCount() == 2 ){
-            showDialog(Alert.AlertType.INFORMATION, administrationsList.getSelectionModel().getSelectedItem().getNotes() );
+            GUI.showDialog(Alert.AlertType.INFORMATION, "Info", administrationsList.getSelectionModel().getSelectedItem().getNotes());
         }
     }
 
@@ -93,15 +95,6 @@ public class AdministrationsListController {
         stage.show();
 
         return fxmlLoader;
-    }
-
-
-    void showDialog(Alert.AlertType type, String msg){
-        Alert alert = new Alert(type);
-        alert.setTitle("Note Somministrazione");
-        alert.setHeaderText(null);
-        alert.setContentText("Note somministrazione: \n"+ msg);
-        alert.showAndWait();
     }
 
     private void closeWindowEvent(WindowEvent event){ loadList(); }

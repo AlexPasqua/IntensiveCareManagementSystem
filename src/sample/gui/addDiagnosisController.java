@@ -10,7 +10,6 @@ import sample.Datastore;
 import sample.Patient;
 
 public class addDiagnosisController {
-
     Patient currentPatient = null;
     @FXML private TextArea textarea;
 
@@ -18,13 +17,13 @@ public class addDiagnosisController {
     @FXML
     void saveDiagnosis(ActionEvent event) {
         if (textarea.getText().isEmpty()) {
-            showDialog(Alert.AlertType.ERROR, "Per salvare è necessario inserire una diagnosi");
+            GUI.showDialog(Alert.AlertType.WARNING, "Warning", "Per salvare è necessario inserire una diagnosi");
             return;
         }
 
         currentPatient.setDiagnosis(textarea.getText());
         Datastore.write();
-        showDialog(Alert.AlertType.INFORMATION, "Diagnosi iniziale aggiornata!");
+        GUI.showDialog(Alert.AlertType.INFORMATION, "Info", "Diagnosi iniziale aggiornata!");
 
         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         stage.close();
@@ -34,14 +33,5 @@ public class addDiagnosisController {
     public void setCurrentPatient(Patient currentPatient){
         this.currentPatient = currentPatient;
         textarea.setText(currentPatient.getDiagnosis());
-    }
-
-
-    void showDialog(Alert.AlertType type, String msg){
-        Alert alert = new Alert(type);
-        alert.setTitle("Aggiungi diagnosi");
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 }

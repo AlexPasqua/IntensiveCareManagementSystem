@@ -13,8 +13,8 @@ import sample.Administration;
 import sample.Datastore;
 import sample.Patient;
 import sample.Prescription;
-
 import java.util.*;
+
 
 public class AddAdministrationController {
 
@@ -43,24 +43,16 @@ public class AddAdministrationController {
         int dose = 0;
         try{ dose = Integer.parseInt(textboxDose.getText().trim()); }
         catch (NumberFormatException e){
-            showDialog(Alert.AlertType.ERROR, "Error", "Il campo \"Dose somministrata\" deve contenere un numero");
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Il campo \"Dose somministrata\" deve contenere un numero");
             return;
         }
 
         Prescription presc = currentPatient.getPrescriptions().get(comboboxPrescriptions.getSelectionModel().getSelectedIndex());
 
         currentPatient.addAdministration(new Administration(presc, dose, textareaExtra.getText()));
-        showDialog(Alert.AlertType.INFORMATION, "Info", "Somministrazione aggiunta");
+        GUI.showDialog(Alert.AlertType.INFORMATION, "Info", "Somministrazione aggiunta");
         Datastore.write();
         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         stage.close();
-    }
-
-    private void showDialog(Alert.AlertType type, String title, String msg){
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 }

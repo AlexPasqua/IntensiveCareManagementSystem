@@ -6,23 +6,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import sample.*;
 
+
 public class loginController {
+    @FXML private TextField user;
+    @FXML private PasswordField password;
 
-    @FXML
-    private TextField user;
-
-    @FXML
-    private PasswordField password;
-
-    @FXML
-    private Button loginButton;
 
     @FXML
     void handleLogin(ActionEvent event) throws Exception{
@@ -43,7 +37,7 @@ public class loginController {
                 break;
             } else {
                 //lancio errore
-                showDialog(Alert.AlertType.ERROR, "Utente Errato!");
+                GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Utente Errato!");
                 return;
             }
         }
@@ -63,13 +57,6 @@ public class loginController {
         stage.close();
     }
 
-    void showDialog(Alert.AlertType type, String msg){
-        Alert alert = new Alert(type);
-        alert.setTitle("Login error");
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
 
     void createDemoUsers(){
         User cd = new User("Demo", "Admin", "admin", "admin", UserType.CHIEFDOCTOR);
