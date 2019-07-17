@@ -208,6 +208,7 @@ public class homeController implements Initializable {
 
     @FXML
     private void handleQuit() throws Exception {
+        Datastore.write();
         Platform.exit();
         System.exit(0);
     }
