@@ -86,7 +86,7 @@ public class homeController implements Initializable {
     }
 
     @FXML
-    private void handleQuit() {
+    void handleQuit() {
         Datastore.write();
         Platform.exit();
         System.exit(0);
@@ -208,7 +208,7 @@ public class homeController implements Initializable {
                     stage.show();
                     stage.setFullScreen(true);
 
-                    alertController controller = fxmlLoader.getController();
+                    AlertController controller = fxmlLoader.getController();
                     controller.loadData(patient, severity, event);
                 }
                 catch (IOException e) {

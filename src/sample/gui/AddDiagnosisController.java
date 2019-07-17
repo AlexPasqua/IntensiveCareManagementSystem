@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import sample.Datastore;
 import sample.Patient;
 
-public class addDiagnosisController {
+public class AddDiagnosisController {
     Patient currentPatient = null;
     @FXML private TextArea textarea;
 

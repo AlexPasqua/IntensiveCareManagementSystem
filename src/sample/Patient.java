@@ -1,16 +1,9 @@
 package sample;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import sample.gui.alertController;
 import sample.gui.homeController;
-import sample.gui.patientListController;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;

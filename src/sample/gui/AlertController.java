@@ -28,7 +28,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-public class alertController implements Initializable {
+public class AlertController implements Initializable {
     private Patient currentPatient;
     private int severity;
     private Date endTimer;

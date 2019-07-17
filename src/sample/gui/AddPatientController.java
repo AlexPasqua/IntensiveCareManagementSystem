@@ -11,7 +11,7 @@ import sample.Datastore;
 import sample.Patient;
 
 
-public class addPatientController {
+public class AddPatientController {
     @FXML private TextField textboxCod;
     @FXML private TextField textboxSurname;
     @FXML private TextField textboxName;

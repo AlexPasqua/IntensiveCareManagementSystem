@@ -1,5 +1,6 @@
 package sample.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import sample.*;
+import java.io.IOException;
 
 
 public class loginController {
@@ -19,13 +21,12 @@ public class loginController {
 
 
     @FXML
-    void handleLogin(ActionEvent event) throws Exception{
+    void handleLogin(ActionEvent event) {
         if (Datastore.getUsers().isEmpty())
             createDemoUsers();
 
         for (sample.User current: Datastore.getUsers()) {
             if (current.isValid(user.getText(), password.getText())) {
-                //update activeUser
                 Datastore.setActiveUser(current);
                 break;
             }
@@ -42,21 +43,33 @@ public class loginController {
             }
         }
 
-        //creo finestra
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientList.fxml"));
-        Parent root1 = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setTitle("Lista Pazienti");
-        stage.setScene(new Scene(root1));
-        stage.setUserData(fxmlLoader);
-        stage.show();
-        Datastore.allLoaders.put("patientslist", fxmlLoader);
+        // lancio finestra della lista dei pazienti
+        Stage stage;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientList.fxml"));
+            Parent root1 = fxmlLoader.load();
+            stage = new Stage();
+            stage.setTitle("Lista Pazienti");
+            stage.setScene(new Scene(root1));
+            stage.setUserData(fxmlLoader);
+            stage.show();
+            Datastore.allLoaders.put("patientslist", fxmlLoader);
+        }
+        catch (IOException e){
+            GUI.showDialog(Alert.AlertType.ERROR, "Error!", "Impossibile caricare lista pazienti");
+            quit();
+        }
 
         //chiudo login
         stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         stage.close();
     }
 
+    private void quit(){
+        Datastore.write();
+        Platform.exit();
+        System.exit(0);
+    }
 
     void createDemoUsers(){
         User cd = new User("Demo", "Admin", "admin", "admin", UserType.CHIEFDOCTOR);

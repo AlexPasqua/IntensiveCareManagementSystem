@@ -3,7 +3,6 @@ package sample.gui;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -61,7 +60,7 @@ public class patientPageController implements Initializable {
     @FXML
     void handleAddDiagnosis(ActionEvent event) throws Exception {
         FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Diagnosi", "addDiagnosis.fxml", event);
-        addDiagnosisController controller = fxmlLoader.<addDiagnosisController>getController();
+        AddDiagnosisController controller = fxmlLoader.<AddDiagnosisController>getController();
         controller.setCurrentPatient(currentPatient);
     }
 

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="257.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.addDiagnosisController">
+<VBox prefHeight="257.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.AddDiagnosisController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="203.0" prefWidth="366.0" VBox.vgrow="ALWAYS">
          <children>

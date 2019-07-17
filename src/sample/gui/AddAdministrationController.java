@@ -50,7 +50,7 @@ public class AddAdministrationController {
         }
 
         if(comboboxPrescriptions.getSelectionModel().getSelectedItem() == null){
-            showDialog(Alert.AlertType.ERROR, "Error", "Il campo Prescrizione deve contenere un farmaco");
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Il campo Prescrizione deve contenere un farmaco");
             return;
         }
 

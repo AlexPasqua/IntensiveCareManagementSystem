@@ -1,15 +1,7 @@
 package sample;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import sample.gui.alertController;
 import sample.gui.homeController;
 
-import java.beans.Expression;
-import java.io.IOException;
 import java.util.Map;
 
 public class RMIimplements implements RMIinterface {
