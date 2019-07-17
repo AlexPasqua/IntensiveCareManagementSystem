@@ -24,6 +24,9 @@ public class Administration implements Serializable{
     public Integer getMgDose() { return mgDose; }
     public Date getTimestamp() { return timestamp; }
     public String getMedicine() { return prescription.getMedicine(); }
+    public String getNotes() {
+        return notes;
+    }
 
     SimpleStringProperty medicineProperty(){ return new SimpleStringProperty(prescription.getMedicine()); }
     SimpleStringProperty mgDoseProperty(){ return new SimpleStringProperty(mgDose.toString()); }

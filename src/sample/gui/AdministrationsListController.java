@@ -8,9 +8,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -30,6 +33,7 @@ public class AdministrationsListController {
     @FXML private TableColumn<Administration, String> aMed;
     @FXML private TableColumn<Administration, String> aDose;
     @FXML private TableColumn<Administration, String> aTimestamp;
+    @FXML private Button newAdministrationButton;
 
 
     @FXML
@@ -39,22 +43,24 @@ public class AdministrationsListController {
         controller.setCurrentPatient(currentPatient);
     }
 
-
     @FXML
-    private void handleDeleteAdministration(ActionEvent event){
-        for (Administration adm: currentPatient.getAdministrations()){
-            if(adm.equals(administrationsList.getSelectionModel().getSelectedItem())) {
-                currentPatient.getAdministrations().remove(administrationsList.getSelectionModel().getSelectedItem());
-                break;
-            }
+    void handleClick(MouseEvent event) {
+        System.out.println("Mouse click");
+        if (event.getClickCount() == 2 ){
+            showDialog(Alert.AlertType.INFORMATION, administrationsList.getSelectionModel().getSelectedItem().getNotes() );
         }
-        loadList();
+
     }
+
 
 
     void setCurrentPatient(Patient patient){
         this.currentPatient = patient;
+        if (!patient.getHospitalization())
+            newAdministrationButton.setDisable(true);
         associateTableCols();
+
+
     }
 
     private void associateTableCols(){
@@ -88,6 +94,14 @@ public class AdministrationsListController {
         stage.show();
 
         return fxmlLoader;
+    }
+
+    void showDialog(Alert.AlertType type, String msg){
+        Alert alert = new Alert(type);
+        alert.setTitle("Note Somministrazione");
+        alert.setHeaderText(null);
+        alert.setContentText("Note somministrazione: \n"+ msg);
+        alert.showAndWait();
     }
 
 

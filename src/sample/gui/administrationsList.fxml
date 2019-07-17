@@ -57,7 +57,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView fx:id="administrationsList" editable="true" layoutX="-3.0" layoutY="76.0" minHeight="0.0" minWidth="0.0" prefHeight="299.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+            <TableView fx:id="administrationsList" editable="true" layoutX="-3.0" layoutY="76.0" minHeight="0.0" minWidth="0.0" onMouseClicked="#handleClick" prefHeight="299.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
               <columns>
                   <TableColumn fx:id="aMed" prefWidth="75.0" text="Farmaco prescritto" />
                   <TableColumn fx:id="aDose" prefWidth="108.0" text="Dose" />
@@ -81,14 +81,10 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleNewAdministration" prefHeight="26.0" prefWidth="170.0" text="Aggiungi Somministrazione" />
+                              <Button fx:id="newAdministrationButton" mnemonicParsing="false" onAction="#handleNewAdministration" prefHeight="26.0" prefWidth="170.0" text="Aggiungi Somministrazione" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#handleDeleteAdministration" prefHeight="26.0" prefWidth="170.0" text="Elimina Somministrazione" />
-                           </children>
-                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>

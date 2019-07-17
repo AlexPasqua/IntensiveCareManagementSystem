@@ -46,7 +46,10 @@ public class prescriptionListController {
     private TableColumn<Prescription, String> pQuantity;
 
     @FXML
-    private Button addNew;
+    private Button addNewButton;
+
+    @FXML
+    private Button deleteButton;
 
     @FXML
     void handleNewPrescription(ActionEvent event) throws IOException {
@@ -80,6 +83,12 @@ public class prescriptionListController {
 
         if (!patient.getPrescriptions().isEmpty())
             loadList();
+
+        if (!patient.getHospitalization()) {
+            addNewButton.setDisable(true);
+            deleteButton.setDisable(true);
+        }
+
 
     }
 

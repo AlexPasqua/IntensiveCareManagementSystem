@@ -18,6 +18,8 @@ public class MonitoringSystem {
     private static Map <String, Integer> allarms = Map.of("Aritmia", 1, "Tachicardia", 1, "Fibrillazione ventricolare", 3,
             "Ipertensione", 2, "Ipotensione", 2, "Ipertermia", 2, "Ipotermia", 2);
 
+    private static Date endAlarmTimestamp;
+
     /*
     ** map patient, array of 3 elements
     ** - heartbeat indx
@@ -89,19 +91,24 @@ public class MonitoringSystem {
 
             //allarm generation
             if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 1 == 0){
-                System.out.println("Invoking Alarm...");
-                int rand_number = ThreadLocalRandom.current().nextInt(0,  allarms.keySet().size());
-                for (String event: allarms.keySet()){
-                    if (rand_number == 0) {
-                        try {
-                            server.allarm(patients.get(ThreadLocalRandom.current().nextInt(0, patients.size())), event, allarms.get(event));
-                        } catch (RemoteException e) {
-                            System.out.println("Error calling allarm SERVER RMI");
+                if (!isThereAlarm()) {
+                    System.out.println("Invoking Alarm...");
+                    int rand_number = ThreadLocalRandom.current().nextInt(0, allarms.keySet().size());
+                    for (String event : allarms.keySet()) {
+                        if (rand_number == 0) {
+                            try {
+                                server.allarm(patients.get(ThreadLocalRandom.current().nextInt(0, patients.size())), event, allarms.get(event));
+                                //save when the alarm time out
+                                endAlarmTimestamp = new Date(System.currentTimeMillis() + ((4 - allarms.get(event))*60000));
+                            } catch (RemoteException e) {
+                                System.out.println("Error calling allarm SERVER RMI");
+                            }
+                            break;
                         }
-                        break;
+                        rand_number--;
                     }
-                    rand_number--;
-
+                }else{
+                    System.out.println("There is already an alarm.. ");
                 }
             }
 
@@ -117,7 +124,7 @@ public class MonitoringSystem {
                     server.updateHeartbeats(getHeartbeats());
                 }
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 System.out.println("Server unreachble.. closing");
                 System.exit(0);
             }
@@ -130,7 +137,13 @@ public class MonitoringSystem {
         }
     }
 
-    private static Map<Patient, HeartBeat> getHeartbeats() throws IOException, ClassNotFoundException {
+    private static boolean isThereAlarm() {
+        if (new Date().before(endAlarmTimestamp))
+            return true;
+        return false;
+    }
+
+    private static Map<Patient, HeartBeat> getHeartbeats() {
         Map<Patient, HeartBeat> heartbeats = new TreeMap<Patient, HeartBeat>();
 
         /*
@@ -158,7 +171,7 @@ public class MonitoringSystem {
         return heartbeats;
     }
 
-    private static Map<Patient, Temperature> getTemperatures() throws IOException, ClassNotFoundException {
+    private static Map<Patient, Temperature> getTemperatures() {
         Map<Patient, Temperature> temperatures = new TreeMap<Patient, Temperature>();
 
         /*
@@ -187,7 +200,7 @@ public class MonitoringSystem {
         return temperatures;
     }
 
-    private static Map<Patient, Pressure> getPressures() throws IOException, ClassNotFoundException {
+    private static Map<Patient, Pressure> getPressures(){
         Map<Patient, Pressure> pressures = new TreeMap<Patient, Pressure>();
         /*
          * for every patient
@@ -224,6 +237,7 @@ public class MonitoringSystem {
         openTemps = (ArrayList<Integer>) stream.readObject();
         openPressures = (ArrayList<Integer[]>) stream.readObject();
         System.out.println("Health Data Loaded!");
+        endAlarmTimestamp = new Date(System.currentTimeMillis() + 60000);
     }
 
     /*
@@ -235,6 +249,10 @@ public class MonitoringSystem {
         FileInputStream in = new FileInputStream("datastore");
         ObjectInputStream stream = new ObjectInputStream(in);
         patients = (ArrayList<Patient>) stream.readObject();
+        for (Patient p: patients){
+            if (!p.getHospitalization())
+                patients.remove(p);
+        }
     }
 
 }
