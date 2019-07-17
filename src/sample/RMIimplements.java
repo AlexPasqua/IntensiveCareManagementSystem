@@ -1,6 +1,15 @@
 package sample;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import sample.gui.alertController;
+import sample.gui.homeController;
+
 import java.beans.Expression;
+import java.io.IOException;
 import java.util.Map;
 
 public class RMIimplements implements RMIinterface {
@@ -34,6 +43,9 @@ public class RMIimplements implements RMIinterface {
 
     @Override
     public void allarm(Patient patient, String event, int severity) {
-        System.out.println("ALLARM! Patient: " + patient.getFullName() + " Event: "+ event + " Severity: "+severity);
+        try{
+            homeController controller = Datastore.allLoaders.get("dashboard").getController();
+            controller.runAlarmLater(patient, event, severity);
+        } catch (Exception e) { System.out.println(e.getMessage()); }
     }
 }

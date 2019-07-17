@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.chart.LineChart;
 import javafx.event.ActionEvent;
@@ -23,6 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.util.Duration;
 import sample.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -310,5 +312,27 @@ public class homeController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
+    }
+
+    public void runAlarmLater(Patient patient, String event, int severity){
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+                try{
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
+                    Parent root1 = fxmlLoader.load();
+                    Stage stage = new Stage();
+                    stage.setTitle("ALLARME");
+                    stage.setScene(new Scene(root1));
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.show();
+                    stage.setFullScreen(true);
+
+                    alertController controller = fxmlLoader.getController();
+                    controller.loadData(patient, severity, event);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
     }
 }

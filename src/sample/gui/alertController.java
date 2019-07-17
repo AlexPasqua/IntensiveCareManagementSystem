@@ -131,10 +131,6 @@ public class alertController implements Initializable {
             }
         };
         animation.play();
-
-        //temp for debug
-        loadData(Datastore.getPatients().get(0), 3, "Mal di gola");
-        // end debug
     }
 
 

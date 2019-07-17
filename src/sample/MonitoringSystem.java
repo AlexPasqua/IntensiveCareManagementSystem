@@ -68,8 +68,20 @@ public class MonitoringSystem {
                 readPatients();
             } catch (IOException e) {
                 System.out.println("Can't read datastore file");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                continue;
             } catch (ClassNotFoundException e) {
                 System.out.println("Can't read datastore file");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                continue;
             }
             //get current timestamp in minute
             long timestamp = new Date().getTime();
@@ -77,7 +89,7 @@ public class MonitoringSystem {
 
             //allarm generation
             if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 3 == 0){
-
+                System.out.println("Invoking Alarm...");
                 int rand_number = ThreadLocalRandom.current().nextInt(0,  allarms.keySet().size());
                 for (String event: allarms.keySet()){
                     if (rand_number == 0) {
