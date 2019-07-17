@@ -230,6 +230,8 @@ public class Report {
     }
 
     private List<LocalDate> getReportDays(){
-        return dateToLocalDate(dateFrom).datesUntil(dateToLocalDate(dateTo)).collect(Collectors.toList());
+        List<LocalDate> list =  dateToLocalDate(dateFrom).datesUntil(dateToLocalDate(dateTo)).collect(Collectors.toList());
+        list.add(dateToLocalDate(dateTo));
+        return list;
     }
 }

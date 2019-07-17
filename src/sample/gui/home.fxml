@@ -28,12 +28,7 @@
             <MenuItem mnemonicParsing="false" onAction="#handleQuit" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" onAction="#handleAddValue" text="New Data to Graph1" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
+        <Menu mnemonicParsing="false" text="Informazioni">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
           </items>

@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -37,136 +38,7 @@ public class homeController implements Initializable {
     private ScrollPane scrollPane;
 
     @FXML
-    private AnchorPane rowPatient0;
-
-    @FXML
-    private LineChart<String, Number> grafico01;
-
-    @FXML
-    private LineChart<String, Number> grafico02;
-
-    @FXML
-    private LineChart<String, Number> grafico03;
-
-    @FXML
-    private AnchorPane rowPatient1;
-
-    @FXML
-    LineChart<String, Number> grafico11;
-
-    @FXML
-    LineChart<String, Number> grafico12;
-
-    @FXML
-    LineChart<String, Number> grafico13;
-
-    @FXML
-    private AnchorPane rowPatient2;
-
-    @FXML
-    LineChart<String, Number> grafico21;
-
-    @FXML
-    LineChart<String, Number> grafico22;
-
-    @FXML
-    LineChart<String, Number> grafico23;
-
-    @FXML
-    private AnchorPane rowPatient3;
-
-    @FXML
-    LineChart<String, Number> grafico31;
-
-    @FXML
-    LineChart<String, Number> grafico32;
-
-    @FXML
-    LineChart<String, Number> grafico33;
-
-    @FXML
-    private AnchorPane rowPatient4;
-
-    @FXML
-    LineChart<String, Number> grafico41;
-
-    @FXML
-    LineChart<String, Number> grafico42;
-
-    @FXML
-    LineChart<String, Number> grafico43;
-
-    @FXML
-    private AnchorPane rowPatient5;
-
-    @FXML
-    LineChart<String, Number> grafico51;
-
-    @FXML
-    LineChart<String, Number> grafico52;
-
-    @FXML
-    LineChart<String, Number> grafico53;
-
-    @FXML
-    private AnchorPane rowPatient6;
-
-    @FXML
-    LineChart<String, Number> grafico61;
-
-    @FXML
-    LineChart<String, Number> grafico62;
-
-    @FXML
-    LineChart<String, Number> grafico63;
-
-    @FXML
-    private AnchorPane rowPatient7;
-
-    @FXML
-    LineChart<String, Number> grafico71;
-
-    @FXML
-    LineChart<String, Number> grafico72;
-
-    @FXML
-    LineChart<String, Number> grafico73;
-
-    @FXML
-    private AnchorPane rowPatient8;
-
-    @FXML
-    LineChart<String, Number> grafico81;
-
-    @FXML
-    LineChart<String, Number> grafico82;
-
-    @FXML
-    LineChart<String, Number> grafico83;
-
-    @FXML
-    private AnchorPane rowPatient9;
-
-    @FXML
-    LineChart<String, Number> grafico91;
-
-    @FXML
-    LineChart<String, Number> grafico92;
-
-    @FXML
-    LineChart<String, Number> grafico93;
-
-    @FXML
     GridPane gridRows;
-
-    @FXML
-    void handleAddValue(ActionEvent event){
-        //pressione max value is 8
-        //addDataTo(grafico1,  20, 0);
-
-        //addDataTo(grafico01,  55, 1);
-        reset();
-    }
 
     @FXML
     void handleLogin(ActionEvent event) throws Exception{
@@ -226,6 +98,7 @@ public class homeController implements Initializable {
             for (int i = 0; i<patients.size(); i++){
                 AnchorPane thisrow = (AnchorPane) rows.get(i);
                 thisrow.setStyle("");
+                ((Label) thisrow.getChildren().get(0)).setText(patients.get(i).getFullName());
                 //HB chart
                 LineChart chart =  getChartByRow(thisrow, 0);
                 XYChart.Series<String, Number> series = new XYChart.Series<>();
