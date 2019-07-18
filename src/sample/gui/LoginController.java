@@ -1,18 +1,21 @@
 package sample.gui;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import sample.*;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
 
 
 public class LoginController {
@@ -51,7 +54,7 @@ public class LoginController {
             stage = new Stage();
             stage.setTitle("Lista Pazienti");
             stage.setScene(new Scene(root1));
-            stage.setUserData(fxmlLoader);
+            stage.setOnCloseRequest(confirmCloseEventHandler);
             stage.show();
             Datastore.allLoaders.put("patientslist", fxmlLoader);
         }
@@ -71,7 +74,7 @@ public class LoginController {
         System.exit(0);
     }
 
-    void createDemoUsers(){
+    private void createDemoUsers(){
         User cd = new User("Demo", "Admin", "admin", "admin", UserType.CHIEFDOCTOR);
         User doc = new User("Demo", "Doctor", "doctor", "doctor", UserType.DOCTOR);
         User nurse = new User("Demo", "Nurse", "nurse", "nurse", UserType.NURSE);
@@ -80,5 +83,21 @@ public class LoginController {
         Datastore.addUser(doc);
         Datastore.addUser(nurse);
     }
+
+    //closing event of patientListController
+    private EventHandler<WindowEvent> confirmCloseEventHandler = event -> {
+        System.out.println(event);
+        Stage mainStage = (Stage)event.getTarget();
+        if (GUI.showPrompt("Sei Sicuro?", "Vuoi effettuare il LogOut prima di chiudere la finestra?")){
+            //yes
+            for (Map.Entry<String, FXMLLoader> node : Datastore.allLoaders.entrySet()){
+                if (node.getKey().contains("patientPage")){
+                    GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Chiudi tutte le pagine relative ai pazienti prima");
+                    event.consume();
+                }
+            }
+            Datastore.setActiveUser(null);
+        }
+    };
 }
 

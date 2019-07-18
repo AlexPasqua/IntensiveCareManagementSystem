@@ -3,7 +3,9 @@ package sample.gui;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,10 +28,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-public class PatientListController implements Initializable  {
+public class PatientListController implements Initializable {
     @FXML private GridPane gridPatients;
     @FXML private Label labelHi;
 

@@ -37,8 +37,15 @@ public class HomeController implements Initializable {
 
     @FXML
     void handleLogin(ActionEvent event) {
+        String fxml;
+        if (Datastore.getActiveUser() == null){
+            fxml = "login.fxml";
+        } else {
+            fxml = "patientList.fxml";
+        }
+
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
             Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Login");
