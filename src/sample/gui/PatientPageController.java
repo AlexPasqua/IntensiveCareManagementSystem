@@ -196,7 +196,7 @@ public class PatientPageController implements Initializable {
         series = new XYChart.Series<>();
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
         series.setName("Minima");
-        series.setName("Massima");
+        series1.setName("Massima");
         for (Pressure press: currentPatient.getPressures()){
             if (press.getTimestamp().after(new Date(System.currentTimeMillis() - 7200 * 1000))) {
                 series.getData().add(new XYChart.Data<>(press.getTimestamp().toString(), press.getPressMin()));
@@ -206,8 +206,7 @@ public class PatientPageController implements Initializable {
         chartPressure.getXAxis().setTickLabelsVisible(false);
         chartPressure.getXAxis().setOpacity(0);
         chartPressure.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
-        chartPressure.getData().add(series);
-        chartPressure.getData().add(series1);
+        chartPressure.getData().addAll(series, series1);
         chartPressure.setTitle("Pressione");
         chartPressure.setAnimated(false);
     }

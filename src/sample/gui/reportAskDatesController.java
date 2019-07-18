@@ -32,7 +32,7 @@ public class reportAskDatesController {
     @FXML
     void handleShow(ActionEvent event) throws IOException {
 
-        if (dateFrom.getValue() == null || dateTo.getValue() != null){
+        if (dateFrom.getValue() == null || dateTo.getValue() == null){
             showDialog(Alert.AlertType.ERROR, "Genera Report", "Tutti i campi sono obbligatori");
             return;
         }

@@ -22,8 +22,7 @@
 #grafico61 .default-color0.chart-line-symbol ,
 #grafico71 .default-color0.chart-line-symbol ,
 #grafico81 .default-color0.chart-line-symbol ,
-#grafico91 .default-color0.chart-line-symbol ,
-#chartHeartBeat .default-color0.chart-line-symbol
+#grafico91 .default-color0.chart-line-symbol
 {
     -fx-background-color: red, #ffffff;
 }
@@ -67,8 +66,7 @@
 #grafico63 .default-color0.chart-line-symbol ,
 #grafico73 .default-color0.chart-line-symbol ,
 #grafico83 .default-color0.chart-line-symbol ,
-#grafico93 .default-color0.chart-line-symbol ,
-#chartPressure .default-color0.chart-line-symbol
+#grafico93 .default-color0.chart-line-symbol
 {
     -fx-background-color: #59c5e5, #ffffff;
 }
@@ -99,7 +97,7 @@
 #grafico73 .default-color1.chart-line-symbol ,
 #grafico83 .default-color1.chart-line-symbol ,
 #grafico93 .default-color1.chart-line-symbol ,
-#chartPressure .default-color0.chart-line-symbol
+#chartPressure .default-color1.chart-line-symbol
 {
     -fx-background-color: #58b758, #ffffff;
 }
@@ -114,7 +112,7 @@
 #grafico73 .default-color1.chart-series-line ,
 #grafico83 .default-color1.chart-series-line ,
 #grafico93 .default-color1.chart-series-line ,
-#chartPressure .default-color0.chart-series-line
+#chartPressure .default-color1.chart-series-line
 {
     -fx-stroke: #58b758;
 }

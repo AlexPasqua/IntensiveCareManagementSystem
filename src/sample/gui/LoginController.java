@@ -86,7 +86,6 @@ public class LoginController {
 
     //closing event of patientListController
     private EventHandler<WindowEvent> confirmCloseEventHandler = event -> {
-        System.out.println(event);
         Stage mainStage = (Stage)event.getTarget();
         if (GUI.showPrompt("Sei Sicuro?", "Vuoi effettuare il LogOut prima di chiudere la finestra?")){
             //yes

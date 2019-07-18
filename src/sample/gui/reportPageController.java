@@ -156,6 +156,8 @@ public class reportPageController {
             series1.getData().add(d1);
             series2.getData().add(d2);
         }
+        linechartHB.setAnimated(false);
+        linechartHB.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
         linechartHB.getData().addAll(series1, series2);
 
         //Temps
@@ -172,6 +174,7 @@ public class reportPageController {
             series1.getData().add(d1);
             series2.getData().add(d2);
         }
+        linechartTemp.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
         linechartTemp.getData().addAll(series1, series2);
 
         //Pressions
@@ -193,8 +196,7 @@ public class reportPageController {
             series1.getData().add(d1);
             series2.getData().add(d2);
         }
-
-
+        linechartPressure.getStylesheets().add(getClass().getResource("/css/charts.css").toExternalForm());
         linechartPressure.getData().addAll(series1, series2);
     }
 
