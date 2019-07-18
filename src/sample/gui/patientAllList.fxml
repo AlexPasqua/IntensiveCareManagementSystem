@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.PatientAllListController">
+<VBox prefHeight="390.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.PatientAllListController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
@@ -22,7 +22,7 @@
                   <RowConstraints maxHeight="339.2000102996826" minHeight="10.0" prefHeight="333.600004196167" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TableView fx:id="patientsList" editable="true" minHeight="0.0" minWidth="0.0" onMouseClicked="#handleClick" prefHeight="344.0" prefWidth="640.0" GridPane.rowIndex="1">
+                  <TableView fx:id="patientsList" editable="true" minHeight="0.0" minWidth="0.0" onMouseClicked="#handleClick" prefHeight="353.0" prefWidth="640.0" GridPane.rowIndex="1">
                     <columns>
                       <TableColumn fx:id="colFullName" prefWidth="122.4000244140625" text="Nome Completo" />
                       <TableColumn fx:id="colCod" prefWidth="90.39996337890625" text="Codice Fiscale" />

@@ -15,6 +15,14 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="807.0" VBox.vgrow="ALWAYS">
          <children>
+            <Button layoutX="155.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddUser" prefHeight="26.0" prefWidth="132.0" text="Aggiungi Utente" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+            <Button layoutX="152.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="26.0" prefWidth="132.0" text="Log Out" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="14.0" />
+            <Label fx:id="labelHi" alignment="CENTER" layoutX="295.0" layoutY="16.0" prefHeight="22.0" prefWidth="276.0" text="Ciao, %user%">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="577.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddPatient" prefHeight="26.0" prefWidth="132.0" text="Aggiungi Paziente" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="14.0" />
             <Button layoutX="718.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAllPatients" prefHeight="26.0" prefWidth="132.0" text="Mostra Tutti" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
             <GridPane fx:id="gridPatients" alignment="CENTER" layoutX="48.0" layoutY="125.0" prefHeight="358.0" prefWidth="775.0" AnchorPane.bottomAnchor="34.200000000000045" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="40.799999999999955" AnchorPane.topAnchor="125.0">
               <columnConstraints>
@@ -121,14 +129,6 @@
                   </Button>
                </children>
             </GridPane>
-            <Label fx:id="labelHi" alignment="CENTER" layoutX="295.0" layoutY="16.0" prefHeight="22.0" prefWidth="276.0" text="Ciao, %user%">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Button layoutX="577.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddPatient" prefHeight="26.0" prefWidth="132.0" text="Aggiungi Paziente" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="14.0" />
-            <Button layoutX="155.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddUser" prefHeight="26.0" prefWidth="132.0" text="Aggiungi Utente" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-            <Button layoutX="152.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="26.0" prefWidth="132.0" text="Log Out" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="14.0" />
          </children>
     </AnchorPane>
   </children>

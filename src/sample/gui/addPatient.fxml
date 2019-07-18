@@ -44,8 +44,8 @@
                   <TextField fx:id="textboxCod" prefHeight="26.0" prefWidth="193.0" GridPane.columnIndex="1" />
                   <TextField fx:id="textboxSurname" prefHeight="26.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="textboxName" prefHeight="26.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="textboxBirthTown" prefHeight="26.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <DatePicker fx:id="textboxBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="textboxBirthTown" prefHeight="26.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <HBox alignment="BOTTOM_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <children>
                         <Button mnemonicParsing="false" onAction="#handleConfirm" text="Aggiungi" />
