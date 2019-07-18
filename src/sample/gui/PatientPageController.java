@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -48,6 +49,7 @@ public class PatientPageController implements Initializable {
     @FXML private Button buttonDischarge;
     @FXML private GridPane gridCharts;
     @FXML private Label labelLetter;
+    @FXML private VBox vboxDischarged;
 
     @FXML
     void handleAdministrationsList(ActionEvent event) {
@@ -142,12 +144,18 @@ public class PatientPageController implements Initializable {
     public void loadPatient(Integer patientId){
         ArrayList<Patient> patients = Datastore.getPatients();
         currentPatient = patients.get(patientId);
+        loadPatient(currentPatient);
+    }
+
+    public void loadPatient(Patient patient){
+        this.currentPatient = patient;
 
         labelCodFis.setText(currentPatient.getCodFis());
         labelName.setText(currentPatient.getFullName());
         labelBirthDate.setText(currentPatient.getDate().toString());
         labelBirthTown.setText(currentPatient.getBirthTown());
 
+        vboxDischarged.setVisible(false);
         if (!currentPatient.getHospitalization()) showHospitalizedView();
         //load charts and update them automaticaly updates charts every x time
         loadCharts();
@@ -273,6 +281,7 @@ public class PatientPageController implements Initializable {
 
     private void showHospitalizedView(){
         gridCharts.setVisible(false);
+        vboxDischarged.setVisible(true);
         buttonDiagnosis.setDisable(true);
         buttonDischarge.setDisable(true);
         labelLetter.setText(currentPatient.getDischargeLetter());

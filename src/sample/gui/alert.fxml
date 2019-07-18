@@ -55,7 +55,7 @@
                <children>
                   <ImageView fx:id="imageGrave" fitHeight="126.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../assets/imgs/graveyard.png" />
+                        <Image url="@../../../assets/imgs/dead.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="labelPatientName1" alignment="CENTER" prefHeight="34.0" prefWidth="294.0" text="\%Patient%" textFill="WHITE">

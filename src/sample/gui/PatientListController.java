@@ -60,24 +60,29 @@ public class PatientListController implements Initializable  {
         Button clicked = (Button) event.getSource();
         String patientId = clicked.getStyle().replace("npatient: ", "");
 
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientPage.fxml"));
-            Parent root1 = fxmlLoader.load();
-            PatientPageController controller = fxmlLoader.<PatientPageController>getController();
-            controller.loadPatient(Integer.parseInt(patientId));
+        if (Datastore.allLoaders.containsKey("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis())){
+            GUI.showDialog(Alert.AlertType.WARNING, "Paziente", "La scheramata relativa a questo paziente è già aperta");
+        } else {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientPage.fxml"));
+                Parent root1 = fxmlLoader.load();
+                PatientPageController controller = fxmlLoader.<PatientPageController>getController();
+                controller.loadPatient(Integer.parseInt(patientId));
 
-            Stage stage = new Stage();
-            stage.setTitle("Paziente");
-            stage.setScene(new Scene(root1));
-            Datastore.allLoaders.put("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis(), fxmlLoader);
-            stage.setOnCloseRequest((WindowEvent event1) -> {
-                Datastore.allLoaders.remove("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis());
-            });
-            stage.show();
+                Stage stage = new Stage();
+                stage.setTitle("Paziente");
+                stage.setScene(new Scene(root1));
+                Datastore.allLoaders.put("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis(), fxmlLoader);
+                stage.setOnCloseRequest((WindowEvent event1) -> {
+                    Datastore.allLoaders.remove("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis());
+                });
+                stage.show();
+            }
+            catch(IOException e){
+                GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente non è possibile aprire la pagina del paziente");
+            }
         }
-        catch(IOException e){
-            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente non è possibile aprire la pagina del paziente");
-        }
+
     }
 
     @FXML
