@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Datastore {
 
@@ -96,6 +97,14 @@ public class Datastore {
         }
         return toreturn;
     }
+
+    public static boolean checkWindowOpen(String name){
+        for (String thisname : allLoaders.keySet()){
+            if (thisname == name) return true;
+        }
+        return false;
+    }
+
     //get logged user power
     /*public static UserType getActivePower(){
         if (activeUser.getClass().getSimpleName().equals("Nurse"))
