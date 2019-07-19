@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import sample.gui.GUI;
 import sample.gui.HomeController;
 
 import java.io.*;
@@ -8,8 +10,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Patient implements Serializable, Comparable<Patient> {
-
+public class Patient implements Serializable {
     private final String cod;
     private final String name;
     private final String surname;
@@ -36,29 +37,17 @@ public class Patient implements Serializable, Comparable<Patient> {
         this.hospitalized = true;
     }
 
-    public void addPrescription(Prescription current){
-        prescriptions.add(current);
-    }
+    public void addPrescription(Prescription current){ prescriptions.add(current); }
 
-    public void addAdministration(Administration current){
-        administrations.add(current);
-    }
-
-    public void addHeartBeat(int heartbeat){ heartBeats.add(new HeartBeat(heartbeat)); }
+    public void addAdministration(Administration current){ administrations.add(current); }
 
     public void addHeartBeat(HeartBeat heartbeat){ heartBeats.add(heartbeat); }
 
-    public void addTemperature(int temp) { temperatures.add(new Temperature(temp)); }
-
     public void addTemperature(Temperature temperature) { temperatures.add(temperature); }
-
-    public void addPressure(int min, int max) { pressures.add(new Pressure(min, max)); }
 
     public void addPressure(Pressure pressure) { pressures.add(pressure); }
 
-    public void setDiagnosis(String diagnosis){
-        this.diagnosis = diagnosis;
-    }
+    public void setDiagnosis(String diagnosis){ this.diagnosis = diagnosis; }
 
     public String getDiagnosis() { return diagnosis; }
 
@@ -80,17 +69,11 @@ public class Patient implements Serializable, Comparable<Patient> {
 
     public ArrayList<Administration> getAdministrations() { return administrations; }
 
-    public ArrayList<HeartBeat> getHeartBeats() {
-        return heartBeats;
-    }
+    public ArrayList<HeartBeat> getHeartBeats() { return heartBeats; }
 
-    public ArrayList<Temperature> getTemperatures() {
-        return temperatures;
-    }
+    public ArrayList<Temperature> getTemperatures() { return temperatures; }
 
-    public ArrayList<Pressure> getPressures() {
-        return pressures;
-    }
+    public ArrayList<Pressure> getPressures() { return pressures; }
 
     public void setDischargeLetter(String letter){ dischargeLetter = letter; }
 
@@ -129,20 +112,16 @@ public class Patient implements Serializable, Comparable<Patient> {
         ArrayList<Integer[]> openPressures = null;
         int rand_indx = ThreadLocalRandom.current().nextInt(0,  4000 + 1);
 
-        FileInputStream in = null;
+        FileInputStream in;
+        ObjectInputStream stream;
         try {
             in = new FileInputStream("healthData");
-        } catch (FileNotFoundException e) {
-            System.out.println("Can't generate fake data:" + e.getMessage());
-        }
-        ObjectInputStream stream = null;
-        try {
             stream = new ObjectInputStream(in);
             openHeartBeats = (ArrayList<Integer>) stream.readObject();
             openTemps = (ArrayList<Integer>) stream.readObject();
             openPressures = (ArrayList<Integer[]>) stream.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Can't generate fake data:" + e.getMessage());
+            GUI.showDialog(Alert.AlertType.WARNING, "Warning", "Impossibile accedere ai dati passati");
         }
 
         int heartbeatsIndx = rand_indx;
@@ -174,11 +153,5 @@ public class Patient implements Serializable, Comparable<Patient> {
                 controller.loadList();
             }
         }
-    }
-
-
-    @Override
-    public int compareTo(Patient o) {
-        return cod.compareTo(o.getCodFis());
     }
 }

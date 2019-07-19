@@ -1,7 +1,9 @@
 package sample.gui;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import sample.Datastore;
 
 import java.util.Optional;
 
@@ -28,5 +30,11 @@ public final class GUI {
         } else {
             return false;
         }
+    }
+
+    public static void quit(){
+        Datastore.write();
+        Platform.exit();
+        System.exit(1);
     }
 }

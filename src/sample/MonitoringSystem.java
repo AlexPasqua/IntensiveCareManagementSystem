@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.scene.control.Alert;
+import sample.gui.GUI;
+
 import java.io.*;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -15,7 +18,6 @@ public class MonitoringSystem {
     private static ArrayList<Patient> patients = new ArrayList<>();
     private static Map <String, Integer> allarms = Map.of("Aritmia", 1, "Tachicardia", 1, "Fibrillazione ventricolare", 3,
             "Ipertensione", 2, "Ipotensione", 2, "Ipertermia", 2, "Ipotermia", 2);
-
     private static Date endAlarmTimestamp;
     /*
     ** map patient, array of 3 elements
@@ -23,26 +25,18 @@ public class MonitoringSystem {
     ** - temp indx
     ** - pressure idx
      */
-    private static Map<Patient, int[]> patientIndex = new TreeMap<Patient, int[]>();
+    private static Map<Patient, int[]> patientIndex = new LinkedHashMap<>();
 
 
     public static void main (String[] args) {
-
         //get openMHealth data
         try {
             initHealthData();
-        } catch (IOException e) {
-            System.out.println("Error opening OpenMHealth data" );
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error opening OpenMHealth data" );
-            e.printStackTrace();
+        } catch (ClassNotFoundException | IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Impossibile caricare i dati dei pazienti");
         }
 
-        /*
-        * RMI CLIENT
-         */
-
+        // RMI CLIENT
         RMIinterface server = null;
         try {
             //get the addres of server side

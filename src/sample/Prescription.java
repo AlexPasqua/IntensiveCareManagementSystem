@@ -1,15 +1,12 @@
 package sample;
 
 import javafx.beans.property.SimpleStringProperty;
-
 import java.io.Serializable;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Prescription implements Serializable {
-
     private final String medicine;
     private final Integer therapyDuration; //in days
     private final Integer dailyDoses;
