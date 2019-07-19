@@ -28,7 +28,7 @@ public class RMIimplements implements RMIinterface {
     }
 
     @Override
-    public void allarm(Patient patient, String event, int severity) {
+    public void alarm(Patient patient, String event, int severity) {
         HomeController controller = Datastore.allLoaders.get("dashboard").getController();
         controller.runAlarmLater(patient, event, severity);
     }

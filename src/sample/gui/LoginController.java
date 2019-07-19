@@ -58,7 +58,7 @@ public class LoginController {
         }
         catch (IOException e){
             GUI.showDialog(Alert.AlertType.ERROR, "Error!", "Impossibile caricare lista pazienti");
-            quit();
+            GUI.quit();
         }
 
         //chiudo login
@@ -66,11 +66,7 @@ public class LoginController {
         stage.close();
     }
 
-    private void quit(){
-        Datastore.write();
-        Platform.exit();
-        System.exit(0);
-    }
+
 
     private void createDemoUsers(){
         User cd = new User("Demo", "Admin", "admin", "admin", UserType.CHIEFDOCTOR);

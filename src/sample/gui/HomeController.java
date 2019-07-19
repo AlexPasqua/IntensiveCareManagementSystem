@@ -211,6 +211,7 @@ public class HomeController implements Initializable {
                     stage.setScene(new Scene(root1));
                     stage.initModality(Modality.WINDOW_MODAL);
                     stage.show();
+                    stage.setFullScreenExitHint("");
                     stage.setFullScreen(true);
 
                     AlertController controller = fxmlLoader.getController();

@@ -1,13 +1,12 @@
 package sample.gui;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import sample.Datastore;
-
+import javafx.stage.WindowEvent;
 import java.util.Map;
 import java.util.Optional;
 
@@ -34,6 +33,12 @@ public final class GUI {
         } else {
             return false;
         }
+    }
+
+    public static void quit(){
+        Datastore.write();
+        Platform.exit();
+        System.exit(1);
     }
 
     //closing event of patientListController

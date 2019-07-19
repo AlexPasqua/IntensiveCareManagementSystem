@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.scene.control.Alert;
+import sample.gui.GUI;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -13,9 +15,8 @@ public class MonitoringSystem {
     private static ArrayList<Integer[]> openPressures;
     private static ArrayList<Integer> openTemps;
     private static ArrayList<Patient> patients = new ArrayList<>();
-    private static Map <String, Integer> allarms = Map.of("Aritmia", 1, "Tachicardia", 1, "Fibrillazione ventricolare", 3,
+    private static Map <String, Integer> alarms = Map.of("Aritmia", 1, "Tachicardia", 1, "Fibrillazione ventricolare", 3,
             "Ipertensione", 2, "Ipotensione", 2, "Ipertermia", 2, "Ipotermia", 2);
-
     private static Date endAlarmTimestamp;
     /*
     ** map patient, array of 3 elements
@@ -23,66 +24,35 @@ public class MonitoringSystem {
     ** - temp indx
     ** - pressure idx
      */
-    private static Map<Patient, int[]> patientIndex = new TreeMap<Patient, int[]>();
+    private static Map<Patient, int[]> patientIndex = new LinkedHashMap<>();
 
 
     public static void main (String[] args) {
-
         //get openMHealth data
-        try {
-            initHealthData();
-        } catch (IOException e) {
-            System.out.println("Error opening OpenMHealth data" );
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error opening OpenMHealth data" );
-            e.printStackTrace();
-        }
-
-        /*
-        * RMI CLIENT
-         */
-
         RMIinterface server = null;
         try {
-            //get the addres of server side
+            initHealthData();
             server = (RMIinterface) Naming.lookup("rmi://localhost/RMIserver");
-        } catch (NotBoundException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            System.exit(-1);
         }
+        catch (ClassNotFoundException | IOException | NotBoundException e) {
+            e.printStackTrace();
+            GUI.quit();
+        }
+
         System.out.println("Monitoring System started.");
 
-        /*
-        * MAIN LOOP
-         */
+        // MAIN LOOP
         while (true){
             //get update list of patient
-            try {
-                readPatients();
-            } catch (IOException e) {
+            try { readPatients(); }
+            catch (ClassNotFoundException | IOException e) {
                 System.out.println("Can't read datastore file");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                continue;
-            } catch (ClassNotFoundException e) {
-                System.out.println("Can't read datastore file");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+
+                try { Thread.sleep(1000); }
+                catch (InterruptedException ex) { ex.printStackTrace(); }
                 continue;
             }
+
             //get current timestamp in minute
             long timestamp = new Date().getTime();
             timestamp = timestamp / 60000;
@@ -91,13 +61,13 @@ public class MonitoringSystem {
             if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 1 == 0){
                 if (!isThereAlarm()) {
                     System.out.println("Invoking Alarm...");
-                    int rand_number = ThreadLocalRandom.current().nextInt(0, allarms.keySet().size());
-                    for (String event : allarms.keySet()) {
+                    int rand_number = ThreadLocalRandom.current().nextInt(0, alarms.keySet().size());
+                    for (String event : alarms.keySet()) {
                         if (rand_number == 0) {
                             try {
-                                server.allarm(patients.get(ThreadLocalRandom.current().nextInt(0, patients.size())), event, allarms.get(event));
+                                server.alarm(patients.get(ThreadLocalRandom.current().nextInt(0, patients.size())), event, alarms.get(event));
                                 //save when the alarm time out
-                                endAlarmTimestamp = new Date(System.currentTimeMillis() + ((4 - allarms.get(event))*60000) + 20000);
+                                endAlarmTimestamp = new Date(System.currentTimeMillis() + ((4 - alarms.get(event))*60000) + 20000);
                             } catch (RemoteException e) {
                                 System.out.println("Error calling allarm SERVER RMI");
                             }
@@ -112,37 +82,34 @@ public class MonitoringSystem {
 
             //call server methods for store data
             try {
-                if (timestamp % 2 == 0){
+                if (timestamp % 2 == 0)
                     server.updatePressures(getPressures());
-                }
-                if (timestamp % 3 == 0){
+
+                if (timestamp % 3 == 0)
                     server.updateTemperatures(getTemperatures());
-                }
-                if (timestamp % 5 == 0){
+
+                if (timestamp % 5 == 0)
                     server.updateHeartbeats(getHeartbeats());
-                }
 
             } catch (IOException e) {
                 System.out.println("Server unreachble.. closing");
-                System.exit(0);
+                GUI.quit();
             }
 
-            try {
-                Thread.sleep(60000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            try { Thread.sleep(60000); }
+            catch (InterruptedException e) { e.printStackTrace(); }
         }
     }
 
     private static boolean isThereAlarm() {
         if (new Date().before(endAlarmTimestamp))
             return true;
+
         return false;
     }
 
     private static Map<Patient, HeartBeat> getHeartbeats() {
-        Map<Patient, HeartBeat> heartbeats = new TreeMap<Patient, HeartBeat>();
+        Map<Patient, HeartBeat> heartbeats = new LinkedHashMap<>();
 
         /*
         * for every patient
@@ -170,7 +137,7 @@ public class MonitoringSystem {
     }
 
     private static Map<Patient, Temperature> getTemperatures() {
-        Map<Patient, Temperature> temperatures = new TreeMap<Patient, Temperature>();
+        Map<Patient, Temperature> temperatures = new LinkedHashMap<>();
 
         /*
          * for every patient
@@ -199,7 +166,7 @@ public class MonitoringSystem {
     }
 
     private static Map<Patient, Pressure> getPressures(){
-        Map<Patient, Pressure> pressures = new TreeMap<Patient, Pressure>();
+        Map<Patient, Pressure> pressures = new LinkedHashMap<>();
         /*
          * for every patient
          * if is a new patient add it to patinetindx (with a rand number)
@@ -243,7 +210,6 @@ public class MonitoringSystem {
      */
 
     private static void readPatients() throws IOException, ClassNotFoundException {
-
         FileInputStream in = new FileInputStream("datastore");
         ObjectInputStream stream = new ObjectInputStream(in);
         patients = (ArrayList<Patient>) stream.readObject();
@@ -252,5 +218,4 @@ public class MonitoringSystem {
                 patients.remove(p);
         }
     }
-
 }

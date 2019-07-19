@@ -6,12 +6,10 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
-
-import java.lang.reflect.Array;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -21,7 +19,6 @@ import java.util.stream.Collectors;
 
 
 public class Report {
-
     private Patient patient;
     private Date dateFrom;
     private Date dateTo;
@@ -87,7 +84,6 @@ public class Report {
             doc.add(diagnosis);
             doc.add(new Paragraph("\n\n\nReport Giornaliero").setBold().setTextAlignment(TextAlignment.CENTER));
 
-
             //Creating a table
             Table table = new Table(5).useAllAvailableWidth();
             //Adding cells to the table
@@ -109,14 +105,17 @@ public class Report {
                     table.addCell(new Cell().add(new Paragraph("MIN: " + hbs.get(key)[0].getHeartBeat() + "\nMAX: " + hbs.get(key)[1].getHeartBeat()).setFontSize(10)));
                 else
                     table.addCell(new Cell().add(new Paragraph("N/A")));
+
                 if (temps.containsKey(key))
                     table.addCell(new Cell().add(new Paragraph("MIN: " + temps.get(key)[0].getTemperature() + "\nMAX: " + temps.get(key)[1].getTemperature()).setFontSize(10)));
                 else
                     table.addCell(new Cell().add(new Paragraph("N/A")));
+
                 if (pressuresS.containsKey(key))
                     table.addCell(new Cell().add(new Paragraph("MIN: " + pressuresS.get(key)[0].formatted() + "\nMAX: " + pressuresS.get(key)[1].formatted()).setFontSize(10)));
                 else
                     table.addCell(new Cell().add(new Paragraph("N/A")));
+
                 if (pressuresD.containsKey(key))
                     table.addCell(new Cell().add(new Paragraph("MIN: " + pressuresD.get(key)[0].formatted() + "\nMAX: " + pressuresD.get(key)[1].formatted()).setFontSize(10)));
                 else
@@ -129,7 +128,8 @@ public class Report {
             //Closing the document
             doc.close();
             return true;
-        } catch (Exception e){
+        }
+        catch (IOException e){
             System.out.println("Error creating PDF: " + e.getMessage());
             return false;
         }
@@ -178,7 +178,7 @@ public class Report {
         return maxmin;
     }
 
-    public TreeMap<String, Pressure[]> getMaxMinPressure(int type){
+    private TreeMap<String, Pressure[]> getMaxMinPressure(int type){
         //type 0=sistolica, type 1=diastolica
         TreeMap<String, Pressure[]> maxmin= new TreeMap();
         Pressure[] empty = {new Pressure(1000, 1000),new Pressure(0, 0)};

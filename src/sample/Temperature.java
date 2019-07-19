@@ -22,5 +22,4 @@ public class Temperature implements Serializable {
     public Date getTimestamp(){ return timestamp; }
 
     public String toString(){ return "Temperature [temp=" + temp + ", timestamp=" + timestamp.toString() + "]";  }
-
 }
