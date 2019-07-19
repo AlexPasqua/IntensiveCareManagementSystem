@@ -4,24 +4,24 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
+import sample.gui.GUI;
 
 import java.io.IOException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.time.LocalDate;
-import java.util.Date;
+
 
 public class Main extends Application{
 
     public static void main(String[] args) {
         Datastore.read();
-        /*
-        ** RMI SECTION
-         */
+
+        // RMI section
         RMIinterface server = new RMIimplements();
 
         try{
@@ -30,17 +30,12 @@ public class Main extends Application{
 
             registry.bind("RMIserver", stub);
 
-        }catch(Throwable cause) {
-            System.out.println("Error on RMI sever: " +  cause.getMessage());
+        } catch(AlreadyBoundException | RemoteException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Server error", "Impossibile stabilire una connessione col sistema di monitoraggio");
         }
-
-        /*
-         ** END RMI SECTION
-         */
+        // END RMI SECTION
 
         launch(args); //GUI Start
-
-
         Datastore.write();
 
         //force closing - if the user close GUI, force shutdown so the server rmi stop.
@@ -49,57 +44,17 @@ public class Main extends Application{
 
     @Override
     @SuppressWarnings("unchecked")
-    public void start(Stage primaryStage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui/home.fxml"));
-        Parent root = fxmlLoader.load();
-        primaryStage.setTitle("Dashboard");
-        primaryStage.setScene(new Scene(root, 1000, 500));
-        primaryStage.show();
-        Datastore.allLoaders.put("dashboard", fxmlLoader);
-        /*
-        LineChart lineChart = (LineChart) root.lookup("#grafico01");
-
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Minima");
-
-        series1.getData().add(new XYChart.Data<>(0, 20));
-        series1.getData().add(new XYChart.Data<>(1, 23));
-        series1.getData().add(new XYChart.Data<>(2, 14));
-        series1.getData().add(new XYChart.Data<>(3, 15));
-        series1.getData().add(new XYChart.Data<>(4, 24));
-        series1.getData().add(new XYChart.Data<>(5, 23));
-        series1.getData().add(new XYChart.Data<>(6, 14));
-        series1.getData().add(new XYChart.Data<>(7, 15));
-
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Massima");
-        series2.getData().add(new XYChart.Data<>(0, 44));
-        series2.getData().add(new XYChart.Data<>(1, 33));
-        series2.getData().add(new XYChart.Data<>(2, 34));
-        series2.getData().add(new XYChart.Data<>(3, 25));
-        series2.getData().add(new XYChart.Data<>(4, 44));
-        series2.getData().add(new XYChart.Data<>(5, 33));
-        series2.getData().add(new XYChart.Data<>(6, 34));
-        series2.getData().add(new XYChart.Data<>(7, 25));
-
-
-        lineChart.getData().addAll(series1, series2);
-
-        //heartbeat
-        LineChart lineChart2 = (LineChart) root.lookup("#grafico02");
-        XYChart.Series series3 = new XYChart.Series();
-        series3.setName("HeartBeat");
-        series3.getData().add(new XYChart.Data<>(0,30));
-        series3.getData().add(new XYChart.Data<>(1,31));
-        series3.getData().add(new XYChart.Data<>(2,32));
-        series3.getData().add(new XYChart.Data<>(3,33));
-        series3.getData().add(new XYChart.Data<>(4,34));
-        series3.getData().add(new XYChart.Data<>(5,35));
-
-
-        lineChart2.getData().add(series3);
-        //lineChart.setTitle("Pressione");
-        */
+    public void start(Stage primaryStage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui/home.fxml"));
+            Parent root = fxmlLoader.load();
+            primaryStage.setTitle("Dashboard");
+            primaryStage.setScene(new Scene(root, 1000, 500));
+            primaryStage.show();
+            Datastore.allLoaders.put("dashboard", fxmlLoader);
+        }
+        catch (IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Impossibile avviare l'interfaccia grafica");
+        }
     }
-
 }

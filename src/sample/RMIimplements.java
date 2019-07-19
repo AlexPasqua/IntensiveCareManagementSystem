@@ -1,19 +1,16 @@
 package sample;
 
 import sample.gui.HomeController;
-
 import java.util.Map;
 
-public class RMIimplements implements RMIinterface {
 
+public class RMIimplements implements RMIinterface {
 
     @Override
     public void updateHeartbeats(Map <Patient, HeartBeat> heartbeats) {
         for(Patient p: heartbeats.keySet())
             Datastore.getPatients().get(Datastore.getPatients().indexOf(p)).addHeartBeat(heartbeats.get(p));
         Datastore.write();
-
-
     }
 
     @Override
@@ -21,7 +18,6 @@ public class RMIimplements implements RMIinterface {
         for(Patient p: pressures.keySet())
             Datastore.getPatients().get(Datastore.getPatients().indexOf(p)).addPressure(pressures.get(p));
         Datastore.write();
-
     }
 
     @Override
@@ -29,15 +25,11 @@ public class RMIimplements implements RMIinterface {
         for(Patient p: temps.keySet())
             Datastore.getPatients().get(Datastore.getPatients().indexOf(p)).addTemperature(temps.get(p));
         Datastore.write();
-
-
     }
 
     @Override
     public void allarm(Patient patient, String event, int severity) {
-        try{
-            HomeController controller = Datastore.allLoaders.get("dashboard").getController();
-            controller.runAlarmLater(patient, event, severity);
-        } catch (Exception e) { System.out.println(e.getMessage()); }
+        HomeController controller = Datastore.allLoaders.get("dashboard").getController();
+        controller.runAlarmLater(patient, event, severity);
     }
 }

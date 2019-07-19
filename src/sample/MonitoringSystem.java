@@ -1,6 +1,5 @@
 package sample;
 
-
 import java.io.*;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -10,7 +9,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MonitoringSystem {
-
     private static ArrayList<Integer> openHeartBeats;
     private static ArrayList<Integer[]> openPressures;
     private static ArrayList<Integer> openTemps;
@@ -19,7 +17,6 @@ public class MonitoringSystem {
             "Ipertensione", 2, "Ipotensione", 2, "Ipertermia", 2, "Ipotermia", 2);
 
     private static Date endAlarmTimestamp;
-
     /*
     ** map patient, array of 3 elements
     ** - heartbeat indx
@@ -27,6 +24,7 @@ public class MonitoringSystem {
     ** - pressure idx
      */
     private static Map<Patient, int[]> patientIndex = new TreeMap<Patient, int[]>();
+
 
     public static void main (String[] args) {
 

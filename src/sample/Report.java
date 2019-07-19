@@ -25,7 +25,6 @@ public class Report {
     private Patient patient;
     private Date dateFrom;
     private Date dateTo;
-    private com.itextpdf.layout.element.Image imageHBchart;
 
     public Report(Patient patient, Date dateFrom, Date dateTo){
         this.patient = patient;
@@ -34,15 +33,6 @@ public class Report {
     }
 
     public Patient getPatient() { return patient; }
-
-    public void setImage(Image img, int type){
-        switch (type){
-            case 0:{
-                imageHBchart = img;
-                break;
-            }
-        }
-    }
 
     public ArrayList<HeartBeat> getHeartBeats(){
         ArrayList<HeartBeat> heartbeats = new ArrayList<>();
@@ -136,7 +126,6 @@ public class Report {
             //Adding Table to document
             doc.add(table);
 
-            doc.add(imageHBchart.setWidth(250));
             //Closing the document
             doc.close();
             return true;

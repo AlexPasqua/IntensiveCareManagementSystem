@@ -30,7 +30,6 @@ import java.net.URL;
 import java.util.*;
 
 public class PatientPageController implements Initializable {
-
     Patient currentPatient = null;
     Stage thisStage;
 
@@ -74,10 +73,10 @@ public class PatientPageController implements Initializable {
     }
 
     @FXML
-    void handlePrescriptionsList(ActionEvent event) throws Exception {
+    void handlePrescriptionsList(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = openPopupWindow("Lista Prescrizioni", "prescriptionList.fxml", event);
-            prescriptionListController controller = fxmlLoader.<prescriptionListController>getController();
+            PrescriptionListController controller = fxmlLoader.<PrescriptionListController>getController();
             controller.setCurrentPatient(currentPatient);
         } catch(IOException e) {
             GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aprire la lista delle prescrizioni");
@@ -85,11 +84,11 @@ public class PatientPageController implements Initializable {
     }
 
     @FXML
-    void handleGenerateReport(ActionEvent event) throws Exception {
+    void handleGenerateReport(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = openPopupWindow("Genera Report", "reportAskDates.fxml", event);
             Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
-            reportAskDatesController controller = fxmlLoader.getController();
+            ReportAskDatesController controller = fxmlLoader.getController();
             controller.setCurrentPatient(currentPatient, thiswindow);
         } catch(IOException e) {
             GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile generare report");

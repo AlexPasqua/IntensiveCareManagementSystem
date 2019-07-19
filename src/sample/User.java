@@ -3,13 +3,12 @@ package sample;
 import java.io.Serializable;
 
 public class User implements Serializable {
-
-
     private String name;
     private String surname;
     private String username;
     private String password;
     private UserType type;
+
 
     public User(String name, String surname, String username, String password, UserType type){
         this.name = name;

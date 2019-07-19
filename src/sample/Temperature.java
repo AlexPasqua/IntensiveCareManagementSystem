@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Temperature implements Serializable {
-
     private final int temp;
     private final Date timestamp;
 

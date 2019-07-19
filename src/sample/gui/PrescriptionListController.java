@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,45 +22,31 @@ import sample.Patient;
 import sample.Prescription;
 import java.io.IOException;
 
-public class prescriptionListController {
+public class PrescriptionListController {
     private Patient currentPatient;
+    @FXML private TableView<Prescription> prescriptionList;
+    @FXML private TableColumn<Prescription, String> pTimestamp;
+    @FXML private TableColumn<Prescription, String> pDoctor;
+    @FXML private TableColumn<Prescription, String> pMed;
+    @FXML private TableColumn<Prescription, String> pDuration;
+    @FXML private TableColumn<Prescription, String> pDaily;
+    @FXML private TableColumn<Prescription, String> pQuantity;
+    @FXML private Button addNewButton;
+    @FXML private Button deleteButton;
 
     @FXML
-    private TableView<Prescription> prescriptionList;
-
-    @FXML
-    private TableColumn<Prescription, String> pTimestamp;
-
-    @FXML
-    private TableColumn<Prescription, String> pDoctor;
-
-    @FXML
-    private TableColumn<Prescription, String> pMed;
-
-    @FXML
-    private TableColumn<Prescription, String> pDuration;
-
-    @FXML
-    private TableColumn<Prescription, String> pDaily;
-
-    @FXML
-    private TableColumn<Prescription, String> pQuantity;
-
-    @FXML
-    private Button addNewButton;
-
-    @FXML
-    private Button deleteButton;
-
-    @FXML
-    void handleNewPrescription(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Prescrizione", "addPrescription.fxml", event);
-        AddPrescriptionController controller = fxmlLoader.<AddPrescriptionController>getController();
-        controller.setCurrentPatient(currentPatient);
+    void handleNewPrescription(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Prescrizione", "addPrescription.fxml", event);
+            AddPrescriptionController controller = fxmlLoader.<AddPrescriptionController>getController();
+            controller.setCurrentPatient(currentPatient);
+        } catch (IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aggiungere una prescrizione");
+        }
     }
 
     @FXML
-    void handleDeletePrescription(ActionEvent event) throws IOException {
+    void handleDeletePrescription(ActionEvent event) {
         for (Prescription p: currentPatient.getPrescriptions()){
             if(p.equals(prescriptionList.getSelectionModel().getSelectedItem())) {
                 currentPatient.getPrescriptions().remove(prescriptionList.getSelectionModel().getSelectedItem());
