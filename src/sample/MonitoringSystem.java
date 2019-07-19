@@ -2,7 +2,6 @@ package sample;
 
 import javafx.scene.control.Alert;
 import sample.gui.GUI;
-
 import java.io.*;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -30,53 +29,30 @@ public class MonitoringSystem {
 
     public static void main (String[] args) {
         //get openMHealth data
-        try {
-            initHealthData();
-        } catch (ClassNotFoundException | IOException e) {
-            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Impossibile caricare i dati dei pazienti");
-        }
-
-        // RMI CLIENT
         RMIinterface server = null;
         try {
-            //get the addres of server side
+            initHealthData();
             server = (RMIinterface) Naming.lookup("rmi://localhost/RMIserver");
-        } catch (NotBoundException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            System.exit(-1);
         }
+        catch (ClassNotFoundException | IOException | NotBoundException e) {
+            e.printStackTrace();
+            GUI.quit();
+        }
+
         System.out.println("Monitoring System started.");
 
-        /*
-        * MAIN LOOP
-         */
+        // MAIN LOOP
         while (true){
             //get update list of patient
-            try {
-                readPatients();
-            } catch (IOException e) {
+            try { readPatients(); }
+            catch (ClassNotFoundException | IOException e) {
                 System.out.println("Can't read datastore file");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                continue;
-            } catch (ClassNotFoundException e) {
-                System.out.println("Can't read datastore file");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+
+                try { Thread.sleep(1000); }
+                catch (InterruptedException ex) { ex.printStackTrace(); }
                 continue;
             }
+
             //get current timestamp in minute
             long timestamp = new Date().getTime();
             timestamp = timestamp / 60000;
@@ -106,37 +82,34 @@ public class MonitoringSystem {
 
             //call server methods for store data
             try {
-                if (timestamp % 2 == 0){
+                if (timestamp % 2 == 0)
                     server.updatePressures(getPressures());
-                }
-                if (timestamp % 3 == 0){
+
+                if (timestamp % 3 == 0)
                     server.updateTemperatures(getTemperatures());
-                }
-                if (timestamp % 5 == 0){
+
+                if (timestamp % 5 == 0)
                     server.updateHeartbeats(getHeartbeats());
-                }
 
             } catch (IOException e) {
                 System.out.println("Server unreachble.. closing");
-                System.exit(0);
+                GUI.quit();
             }
 
-            try {
-                Thread.sleep(60000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            try { Thread.sleep(60000); }
+            catch (InterruptedException e) { e.printStackTrace(); }
         }
     }
 
     private static boolean isThereAlarm() {
         if (new Date().before(endAlarmTimestamp))
             return true;
+
         return false;
     }
 
     private static Map<Patient, HeartBeat> getHeartbeats() {
-        Map<Patient, HeartBeat> heartbeats = new TreeMap<Patient, HeartBeat>();
+        Map<Patient, HeartBeat> heartbeats = new LinkedHashMap<>();
 
         /*
         * for every patient
@@ -237,7 +210,6 @@ public class MonitoringSystem {
      */
 
     private static void readPatients() throws IOException, ClassNotFoundException {
-
         FileInputStream in = new FileInputStream("datastore");
         ObjectInputStream stream = new ObjectInputStream(in);
         patients = (ArrayList<Patient>) stream.readObject();
@@ -246,5 +218,4 @@ public class MonitoringSystem {
                 patients.remove(p);
         }
     }
-
 }
