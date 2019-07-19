@@ -1,8 +1,14 @@
 package sample.gui;
 
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import sample.Datastore;
 
+import java.util.Map;
 import java.util.Optional;
 
 public final class GUI {
@@ -29,4 +35,19 @@ public final class GUI {
             return false;
         }
     }
+
+    //closing event of patientListController
+    static EventHandler<WindowEvent> confirmCloseEventHandler = event -> {
+        Datastore.allLoaders.remove("patientslist");
+        if (GUI.showPrompt("Sei Sicuro?", "Vuoi effettuare il LogOut prima di chiudere la finestra?")){
+            //yes
+            for (Map.Entry<String, FXMLLoader> node : Datastore.allLoaders.entrySet()){
+                if (node.getKey().contains("patientPage")){
+                    GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Chiudi tutte le pagine relative ai pazienti prima");
+                    event.consume();
+                }
+            }
+            Datastore.setActiveUser(null);
+        }
+    };
 }

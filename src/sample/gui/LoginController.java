@@ -52,7 +52,7 @@ public class LoginController {
             stage = new Stage();
             stage.setTitle("Lista Pazienti");
             stage.setScene(new Scene(root1));
-            stage.setOnCloseRequest(confirmCloseEventHandler);
+            stage.setOnCloseRequest(GUI.confirmCloseEventHandler);
             stage.show();
             Datastore.allLoaders.put("patientslist", fxmlLoader);
         }
@@ -81,20 +81,5 @@ public class LoginController {
         Datastore.addUser(doc);
         Datastore.addUser(nurse);
     }
-
-    //closing event of patientListController
-    private EventHandler<WindowEvent> confirmCloseEventHandler = event -> {
-        Stage mainStage = (Stage)event.getTarget();
-        if (GUI.showPrompt("Sei Sicuro?", "Vuoi effettuare il LogOut prima di chiudere la finestra?")){
-            //yes
-            for (Map.Entry<String, FXMLLoader> node : Datastore.allLoaders.entrySet()){
-                if (node.getKey().contains("patientPage")){
-                    GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Chiudi tutte le pagine relative ai pazienti prima");
-                    event.consume();
-                }
-            }
-            Datastore.setActiveUser(null);
-        }
-    };
 }
 

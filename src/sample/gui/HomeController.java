@@ -37,24 +37,29 @@ public class HomeController implements Initializable {
 
     @FXML
     void handleLogin(ActionEvent event) {
-        String fxml;
-        if (Datastore.getActiveUser() == null){
-            fxml = "login.fxml";
-        } else {
-            fxml = "patientList.fxml";
-        }
+        if (!Datastore.checkWindowOpen("patientslist")){
+            String fxml;
+            if (Datastore.getActiveUser() == null){
+                fxml = "login.fxml";
+            } else {
+                fxml = "patientList.fxml";
+            }
 
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
-            Parent root1 = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Login");
-            stage.setScene(new Scene(root1));
-            stage.show();
-        }
-        catch (IOException e){
-            GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Impossibile eseguire login");
-            handleQuit();
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
+                Parent root1 = fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Login");
+                stage.setScene(new Scene(root1));
+                if (fxml == "patientList.fxml") stage.setOnCloseRequest(GUI.confirmCloseEventHandler);
+                stage.show();
+            }
+            catch (IOException e){
+                GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Impossibile eseguire login");
+                handleQuit();
+            }
+        } else {
+            GUI.showDialog(AlertType.WARNING, "Login", "Chiudere le finestre esistenti");
         }
     }
 
