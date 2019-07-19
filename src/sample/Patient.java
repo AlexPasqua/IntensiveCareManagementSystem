@@ -94,7 +94,10 @@ public class Patient implements Serializable {
 
     @Override
     public String toString() {
-        return "Patient [cod=" + cod + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate.toString() + ", birthTown=" + birthTown + ", diagnosis=" + diagnosis + ",prescription=" + prescriptions.toString() + ", administrations=" + administrations.toString() + ", heartBeats=" + heartBeats.toString() + ", temperatures=" + temperatures.toString() + ", pressures=" + pressures.toString() + "]";
+        return "Patient [cod=" + cod + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate.toString() + ", birthTown=" +
+                birthTown + ", diagnosis=" + diagnosis + ", hospitalized=" + hospitalized + ", dischargeLetter=" + dischargeLetter + ", prescription=" +
+                prescriptions.toString() + ", administrations=" + administrations.toString() + ", heartBeats=" + heartBeats.toString() + ", temperatures=" +
+                temperatures.toString() + ", pressures=" + pressures.toString() + "]";
     }
 
     /*

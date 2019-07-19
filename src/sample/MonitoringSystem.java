@@ -213,9 +213,11 @@ public class MonitoringSystem {
         FileInputStream in = new FileInputStream("datastore");
         ObjectInputStream stream = new ObjectInputStream(in);
         patients = (ArrayList<Patient>) stream.readObject();
+        ArrayList<Patient> toRemovePatients = new ArrayList<>();
         for (Patient p: patients){
             if (!p.getHospitalization())
-                patients.remove(p);
+                toRemovePatients.add(p);
         }
+        patients.removeAll(toRemovePatients);
     }
 }

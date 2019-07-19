@@ -129,6 +129,7 @@ public class AlertController implements Initializable {
                 currentPatient.setDischargeLetter("Paziente Deceduto per Allarme di Gravità " + severity);
                 currentPatient.setHospitalization(false);
                 Datastore.write();
+                System.out.println(currentPatient.toString());
                 //updating all other windows
                 for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
                     switch (entry.getKey()){
