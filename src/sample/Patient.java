@@ -89,7 +89,7 @@ public class Patient implements Serializable {
     public boolean equals(Object other){
         return (other instanceof Patient) && (cod.equals(((Patient)other).cod)) && (name.equals(((Patient)other).name)) &&
                 (surname.equals(((Patient)other).surname)) && (birthDate.equals(((Patient)other).birthDate)) &&
-                (birthTown.equals(((Patient)other).birthTown));
+                (birthTown.equals(((Patient)other).birthTown)) && (hospitalized == ((Patient)other).hospitalized);
     }
 
     @Override

@@ -18,6 +18,7 @@ public class Datastore {
     //write on file patients array
     public static void write() {
         try {
+            System.out.println("Writing: " + patients);
             FileOutputStream out = new FileOutputStream("datastore");
             ObjectOutputStream stream = new ObjectOutputStream(out);
             stream.writeObject(patients);

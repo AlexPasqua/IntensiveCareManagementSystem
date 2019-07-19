@@ -126,10 +126,7 @@ public class AlertController implements Initializable {
                 vboxDead.setStyle("visibility: true");
 
                 //set patient
-                currentPatient.setDischargeLetter("Paziente Deceduto per Allarme di Gravità " + severity);
-                currentPatient.setHospitalization(false);
-                Datastore.write();
-                System.out.println(currentPatient.toString());
+                setPatientDead(currentPatient, severity);
                 //updating all other windows
                 for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
                     switch (entry.getKey()){
@@ -206,5 +203,16 @@ public class AlertController implements Initializable {
             if (!logged)
                 GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Credenziali Errate\nNB: Solo Medici e Primari possono disabilitare l'allarme");
         });
+    }
+
+    public static void setPatientDead(Patient currentPatient, int severity){
+        //Cerco l'oggetto di Datastore perchè currentPatient è una copia dovuta alla lettura dell'RMI
+        for (Patient patient : Datastore.getPatients()){
+            if (patient.equals(currentPatient)){
+                patient.setDischargeLetter("Paziente Deceduto per Allarme di Gravità " + severity);
+                patient.setHospitalization(false);
+                Datastore.write();
+            }
+        }
     }
 }

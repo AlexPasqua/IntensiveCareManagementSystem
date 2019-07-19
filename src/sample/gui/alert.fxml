@@ -68,7 +68,7 @@
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Button fx:id="handleClose" mnemonicParsing="false" text="Chiudi" />
+                  <Button mnemonicParsing="false" onAction="#handleClose" text="Chiudi" />
                </children>
             </VBox>
       </children>
