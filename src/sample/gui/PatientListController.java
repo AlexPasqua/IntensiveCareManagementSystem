@@ -24,6 +24,8 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import sample.Datastore;
 import sample.Patient;
+import sample.UserType;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ import java.util.ResourceBundle;
 public class PatientListController implements Initializable {
     @FXML private GridPane gridPatients;
     @FXML private Label labelHi;
+    @FXML private Button buttonAddUser;
 
     @FXML
     void handleAddPatient(ActionEvent event) {
@@ -53,7 +56,6 @@ public class PatientListController implements Initializable {
         stage.initOwner(thiswindow);
         stage.setScene(new Scene(root1));
         stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
-        Datastore.allLoaders.put("addPatient", fxmlLoader);
         stage.show();
     }
 
@@ -122,13 +124,31 @@ public class PatientListController implements Initializable {
 
     @FXML
     private void handleAddUser(ActionEvent event){
-        //TODO: implementa
+        FXMLLoader fxmlLoader = null;
+        Parent root1 = null;
+        try {
+            fxmlLoader = new FXMLLoader(getClass().getResource("addUser.fxml"));
+            root1 = fxmlLoader.load();
+        } catch(IOException e) {
+            GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aggiungere nuovi utenti");
+        }
+
+        Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
+        Stage stage = new Stage();
+        stage.setTitle("Aggiungi Utente");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(thiswindow);
+        stage.setScene(new Scene(root1));
+        stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+        stage.show();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateList();
         labelHi.setText("Ciao, " + Datastore.getActiveUser().getCompleteName());
+        if (Datastore.getActiveUser().getUserType() != UserType.CHIEFDOCTOR)
+            buttonAddUser.setDisable(true);
     }
 
     public void loadList(){

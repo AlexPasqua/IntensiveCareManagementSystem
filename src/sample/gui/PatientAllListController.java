@@ -60,7 +60,7 @@ public class PatientAllListController implements Initializable {
         for (Patient patient: patientsList.getItems()){
             if (patient.getFullName().contains(text) || patient.getCodFis().contains(text)){
                 found = true;
-                //TODO; finisci
+                //TODO: finisci
             }
         }
     }

@@ -26,7 +26,8 @@ public class LoginController {
         if (Datastore.getUsers().isEmpty())
             createDemoUsers();
 
-        for (sample.User current: Datastore.getUsers()) {
+        for (User current: Datastore.getUsers()) {
+            System.out.println(current);
             if (current.isValid(user.getText(), password.getText())) {
                 Datastore.setActiveUser(current);
                 break;
@@ -37,13 +38,12 @@ public class LoginController {
                 Datastore.setActiveUser(dc);
                 System.out.println("Using temp chiefdoctor");
                 break;
-            } else {
-                //lancio errore
-                GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Utente Errato!");
-                return;
             }
         }
-
+        if (Datastore.getActiveUser() == null){
+            GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Utente Errato!");
+            return;
+        }
         // lancio finestra della lista dei pazienti
         Stage stage;
         try {

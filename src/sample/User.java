@@ -19,7 +19,7 @@ public class User implements Serializable {
     }
 
     public boolean isValid(String username, String password){
-        return username.equals(this.username) && password.equals(this.password);
+        return (username.equals(this.username) && password.equals(this.password));
     }
 
     public UserType getUserType(){

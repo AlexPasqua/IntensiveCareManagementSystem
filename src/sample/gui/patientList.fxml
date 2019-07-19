@@ -15,7 +15,7 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="807.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button layoutX="155.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddUser" prefHeight="26.0" prefWidth="132.0" text="Aggiungi Utente" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+            <Button fx:id="buttonAddUser" layoutX="155.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddUser" prefHeight="26.0" prefWidth="132.0" text="Aggiungi Utente" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
             <Button layoutX="152.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="26.0" prefWidth="132.0" text="Log Out" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="14.0" />
             <Label fx:id="labelHi" alignment="CENTER" layoutX="295.0" layoutY="16.0" prefHeight="22.0" prefWidth="276.0" text="Ciao, %user%">
                <font>
