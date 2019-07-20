@@ -35,20 +35,27 @@ public class Datastore {
     //read from file patients array
     @SuppressWarnings("unchecked")
     public static void read() {
-        try {
-            FileInputStream in = new FileInputStream("datastore");
-            ObjectInputStream stream = new ObjectInputStream(in);
-            patients = (ArrayList<Patient>) stream.readObject();
-            users = (ArrayList<User>) stream.readObject();
-            availMeds = (ArrayList<String>) stream.readObject();
-            System.out.println("Data Loaded!");
-            System.out.println(patients.toString());
-            System.out.println(users.toString());
-            System.out.println(availMeds.toString());
+        File datastore = new File("datastore");
+        if (datastore.exists()){
+            try {
+                FileInputStream in = new FileInputStream("datastore");
+                ObjectInputStream stream = new ObjectInputStream(in);
+                patients = (ArrayList<Patient>) stream.readObject();
+                users = (ArrayList<User>) stream.readObject();
+                availMeds = (ArrayList<String>) stream.readObject();
+                System.out.println("Data Loaded!");
+                System.out.println(patients.toString());
+                System.out.println(users.toString());
+                System.out.println(availMeds.toString());
+            }
+            catch (IOException | ClassNotFoundException e) {
+                System.out.println("An exception occurred in Datastore.read()=" + e.toString());
+            }
+        } else {
+            //non esiste datastore, ne creo uno vuoto
+            write();
         }
-        catch (IOException | ClassNotFoundException e) {
-            System.out.println("An exception occurred in Datastore.read()=" + e.toString());
-        }
+
     }
 
     //return active user
