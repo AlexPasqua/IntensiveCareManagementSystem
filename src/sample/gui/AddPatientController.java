@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 import sample.Datastore;
 import sample.Patient;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 
 public class AddPatientController {
     @FXML private TextField textboxCod;
@@ -30,6 +33,11 @@ public class AddPatientController {
 
         if (textboxSurname.getText().isEmpty() || textboxName.getText().isEmpty() || textboxBirthTown.getText().isEmpty() || textboxBirthDate.getValue() == null){
             GUI.showDialog(Alert.AlertType.WARNING, "Warning", "Tutti i campi sono obbligatori");
+            return;
+        }
+
+        if (textboxBirthDate.getValue().isAfter(LocalDate.now(ZoneId.systemDefault()))) {
+            GUI.showDialog(Alert.AlertType.WARNING, "Warning", "La data di nascita del paziente non può essere nel futuro");
             return;
         }
 

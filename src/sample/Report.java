@@ -214,6 +214,7 @@ public class Report {
         String textdate = formatter.format(parsedDate);
         return textdate;
     }
+
     private LocalDate dateToLocalDate(Date date){
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
