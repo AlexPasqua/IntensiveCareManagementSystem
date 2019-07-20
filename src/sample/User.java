@@ -27,7 +27,9 @@ public class User implements Serializable {
     }
 
     public String getCompleteName(){
-        return ("Dr." + this.surname + " " + this.name);
+        if (type == UserType.CHIEFDOCTOR || type == UserType.DOCTOR)
+            return ("Dr." + this.surname + " " + this.name);
+        return ("Inf." + this.surname + " " + this.name);
     }
 
     @Override
