@@ -90,7 +90,6 @@ public class AlertController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         animation = new Transition() {
-
             {
                 setCycleDuration(Duration.millis(1000));
                 setInterpolator(Interpolator.EASE_IN);
@@ -193,6 +192,7 @@ public class AlertController implements Initializable {
                 if (user.getUserType() == UserType.CHIEFDOCTOR || user.getUserType() == UserType.DOCTOR){
                     if (user.isValid(usernamePassword.getKey(), usernamePassword.getValue())) {
                         //close
+                        clip.stop();
                         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
                         stage.close();
                         logged = true;
