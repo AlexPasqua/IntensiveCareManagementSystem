@@ -100,11 +100,11 @@ public class MonitoringSystem {
         for (Patient p: patients){
             if (!patientIndex.containsKey(p)){
                 int rand_indx = ThreadLocalRandom.current().nextInt(0,  2000 + 1);
-                int rand_array[] = {rand_indx, rand_indx, rand_indx};
+                int[] rand_array = {rand_indx, rand_indx, rand_indx};
                 patientIndex.put(p, rand_array);
             }
 
-            int indx[] = patientIndex.get(p);
+            int[] indx = patientIndex.get(p);
 
             heartbeats.put(p, new HeartBeat(openHeartBeats.get(indx[0])));
 
@@ -133,7 +133,7 @@ public class MonitoringSystem {
                 patientIndex.put(p, rand_array);
             }
 
-            int indx[] = patientIndex.get(p);
+            int[] indx = patientIndex.get(p);
 
             temperatures.put(p, new Temperature(openTemps.get(indx[1])));
 
@@ -156,11 +156,11 @@ public class MonitoringSystem {
         for (Patient p: patients){
             if (!patientIndex.containsKey(p)){
                 int rand_indx = ThreadLocalRandom.current().nextInt(0,  2000 + 1);
-                int rand_array[] = {rand_indx, rand_indx, rand_indx};
+                int[] rand_array = {rand_indx, rand_indx, rand_indx};
                 patientIndex.put(p, rand_array);
             }
 
-            int indx[] = patientIndex.get(p);
+            int[] indx = patientIndex.get(p);
 
             pressures.put(p, new Pressure(openPressures.get(indx[2])[0], openPressures.get(indx[2])[1]));
 

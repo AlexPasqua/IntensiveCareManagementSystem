@@ -42,7 +42,6 @@ public class Main extends Application{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void start(Stage primaryStage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui/home.fxml"));
