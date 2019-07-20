@@ -23,7 +23,7 @@
   <children>
     <MenuBar VBox.vgrow="NEVER">
          <menus>
-            <Menu mnemonicParsing="false" text="File">
+            <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleGenerateRand" text="Generate Random Data" />
                   <MenuItem mnemonicParsing="false" onAction="#handleClearClinicalData" text="Elimina tutti dati clinici" />
