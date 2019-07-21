@@ -34,6 +34,7 @@ public class AlertController implements Initializable {
     private Date endTimer;
     private Animation animation;
     private Clip clip;
+    private Timeline timeline;
 
     @FXML private Label labelPatientName;
     @FXML private Label labelPatientName1;
@@ -56,6 +57,7 @@ public class AlertController implements Initializable {
 
     @FXML
     void handleClose(ActionEvent event){
+        timeline.stop();
         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         stage.close();
     }
@@ -109,7 +111,7 @@ public class AlertController implements Initializable {
 
 
     public void updateTimer() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
             if((new Date()).before(endTimer)){
                 long diffInMilliSec =  endTimer.getTime() - (new Date()).getTime();
                 String secs = String.format("%02d",  (diffInMilliSec / 1000) % 60);
@@ -173,7 +175,6 @@ public class AlertController implements Initializable {
         grid.add(new Label("Password:"), 0, 1);
         grid.add(password, 1, 1);
 
-        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
         dialog.getDialogPane().setContent(grid);
 
         // Convert the result to a username-password-pair when the login button is clicked.
@@ -193,6 +194,7 @@ public class AlertController implements Initializable {
                     if (user.isValid(usernamePassword.getKey(), usernamePassword.getValue())) {
                         //close
                         clip.stop();
+                        timeline.stop();
                         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
                         stage.close();
                         logged = true;

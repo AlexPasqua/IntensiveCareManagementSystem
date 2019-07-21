@@ -32,13 +32,6 @@ public class LoginController {
                 Datastore.setActiveUser(current);
                 break;
             }
-            //TODO togli
-            else if(user.getText().isEmpty() && password.getText().isEmpty()) {
-                User dc = new User("Admin", "Admin", "admin", "admin", UserType.CHIEFDOCTOR);
-                Datastore.setActiveUser(dc);
-                System.out.println("Using temp chiefdoctor");
-                break;
-            }
         }
         if (Datastore.getActiveUser() == null){
             GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Utente Errato!");
