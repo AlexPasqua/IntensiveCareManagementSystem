@@ -31,5 +31,18 @@ public class RMIimplements implements RMIinterface {
     public void alarm(Patient patient, String event, int severity) {
         HomeController controller = Datastore.allLoaders.get("dashboard").getController();
         controller.runAlarmLater(patient, event, severity);
+
+        //simulo dati
+        switch (event){
+            case "Ipertermia":{
+                patient.addTemperature(new Temperature(40));
+                break;
+            }
+            case "Ipotermia":{
+                patient.addTemperature(new Temperature(34));
+                break;
+            }
+        }
+        Datastore.write();
     }
 }

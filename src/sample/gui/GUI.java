@@ -46,13 +46,15 @@ public final class GUI {
         Datastore.allLoaders.remove("patientslist");
         if (GUI.showPrompt("Sei Sicuro?", "Vuoi effettuare il LogOut prima di chiudere la finestra?")){
             //yes
+            boolean found = false;
             for (Map.Entry<String, FXMLLoader> node : Datastore.allLoaders.entrySet()){
                 if (node.getKey().contains("patientPage")){
                     GUI.showDialog(Alert.AlertType.ERROR, "Login error", "Chiudi tutte le pagine relative ai pazienti prima");
+                    found = true;
                     event.consume();
                 }
             }
-            Datastore.setActiveUser(null);
+            if (!found) Datastore.setActiveUser(null);
         }
     };
 }

@@ -27,16 +27,8 @@ public class LoginController {
             createDemoUsers();
 
         for (User current: Datastore.getUsers()) {
-            System.out.println(current);
             if (current.isValid(user.getText(), password.getText())) {
                 Datastore.setActiveUser(current);
-                break;
-            }
-            //TODO togli
-            else if(user.getText().isEmpty() && password.getText().isEmpty()) {
-                User dc = new User("Admin", "Admin", "admin", "admin", UserType.CHIEFDOCTOR);
-                Datastore.setActiveUser(dc);
-                System.out.println("Using temp chiefdoctor");
                 break;
             }
         }

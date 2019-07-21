@@ -11,9 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,6 +47,7 @@ public class PatientPageController implements Initializable {
     @FXML private GridPane gridCharts;
     @FXML private Label labelLetter;
     @FXML private VBox vboxDischarged;
+    @FXML private Menu menuFile;
 
     @FXML
     void handleAdministrationsList(ActionEvent event) {
@@ -282,6 +281,7 @@ public class PatientPageController implements Initializable {
         vboxDischarged.setVisible(true);
         buttonDiagnosis.setDisable(true);
         buttonDischarge.setDisable(true);
+        menuFile.setDisable(true);
         labelLetter.setText(currentPatient.getDischargeLetter());
     }
     /*
