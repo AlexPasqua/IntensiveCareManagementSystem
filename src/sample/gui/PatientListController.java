@@ -118,6 +118,7 @@ public class PatientListController implements Initializable {
         Datastore.setActiveUser(null);
 
         //chiudo login
+        Datastore.allLoaders.remove("patientslist");
         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         stage.close();
     }

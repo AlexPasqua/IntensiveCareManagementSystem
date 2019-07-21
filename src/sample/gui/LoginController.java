@@ -27,7 +27,6 @@ public class LoginController {
             createDemoUsers();
 
         for (User current: Datastore.getUsers()) {
-            System.out.println(current);
             if (current.isValid(user.getText(), password.getText())) {
                 Datastore.setActiveUser(current);
                 break;
