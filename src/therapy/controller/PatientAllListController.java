@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -117,6 +118,7 @@ public class PatientAllListController implements Initializable {
                 stage.setOnCloseRequest((WindowEvent event1) -> {
                     Datastore.allLoaders.remove("patientPage" + patient.getCodFis());
                 });
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
                 stage.show();
             } catch (IOException e) {
                 GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente non è possibile aprire la pagina del paziente");

@@ -54,6 +54,7 @@ public class PatientListController implements Initializable {
         stage.initOwner(thiswindow);
         stage.setScene(new Scene(root1));
         stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
         stage.show();
     }
 
@@ -78,6 +79,7 @@ public class PatientListController implements Initializable {
                 stage.setOnCloseRequest((WindowEvent event1) -> {
                     Datastore.allLoaders.remove("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis());
                 });
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
                 stage.show();
             }
             catch(IOException e){
@@ -98,6 +100,7 @@ public class PatientListController implements Initializable {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(thiswindow);
             stage.setScene(new Scene(root1));
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
             stage.show();
         }
         catch(IOException e){
@@ -139,6 +142,7 @@ public class PatientListController implements Initializable {
         stage.initOwner(thiswindow);
         stage.setScene(new Scene(root1));
         stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
         stage.show();
     }
 

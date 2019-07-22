@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import therapy.controller.GUI;
 import java.io.IOException;
@@ -48,6 +49,7 @@ public class Main extends Application{
             Parent root = fxmlLoader.load();
             primaryStage.setTitle("Dashboard");
             primaryStage.setScene(new Scene(root, 1000, 500));
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
             primaryStage.show();
             Datastore.allLoaders.put("dashboard", fxmlLoader);
         }

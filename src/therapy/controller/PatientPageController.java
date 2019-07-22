@@ -108,6 +108,7 @@ public class PatientPageController implements Initializable {
             dischargeStage.initOwner(thisWindow);
             dischargeStage.setScene(new Scene(root));
             dischargeStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+            dischargeStage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
             dischargeStage.show();
 
             AddDischargeLetterController controller = fxmlLoader.<AddDischargeLetterController>getController();
@@ -271,6 +272,7 @@ public class PatientPageController implements Initializable {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(thisWindow);
         stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
         stage.show();
 
         return fxmlLoader;
