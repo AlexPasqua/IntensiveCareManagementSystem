@@ -119,7 +119,7 @@ public class PatientPageController implements Initializable {
 
     private void closeWindowEvent(WindowEvent event) {
         if (!this.currentPatient.getDischargeLetter().isEmpty()) {
-            showHospitalizedView();
+            showUnHospitalizedView();
             System.out.println("Patient discharged");
         }
     }
@@ -154,7 +154,7 @@ public class PatientPageController implements Initializable {
         labelBirthTown.setText(currentPatient.getBirthTown());
 
         vboxDischarged.setVisible(false);
-        if (!currentPatient.getHospitalization()) showHospitalizedView();
+        if (!currentPatient.getHospitalization()) showUnHospitalizedView();
         //load charts and update them automaticaly updates charts every x time
         loadCharts();
         updateCharts();
@@ -276,7 +276,7 @@ public class PatientPageController implements Initializable {
         return fxmlLoader;
     }
 
-    private void showHospitalizedView(){
+    private void showUnHospitalizedView(){
         gridCharts.setVisible(false);
         vboxDischarged.setVisible(true);
         buttonDiagnosis.setDisable(true);
