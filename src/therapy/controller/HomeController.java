@@ -1,4 +1,4 @@
-package therapy.gui;
+package therapy.controller;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -40,9 +40,9 @@ public class HomeController implements Initializable {
         if (!Datastore.checkWindowOpen("patientslist")){
             String fxml;
             if (Datastore.getActiveUser() == null){
-                fxml = "login.fxml";
+                fxml = "../gui/login.fxml";
             } else {
-                fxml = "patientList.fxml";
+                fxml = "../gui/patientList.fxml";
             }
 
             try {

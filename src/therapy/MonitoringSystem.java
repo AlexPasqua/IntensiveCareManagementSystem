@@ -1,6 +1,6 @@
 package therapy;
 
-import therapy.gui.GUI;
+import therapy.controller.GUI;
 import java.io.*;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;

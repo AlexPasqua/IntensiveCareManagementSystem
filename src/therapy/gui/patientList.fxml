@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="544.0" prefWidth="864.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="therapy.gui.PatientListController">
+<VBox prefHeight="544.0" prefWidth="864.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="therapy.controller.PatientListController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="807.0" VBox.vgrow="ALWAYS">
          <children>

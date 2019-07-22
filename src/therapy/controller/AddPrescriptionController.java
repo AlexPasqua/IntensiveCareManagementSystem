@@ -1,4 +1,4 @@
-package therapy.gui;
+package therapy.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

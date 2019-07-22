@@ -1,4 +1,4 @@
-package therapy.gui;
+package therapy.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,7 +69,7 @@ public class PatientAllListController implements Initializable {
             GUI.showDialog(Alert.AlertType.WARNING, "Paziente", "La scheramata relativa a questo paziente è già aperta");
         } else {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientPage.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/patientPage.fxml"));
                 Parent root1 = fxmlLoader.load();
                 PatientPageController controller = fxmlLoader.<PatientPageController>getController();
                 controller.loadPatient(patient);
