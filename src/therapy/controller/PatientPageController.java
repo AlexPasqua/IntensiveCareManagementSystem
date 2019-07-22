@@ -286,20 +286,6 @@ public class PatientPageController implements Initializable {
         menuFile.setDisable(true);
         labelLetter.setText(currentPatient.getDischargeLetter());
     }
-    /*
-    private void removeOld(LineChart chart){
-        XYChart.Series<String, Number> currentSeries = (XYChart.Series<String, Number>) chart.getData().get(0);
-        try{
-            Date first = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(currentSeries.getData().get(0).getXValue());
-            if (first.before(new Date(System.currentTimeMillis() - 7200 * 1000))){
-                currentSeries.getData().remove(0);
-                System.out.println("Removed firse");
-                removeOld(chart);
-            }
-        } catch (Exception e) { System.out.println(e.getMessage());}
-
-    }
-    */ //TODO cancellare se dopo controllo ottimizzazione non serve più
 
     public void updateCharts() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {

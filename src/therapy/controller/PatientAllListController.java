@@ -48,37 +48,27 @@ public class PatientAllListController implements Initializable {
             patientsList.getSelectionModel().selectFirst();
         }
 
-        // 1. Wrap the ObservableList in a FilteredList (initially display all data).
         ObservableList<Patient> obpatients = FXCollections.observableArrayList(patients);
         FilteredList<Patient> filteredData = new FilteredList<>(obpatients, p -> true);
 
-        // 2. Set the filter Predicate whenever the filter changes.
         textSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(person -> {
-                // If filter text is empty, display all persons.
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-
-                // Compare first name and last name of every person with filter text.
                 String lowerCaseFilter = newValue.toLowerCase();
-
                 if (person.getFullName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
+                    return true;
                 } else if (person.getCodFis().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches last name.
+                    return true;
                 }
-                return false; // Does not match.
+                return false;
             });
         });
 
-        // 3. Wrap the FilteredList in a SortedList.
+
         SortedList<Patient> sortedData = new SortedList<>(filteredData);
-
-        // 4. Bind the SortedList comparator to the TableView comparator.
         sortedData.comparatorProperty().bind(patientsList.comparatorProperty());
-
-        // 5. Add sorted (and filtered) data to the table.
         patientsList.setItems(sortedData);
     }
 
@@ -86,18 +76,6 @@ public class PatientAllListController implements Initializable {
     void handleClick(MouseEvent event) {
         if (event.getClickCount() == 2 ){
              openPatient(patientsList.getSelectionModel().getSelectedItem());
-        }
-    }
-
-    @FXML
-    private void handleSearch(){
-        String text = textSearch.getText();
-        Boolean found = false;
-        for (Patient patient: patientsList.getItems()){
-            if (patient.getFullName().contains(text) || patient.getCodFis().contains(text)){
-                found = true;
-                //TODO: finisci
-            }
         }
     }
 

@@ -105,6 +105,7 @@ public class PatientListController implements Initializable {
         }
         catch(IOException e){
             GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente non è possibile mostrare tutti i pazienti");
+            e.printStackTrace();
         }
     }
 

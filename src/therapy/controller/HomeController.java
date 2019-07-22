@@ -206,7 +206,7 @@ public class HomeController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override public void run() {
                 try{
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/alert.fxml"));
                     Parent root1 = fxmlLoader.load();
                     Stage stage = new Stage();
                     stage.setTitle("ALLARME");
