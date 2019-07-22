@@ -1,4 +1,4 @@
-package therapy.gui;
+package therapy.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +37,7 @@ public class ReportAskDatesController {
         }
 
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportPage.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/reportPage.fxml"));
             Parent root1 = fxmlLoader.load();
 
             Stage stage = new Stage();

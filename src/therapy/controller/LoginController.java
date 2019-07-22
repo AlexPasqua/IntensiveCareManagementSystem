@@ -1,4 +1,4 @@
-package therapy.gui;
+package therapy.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +35,7 @@ public class LoginController {
         // lancio finestra della lista dei pazienti
         Stage stage;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientList.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/patientList.fxml"));
             Parent root1 = fxmlLoader.load();
             stage = new Stage();
             stage.setTitle("Lista Pazienti");

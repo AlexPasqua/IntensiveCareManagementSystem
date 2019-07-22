@@ -1,4 +1,4 @@
-package therapy.gui;
+package therapy.controller;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -41,7 +41,7 @@ public class PatientListController implements Initializable {
         FXMLLoader fxmlLoader = null;
         Parent root1 = null;
         try {
-            fxmlLoader = new FXMLLoader(getClass().getResource("addPatient.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("../gui/addPatient.fxml"));
             root1 = fxmlLoader.load();
         } catch(IOException e) {
             GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aggiungere nuovi pazienti");
@@ -66,7 +66,7 @@ public class PatientListController implements Initializable {
             GUI.showDialog(Alert.AlertType.WARNING, "Paziente", "La scheramata relativa a questo paziente è già aperta");
         } else {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientPage.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/patientPage.fxml"));
                 Parent root1 = fxmlLoader.load();
                 PatientPageController controller = fxmlLoader.<PatientPageController>getController();
                 controller.loadPatient(Integer.parseInt(patientId));
@@ -90,7 +90,7 @@ public class PatientListController implements Initializable {
     @FXML
     void handleAllPatients(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patientAllList.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/patientAllList.fxml"));
             Parent root1 = fxmlLoader.load();
             Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
             Stage stage = new Stage();
@@ -126,7 +126,7 @@ public class PatientListController implements Initializable {
         FXMLLoader fxmlLoader = null;
         Parent root1 = null;
         try {
-            fxmlLoader = new FXMLLoader(getClass().getResource("addUser.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("../gui/addUser.fxml"));
             root1 = fxmlLoader.load();
         } catch(IOException e) {
             GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aggiungere nuovi utenti");

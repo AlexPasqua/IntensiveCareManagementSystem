@@ -1,4 +1,4 @@
-package therapy.gui;
+package therapy.controller;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -52,7 +52,7 @@ public class PatientPageController implements Initializable {
     @FXML
     void handleAdministrationsList(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = openPopupWindow("Lista Somministrazioni", "administrationsList.fxml", event);
+            FXMLLoader fxmlLoader = openPopupWindow("Lista Somministrazioni", "../gui/administrationsList.fxml", event);
             AdministrationsListController controller = fxmlLoader.<AdministrationsListController>getController();
             controller.setCurrentPatient(currentPatient);
         } catch (IOException e) {
@@ -63,7 +63,7 @@ public class PatientPageController implements Initializable {
     @FXML
     void handleAddDiagnosis(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Diagnosi", "addDiagnosis.fxml", event);
+            FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Diagnosi", "../gui/addDiagnosis.fxml", event);
             AddDiagnosisController controller = fxmlLoader.<AddDiagnosisController>getController();
             controller.setCurrentPatient(currentPatient);
         } catch (IOException e) {
@@ -74,7 +74,7 @@ public class PatientPageController implements Initializable {
     @FXML
     void handlePrescriptionsList(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = openPopupWindow("Lista Prescrizioni", "prescriptionList.fxml", event);
+            FXMLLoader fxmlLoader = openPopupWindow("Lista Prescrizioni", "../gui/prescriptionList.fxml", event);
             PrescriptionListController controller = fxmlLoader.<PrescriptionListController>getController();
             controller.setCurrentPatient(currentPatient);
         } catch(IOException e) {
@@ -85,7 +85,7 @@ public class PatientPageController implements Initializable {
     @FXML
     void handleGenerateReport(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = openPopupWindow("Genera Report", "reportAskDates.fxml", event);
+            FXMLLoader fxmlLoader = openPopupWindow("Genera Report", "../gui/reportAskDates.fxml", event);
             Window thiswindow = ((Node)event.getTarget()).getScene().getWindow();
             ReportAskDatesController controller = fxmlLoader.getController();
             controller.setCurrentPatient(currentPatient, thiswindow);
@@ -97,7 +97,7 @@ public class PatientPageController implements Initializable {
     @FXML
     void handleDischarge(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addDischargeLetter.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/addDischargeLetter.fxml"));
             Parent root = fxmlLoader.load();
             Window thisWindow = ((Node) event.getTarget()).getScene().getWindow();
             thisStage = (Stage) ((Node) event.getTarget()).getScene().getWindow();

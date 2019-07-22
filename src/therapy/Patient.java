@@ -2,8 +2,8 @@ package therapy;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
-import therapy.gui.GUI;
-import therapy.gui.HomeController;
+import therapy.controller.GUI;
+import therapy.controller.HomeController;
 
 import java.io.*;
 import java.time.LocalDate;

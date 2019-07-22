@@ -1,4 +1,4 @@
-package therapy.gui;
+package therapy.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,7 +36,7 @@ public class AdministrationsListController {
     @FXML
     void handleNewAdministration(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Somministrazione", "addAdministration.fxml", event);
+            FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Somministrazione", "../gui/addAdministration.fxml", event);
             AddAdministrationController controller = fxmlLoader.<AddAdministrationController>getController();
             controller.setCurrentPatient(currentPatient);
         }

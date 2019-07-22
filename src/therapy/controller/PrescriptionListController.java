@@ -1,4 +1,4 @@
-package therapy.gui;
+package therapy.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +37,7 @@ public class PrescriptionListController {
     @FXML
     void handleNewPrescription(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Prescrizione", "addPrescription.fxml", event);
+            FXMLLoader fxmlLoader = openPopupWindow("Aggiungi Prescrizione", "../gui/addPrescription.fxml", event);
             AddPrescriptionController controller = fxmlLoader.<AddPrescriptionController>getController();
             controller.setCurrentPatient(currentPatient);
         } catch (IOException e) {

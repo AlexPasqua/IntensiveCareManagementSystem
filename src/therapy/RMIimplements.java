@@ -1,6 +1,6 @@
 package therapy;
 
-import therapy.gui.HomeController;
+import therapy.controller.HomeController;
 import java.util.Map;
 
 

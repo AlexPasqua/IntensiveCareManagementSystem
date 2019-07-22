@@ -1,4 +1,4 @@
-package therapy.gui;
+package therapy.controller;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
