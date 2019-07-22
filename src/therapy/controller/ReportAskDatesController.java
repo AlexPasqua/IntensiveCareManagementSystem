@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -45,6 +46,7 @@ public class ReportAskDatesController {
             stage.setScene(new Scene(root1));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(parentWindow);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
             stage.show();
 
             Date parsedDateFrom = Date.from(dateFrom.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());

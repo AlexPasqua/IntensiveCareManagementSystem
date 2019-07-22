@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -90,6 +91,7 @@ public class PrescriptionListController {
         stage.initOwner(thiswindow);
         stage.setScene(new Scene(root));
         stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
         stage.show();
 
         return fxmlLoader;

@@ -38,6 +38,11 @@ public class PatientListController implements Initializable {
 
     @FXML
     void handleAddPatient(ActionEvent event) {
+        if (Datastore.getHospitalizedPatients().size() == 10){
+            GUI.showDialog(Alert.AlertType.ERROR, "Aggiungi Paziente", "Hai raggiunto il limite massimo di Pazienti Ricoverati contemporaneamente");
+            return;
+        }
+
         FXMLLoader fxmlLoader = null;
         Parent root1 = null;
         try {
@@ -54,6 +59,7 @@ public class PatientListController implements Initializable {
         stage.initOwner(thiswindow);
         stage.setScene(new Scene(root1));
         stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
         stage.show();
     }
 
@@ -78,6 +84,7 @@ public class PatientListController implements Initializable {
                 stage.setOnCloseRequest((WindowEvent event1) -> {
                     Datastore.allLoaders.remove("patientPage" + Datastore.getPatients().get(Integer.parseInt(patientId)).getCodFis());
                 });
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
                 stage.show();
             }
             catch(IOException e){
@@ -98,10 +105,12 @@ public class PatientListController implements Initializable {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(thiswindow);
             stage.setScene(new Scene(root1));
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
             stage.show();
         }
         catch(IOException e){
             GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente non è possibile mostrare tutti i pazienti");
+            e.printStackTrace();
         }
     }
 
@@ -139,6 +148,7 @@ public class PatientListController implements Initializable {
         stage.initOwner(thiswindow);
         stage.setScene(new Scene(root1));
         stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_HIDDEN, this::closeWindowEvent);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
         stage.show();
     }
 
