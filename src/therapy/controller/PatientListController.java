@@ -38,6 +38,11 @@ public class PatientListController implements Initializable {
 
     @FXML
     void handleAddPatient(ActionEvent event) {
+        if (Datastore.getHospitalizedPatients().size() == 10){
+            GUI.showDialog(Alert.AlertType.ERROR, "Aggiungi Paziente", "Hai raggiunto il limite massimo di Pazienti Ricoverati contemporaneamente");
+            return;
+        }
+
         FXMLLoader fxmlLoader = null;
         Parent root1 = null;
         try {
