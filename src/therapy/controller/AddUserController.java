@@ -31,6 +31,11 @@ public class AddUserController implements Initializable {
             return;
         }
 
+        if (!Datastore.checkUsername(textboxUsername.getText())){
+            GUI.showDialog(Alert.AlertType.WARNING, "Warning", "Username già esistente");
+            return;
+        }
+
         UserType power = null;
         switch (comboPower.getValue()){
             case "Medico":{

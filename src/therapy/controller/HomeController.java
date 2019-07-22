@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -52,6 +53,7 @@ public class HomeController implements Initializable {
                 stage.setTitle("Login");
                 stage.setScene(new Scene(root1));
                 if (fxml == "patientList.fxml") stage.setOnCloseRequest(GUI.confirmCloseEventHandler);
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
                 stage.show();
             }
             catch (IOException e){
@@ -204,12 +206,13 @@ public class HomeController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override public void run() {
                 try{
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/alert.fxml"));
                     Parent root1 = fxmlLoader.load();
                     Stage stage = new Stage();
                     stage.setTitle("ALLARME");
                     stage.setScene(new Scene(root1));
                     stage.initModality(Modality.WINDOW_MODAL);
+                    stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
                     stage.show();
                     stage.setFullScreenExitHint("");
                     stage.setFullScreen(true);

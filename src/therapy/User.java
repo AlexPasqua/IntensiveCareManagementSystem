@@ -32,6 +32,13 @@ public class User implements Serializable {
         return ("Inf." + this.surname + " " + this.name);
     }
 
+    public boolean compareUsername(String username){
+        username = username.trim().toLowerCase();
+        if (username.equals(this.username.trim().toLowerCase()))
+            return true;
+        return false;
+    }
+
     @Override
     public String toString(){
         return getClass().getSimpleName()+" [name=" + name + ", surname=" + surname + ", username=" + username + ", password=" + password + ", type=" + type + "]";

@@ -203,7 +203,7 @@ public class MonitoringSystem {
     //allarm generation
     private static void generateAlarm(){
 
-        if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 1 == 0){
+        if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 3 == 0){
             if (!isThereAlarm()) {
                 System.out.println("Invoking Alarm...");
                 int rand_number = ThreadLocalRandom.current().nextInt(0, alarms.keySet().size());

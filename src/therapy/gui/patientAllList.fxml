@@ -36,7 +36,7 @@
                   </TableView>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="textSearch" layoutX="451.0" layoutY="11.0" onKeyTyped="#handleSearch" prefHeight="26.0" prefWidth="181.0" promptText="Cerca..." AnchorPane.rightAnchor="7.399999999999977" AnchorPane.topAnchor="11.0" />
+                        <TextField fx:id="textSearch" layoutX="451.0" layoutY="11.0"  prefHeight="26.0" prefWidth="181.0" promptText="Cerca..." AnchorPane.rightAnchor="7.399999999999977" AnchorPane.topAnchor="11.0" />
                      </children>
                   </AnchorPane>
                </children>

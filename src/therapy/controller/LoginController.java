@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import therapy.*;
 import java.io.IOException;
@@ -41,6 +42,7 @@ public class LoginController {
             stage.setTitle("Lista Pazienti");
             stage.setScene(new Scene(root1));
             stage.setOnCloseRequest(GUI.confirmCloseEventHandler);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
             stage.show();
             Datastore.allLoaders.put("patientslist", fxmlLoader);
         }

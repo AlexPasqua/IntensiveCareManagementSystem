@@ -17,7 +17,6 @@ public class Datastore {
     //write on file patients array
     public static void write() {
         try {
-            System.out.println("Writing: " + patients);
             FileOutputStream out = new FileOutputStream("datastore");
             ObjectOutputStream stream = new ObjectOutputStream(out);
             stream.writeObject(patients);
@@ -112,15 +111,11 @@ public class Datastore {
         return false;
     }
 
-    //get logged user power
-    /*public static UserType getActivePower(){
-        if (activeUser.getClass().getSimpleName().equals("Nurse"))
-            return UserType.NURSE;
-        else if (activeUser.getClass().getSimpleName().equals("Doctor"))
-            return UserType.DOCTOR;
-        else if (activeUser.getClass().getSimpleName().equals("ChiefDoctor"))
-            return UserType.CHIEFDOCTOR;
-        else
-            return null;
-    }*/
+    public static boolean checkUsername(String username){
+        for (User user: users){
+            if (user.compareUsername(username))
+                return false;
+        }
+        return true;
+    }
 }

@@ -5,6 +5,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import therapy.Datastore;
 import javafx.stage.WindowEvent;
 import java.util.Map;
@@ -18,6 +20,8 @@ public final class GUI {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(msg);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(GUI.class.getResourceAsStream("/imgs/icon.png")));
         alert.showAndWait();
     }
 
