@@ -2,6 +2,8 @@ package therapy.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +20,7 @@ import therapy.Patient;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class PatientAllListController implements Initializable {
@@ -43,6 +46,39 @@ public class PatientAllListController implements Initializable {
             patientsList.setItems(data);
             patientsList.getSelectionModel().selectFirst();
         }
+
+        // 1. Wrap the ObservableList in a FilteredList (initially display all data).
+        ObservableList<Patient> obpatients = FXCollections.observableArrayList(patients);
+        FilteredList<Patient> filteredData = new FilteredList<>(obpatients, p -> true);
+
+        // 2. Set the filter Predicate whenever the filter changes.
+        textSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(person -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (person.getFullName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches first name.
+                } else if (person.getCodFis().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches last name.
+                }
+                return false; // Does not match.
+            });
+        });
+
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Patient> sortedData = new SortedList<>(filteredData);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(patientsList.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        patientsList.setItems(sortedData);
     }
 
     @FXML
