@@ -147,6 +147,10 @@ public class Patient implements Serializable {
                 //System.out.println("");
                 pressures.add(new Pressure(openPressures.get(pressuresIndx)[0], openPressures.get(pressuresIndx++)[1], current));
         }
+        //sistemo
+        Collections.reverse(heartBeats);
+        Collections.reverse(temperatures);
+        Collections.reverse(pressures);
 
         //updating all graphs
         for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
