@@ -48,7 +48,13 @@ public class MonitoringSystem {
                 System.out.println("Can't read datastore file");
 
                 try { Thread.sleep(1000); }
-                catch (InterruptedException ex) { ex.printStackTrace(); }
+                catch (InterruptedException ex) { }
+                continue;
+            }
+
+            if (patients.size() < 1){
+                try { Thread.sleep(1000); }
+                catch (InterruptedException ex) { }
                 continue;
             }
 
@@ -202,7 +208,6 @@ public class MonitoringSystem {
 
     //allarm generation
     private static void generateAlarm(){
-
         if (ThreadLocalRandom.current().nextInt(0,  2000 + 1) % 3 == 0){
             if (!isThereAlarm()) {
                 System.out.println("Invoking Alarm...");
