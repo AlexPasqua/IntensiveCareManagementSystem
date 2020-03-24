@@ -60,6 +60,23 @@ You can just create a special "out" directory inside your project folder. I sugg
 <br>
 Go to File / Project Structure / Libraries: add the following by clicking on the **+** symbol and selecting "*Java*":
 <br>
-- **JavaFX SDK:** select the path to javafx-sdk-X.X.X/**lib**<br>
-- **itext:** select the path to itextX (the final "X" is the version)<br>
-- **slf4j:** select the path to slf4j-X.X.X/slf4j-api-X.X.X.jar **and** slf4j-X.X.X/slf4j-simple-X.X.X.jar
+- <font color="black">JavaFX SDK:</font> select the path to javafx-sdk-X.X.X/**lib**<br>
+- <font color="black">itext:</font> select the path to itextX (the final "X" is the version)<br>
+- <font color="black">slf4j:</font> select the path to slf4j-X.X.X/slf4j-api-X.X.X.jar **and** slf4j-X.X.X/slf4j-simple-X.X.X.jar
+
+**Add configuration:** <br>
+- New (<b>+</b>) Application <br>
+- VM options: --module-path "<font color="gray">PATH-TO-FX</font>" --add-modules javafx.controls,javafx.fxml <br>
+- Main class: therapy.Main <br>
+- Name: Main (or whatever) <br>
+- click Apply <br>
+- New (<b>+</b>) Application <br>
+- Main class: therapy.MonitoringSystem <br>
+- Name: MonitoringSystem (or whatever) <br>
+- click OK
+
+<br>
+### EVERITHING IS READY:
+**Build project** ->
+**Execute Main** ->
+**Execute MonitoringSystem** (in this order)
