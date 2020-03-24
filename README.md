@@ -39,3 +39,27 @@ It has all nurse's permission plus the possibility to add prescriptions and inse
 
 **Chief doctor** <font face="consolas">(user: admin | pwd: admin):</font>
 It has all doctor's permission plus the possibility to add new users (belonging to these 3 categories), releasing patients and generate reports.
+
+<br>
+
+
+## IDE configuration:
+### Intellij IDEA:
+
+NOTE: the IDE's version used by the developer is 2019.1.3
+
+**Setting the SDK:** Go to File / Project Structure / Project: select a SDK (*recommended* 11 <font color="gray">(java version "11.0.2")</font>) and a language level (*recommended* SDK default <font color="gray">(11 - Local varaible syntax for lambda parameters)</font>).
+
+**Set compiler output directory:** Go to File / Project Structure / Project: select a directory for "Project compiler output".<br>
+You can just create a special "out" directory inside your project folder. I suggest to add it in .gitignore file.
+
+**Libraries:** <u>Needed libraries</u>: javafx-sdk - itext - slf4j
+<font color="gray">
+	(we used javafx-sdk-<b>11.0.2</b>, itext<b>7</b> and slf4j-<b>1.7.26</b>)
+</font>
+<br>
+Go to File / Project Structure / Libraries: add the following by clicking on the **+** symbol and selecting "*Java*":
+<br>
+- **JavaFX SDK:** select the path to javafx-sdk-X.X.X/**lib**<br>
+- **itext:** select the path to itextX (the final "X" is the version)<br>
+- **slf4j:** select the path to slf4j-X.X.X/slf4j-api-X.X.X.jar **and** slf4j-X.X.X/slf4j-simple-X.X.X.jar
