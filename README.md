@@ -28,27 +28,14 @@
 	&emsp;- Release the patient from hospitalization and generate a final report (printable in pdf)
 </p>
 
-<p>
-	To <b>login</b> go to <i>File</i> -> <i>Login</i><br>
-	There are 3 levels of permissions: <b>nurse</b>, <b>doctor</b> and <b>chief doctor</b>.<br>
-	&emsp;-
-	<b>Nurse</b>
-	<font face="consolas">
-		(user: nurse | pwd: nurse):
-	</font>
-	it's possible to add a new patient, add medical administrations and see a list of the patients with their data. <br>
 
-	&emsp;-
-	<b>Doctor</b>
-	<font face="consolas">
-		(user: doctor | pwd: doctor):
-	</font>
-	it has all nurse's permissions plus the possibility to add prescriptions add diagnosis. <br>
+To **login** go to *File* -> *Login*<br>
+There are 3 levels of permissions: **nurse**, **doctor** and **chief doctor**.<br>
+**Nurse** <font face="consolas">(user: nurse | pwd: nurse):</font>
+it's possible to add a new patient, add medical administrations and see a list of the patients with their data.
 
-	&emsp;-
-	<b>Chief doctor</b>
-	<font face="consolas">
-		(user: admin | pwd: admin):
-	</font>
-	It has all doctor's permissions plus the possibility to add new users (belonging to these 3 categories), &emsp;releasing patients and generate reports.
-</p>
+**Doctor** <font face="consolas">(user: doctor | pwd: doctor):</font>
+It has all nurse's permission plus the possibility to add prescriptions and insert diagnosis in the system.
+
+**Chief doctor** <font face="consolas">(user: admin | pwd: admin):</font>
+It has all doctor's permission plus the possibility to add new users (belonging to these 3 categories), releasing patients and generate reports.
