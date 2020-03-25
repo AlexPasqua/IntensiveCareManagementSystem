@@ -3,6 +3,7 @@ package therapy;
 import java.io.Serializable;
 import java.util.Date;
 
+/* class that represents blood pressure data */
 public class Pressure implements Serializable {
 
     private final int[] pressure;
@@ -20,12 +21,10 @@ public class Pressure implements Serializable {
         this.timestamp = new Date(millis);
     }
 
+    // 'get' methods
     public int[] getPressure() { return pressure; }
-
     public int getPressMin() { return pressure[0]; }
-
     public int getPressMax() { return pressure[1]; }
-
     public Date getTimestamp() { return timestamp; }
 
     public String formatted() { return pressure[0] + "-" + pressure[1]; }

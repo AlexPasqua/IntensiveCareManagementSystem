@@ -6,6 +6,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/* class that represetns a medical prescription */
 public class Prescription implements Serializable {
     private final String medicine;
     private final Integer therapyDuration; //in days
@@ -14,7 +15,7 @@ public class Prescription implements Serializable {
     private final User doctor;
     private final Date timestamp;
 
-    
+
     public Prescription(String medicine, Integer therapyDuration, Integer dailyDoses, Integer mgDose, User doctor) {
         this.medicine = medicine;
         this.therapyDuration = therapyDuration;
@@ -24,29 +25,13 @@ public class Prescription implements Serializable {
         this.timestamp = new Date();
     }
 
-    public String getMedicine() {
-        return medicine;
-    }
-
-    public Integer getTherapyDuration() {
-        return therapyDuration;
-    }
-
-    public Integer getDailyDoses() {
-        return dailyDoses;
-    }
-
-    public Integer getMgDose() {
-        return mgDose;
-    }
-
-    public User getDoctor() {
-        return doctor;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
+    // 'get' methods
+    public String getMedicine() { return medicine; }
+    public Integer getTherapyDuration() { return therapyDuration; }
+    public Integer getDailyDoses() { return dailyDoses; }
+    public Integer getMgDose() { return mgDose; }
+    public User getDoctor() { return doctor; }
+    public Date getTimestamp() { return timestamp; }
 
     public SimpleStringProperty timestampProperty(){
         Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");

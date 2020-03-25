@@ -3,6 +3,7 @@ package therapy;
 import java.io.Serializable;
 import java.util.Date;
 
+/* class that represents the heart beat frequency */
 public class HeartBeat implements Serializable {
 
     private final int heartBeat;

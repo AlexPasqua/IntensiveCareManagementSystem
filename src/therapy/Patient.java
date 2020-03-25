@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+/* class that represents a patient */
 public class Patient implements Serializable {
     private final String cod;
     private final String name;
@@ -154,7 +155,7 @@ public class Patient implements Serializable {
 
         //updating all graphs
         for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
-            if (entry.getKey() == "dashboard"){
+            if (entry.getKey().equals("dashboard")){
                 HomeController controller = entry.getValue().getController();
                 controller.reset();
                 controller.loadList();

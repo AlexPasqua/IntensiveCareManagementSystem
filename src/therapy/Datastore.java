@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/* Class to manage operations on the 'datastore' file */
 public class Datastore {
 
     private static ArrayList<Patient> patients = new ArrayList<>();
@@ -50,33 +51,32 @@ public class Datastore {
                 System.out.println("An exception occurred in Datastore.read()=" + e.toString());
             }
         } else {
-            //non esiste datastore, ne creo uno vuoto
+            // if a 'datastore' file doesn't exist, I create a new one
             write();
         }
 
     }
 
-    //return active user
+    //return the active user in this moment
     public static User getActiveUser(){
         return activeUser;
     }
 
-    //set active user
+    // set the active user
     public static void setActiveUser(User user){
         activeUser = user;
     }
 
-    //get patients list
+    // get patients list
     public static ArrayList<Patient> getPatients(){
         return patients;
     }
 
-    //get users list
+    // get users list
     public static ArrayList<User> getUsers(){
         return users;
     }
 
-    //add patient
     public static void addPatient(Patient patient){
         patients.add(patient);
     }
@@ -90,11 +90,11 @@ public class Datastore {
             availMeds.add(med);
     }
 
-    //add user
     public static void addUser(User user){
         users.add(user);
     }
 
+    // returns the list of all hospitalized patients at the moment
     public static ArrayList<Patient> getHospitalizedPatients(){
         ArrayList<Patient> toreturn = new ArrayList<>();
         for (Patient patient: patients){
@@ -106,7 +106,7 @@ public class Datastore {
 
     public static boolean checkWindowOpen(String name){
         for (String thisname : allLoaders.keySet()){
-            if (thisname == name) return true;
+            if (thisname.equals(name)) return true;
         }
         return false;
     }

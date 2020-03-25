@@ -17,7 +17,8 @@ import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+/* class that represents a patient's report. it's also possible to
+* export the report in pdf format using a method (ceatePDF) in this calss*/
 public class Report {
     private Patient patient;
     private Date dateFrom;
@@ -72,7 +73,7 @@ public class Report {
             PdfDocument pdfDoc = new PdfDocument(new PdfReader(Report.class.getResourceAsStream("/template.pdf")),new PdfWriter(path));
             Document doc = new Document(pdfDoc);
 
-            //spazio header
+            // header space
             doc.add(new Paragraph("\n\n\n"));
             Table firstTab = new Table(2).useAllAvailableWidth();
             addHeader(firstTab, pdfDoc);
@@ -205,8 +206,7 @@ public class Report {
 
     private String format(Date date){
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String textdate = formatter.format(date);
-        return textdate;
+        return formatter.format(date);
     }
     private String format(LocalDate date){
         Date parsedDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -215,6 +215,7 @@ public class Report {
         return textdate;
     }
 
+    // changes the date format
     private LocalDate dateToLocalDate(Date date){
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }

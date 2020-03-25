@@ -8,6 +8,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+/* Main class of the process that generates asynchronous medical data */
 public class MonitoringSystem {
     private static ArrayList<Integer> openHeartBeats;
     private static ArrayList<Integer[]> openPressures;
@@ -133,7 +134,7 @@ public class MonitoringSystem {
 
             if (!(patientIndex.containsKey(p))){
                 int rand_indx = ThreadLocalRandom.current().nextInt(0,  2000 + 1);
-                int rand_array[] = {rand_indx, rand_indx, rand_indx};
+                int[] rand_array= {rand_indx, rand_indx, rand_indx};
                 patientIndex.put(p, rand_array);
             }
 
@@ -229,8 +230,5 @@ public class MonitoringSystem {
                 System.out.println("There is already an alarm.. ");
             }
         }
-
-
     }
-
 }

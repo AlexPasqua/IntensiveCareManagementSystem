@@ -7,9 +7,10 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/* Class that represent a medical administration */
 public class Administration implements Serializable{
 
-    private final Prescription prescription;
+    private final Prescription prescription;    // referencing prescription -> the administr. must accord with one
     private final Integer mgDose;
     private final String notes;
     private final Date timestamp;
@@ -21,6 +22,7 @@ public class Administration implements Serializable{
         this.timestamp = new Date();
     }
 
+    // 'get' methods
     public Integer getMgDose() { return mgDose; }
     public Date getTimestamp() { return timestamp; }
     public String getMedicine() { return prescription.getMedicine(); }
