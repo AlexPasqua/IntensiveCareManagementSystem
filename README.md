@@ -7,7 +7,8 @@
 
 <p>
 	<font size=3>
-		This project was developed as practice project for the course of <i>Programmazione II e Ingegneria del Software</i> (Software Engineering) @ University of Verona (UniVR)<br>
+		This project was developed as practice project for the course of <i>Programmazione II e Ingegneria del Software</i> (Software Engineering) @ University of Verona (UniVR).<br>
+		It's been used JavaFX + Scene Builder to easily create the XML files that compose the user interface. <br>
 		<u>NOTE: the application's language is Italian</u>
 	</font>
 </p>
