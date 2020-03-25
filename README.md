@@ -74,8 +74,9 @@ Go to File / Project Structure / Libraries: add the following by clicking on the
 - Main class: therapy.MonitoringSystem <br>
 - Name: MonitoringSystem (or whatever) <br>
 - click OK
-
 <br>
+<br>
+
 ### EVERITHING IS READY:
 **Build project** ->
 **Execute Main** ->
