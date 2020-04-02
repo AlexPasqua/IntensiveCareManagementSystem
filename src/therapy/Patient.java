@@ -135,25 +135,25 @@ public class Patient implements Serializable {
         long current = new Date().getTime();
         long start = current - 604800000; //una settimana indietro
 
-        //scorro da adesso a una settimana fa
+        // iterating from now to a week ago
         for(  ; current>start; current-=60000){
             long thiscurrent = current /60000;
             if (thiscurrent % 5 == 0)
-                //System.out.println("");
                 heartBeats.add(new HeartBeat(openHeartBeats.get(heartbeatsIndx++), current));
+
             if (thiscurrent % 3 == 0)
-                //System.out.println("");
                 temperatures.add(new Temperature(openTemps.get(tempsIndx++), current));
+
             if (thiscurrent % 2 == 0)
-                //System.out.println("");
                 pressures.add(new Pressure(openPressures.get(pressuresIndx)[0], openPressures.get(pressuresIndx++)[1], current));
         }
-        //sistemo
+
+        // reverse data's order
         Collections.reverse(heartBeats);
         Collections.reverse(temperatures);
         Collections.reverse(pressures);
 
-        //updating all graphs
+        // updating all graphs
         for(Map.Entry<String, FXMLLoader> entry: Datastore.allLoaders.entrySet()){
             if (entry.getKey().equals("dashboard")){
                 HomeController controller = entry.getValue().getController();

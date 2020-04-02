@@ -38,10 +38,10 @@ public class Prescription implements Serializable {
         SimpleStringProperty s = new SimpleStringProperty(formatter.format(timestamp));
         return s;
     }
+
     public SimpleStringProperty doctorProperty(){
         return new SimpleStringProperty(doctor.getCompleteName());
     }
-
 
     @Override
     public String toString() {

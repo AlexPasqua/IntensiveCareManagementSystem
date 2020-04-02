@@ -152,7 +152,7 @@ public class Report {
     }
 
     public TreeMap<String, HeartBeat[]> getMaxMinHeartBeat(){
-        TreeMap<String, HeartBeat[]> maxmin= new TreeMap();
+        TreeMap<String, HeartBeat[]> maxmin = new TreeMap();
         HeartBeat[] empty = {new HeartBeat(1000),new HeartBeat(0)};
 
         for (HeartBeat beat: getHeartBeats()){

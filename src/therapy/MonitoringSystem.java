@@ -88,10 +88,7 @@ public class MonitoringSystem {
     }
 
     private static boolean isThereAlarm() {
-        if (new Date().before(endAlarmTimestamp))
-            return true;
-
-        return false;
+        return new Date().before(endAlarmTimestamp);
     }
 
     private static Map<Patient, HeartBeat> getHeartbeats() {
@@ -191,10 +188,7 @@ public class MonitoringSystem {
         endAlarmTimestamp = new Date(System.currentTimeMillis() + 60000);
     }
 
-    /*
-     * read from datastore file patients
-     */
-
+    // read patients from datastore
     private static void readPatients() throws IOException, ClassNotFoundException {
         FileInputStream in = new FileInputStream("datastore");
         ObjectInputStream stream = new ObjectInputStream(in);
@@ -213,6 +207,7 @@ public class MonitoringSystem {
             if (!isThereAlarm()) {
                 System.out.println("Invoking Alarm...");
                 int rand_number = ThreadLocalRandom.current().nextInt(0, alarms.keySet().size());
+
                 for (String event : alarms.keySet()) {
                     if (rand_number == 0) {
                         try {
@@ -226,6 +221,7 @@ public class MonitoringSystem {
                     }
                     rand_number--;
                 }
+
             }else{
                 System.out.println("There is already an alarm.. ");
             }

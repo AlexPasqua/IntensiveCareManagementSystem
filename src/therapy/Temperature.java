@@ -3,6 +3,7 @@ package therapy;
 import java.io.Serializable;
 import java.util.Date;
 
+// class that represents temperature data
 public class Temperature implements Serializable {
     private final int temp;
     private final Date timestamp;
@@ -18,7 +19,6 @@ public class Temperature implements Serializable {
     }
 
     public int getTemperature(){ return temp; }
-
     public Date getTimestamp(){ return timestamp; }
 
     public String toString(){ return "Temperature [temp=" + temp + ", timestamp=" + timestamp.toString() + "]";  }
