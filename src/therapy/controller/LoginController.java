@@ -57,7 +57,6 @@ public class LoginController {
     }
 
 
-
     private void createDemoUsers(){
         User cd = new User("Demo", "Admin", "admin", "admin", UserType.CHIEFDOCTOR);
         User doc = new User("Demo", "Doctor", "doctor", "doctor", UserType.DOCTOR);

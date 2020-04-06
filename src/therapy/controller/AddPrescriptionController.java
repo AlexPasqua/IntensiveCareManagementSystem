@@ -60,7 +60,7 @@ public class AddPrescriptionController {
     }
 
 
-    //carico i dati nella combo box
+    // load data into the combo box
     private void loadComboBox(){
         if (!Datastore.getAvailMeds().isEmpty()){
             medList.getItems().removeAll(medList.getItems());

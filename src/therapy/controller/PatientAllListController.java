@@ -57,20 +57,15 @@ public class PatientAllListController implements Initializable {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (person.getFullName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (person.getCodFis().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
+                return (person.getFullName().toLowerCase().contains(lowerCaseFilter) ||
+                        person.getCodFis().toLowerCase().contains(lowerCaseFilter));
             });
         });
-
-
         SortedList<Patient> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(patientsList.comparatorProperty());
         patientsList.setItems(sortedData);
     }
+
 
     @FXML
     void handleClick(MouseEvent event) {
@@ -78,6 +73,7 @@ public class PatientAllListController implements Initializable {
              openPatient(patientsList.getSelectionModel().getSelectedItem());
         }
     }
+
 
     void openPatient(Patient patient) {
         if (Datastore.allLoaders.containsKey("patientPage" + patient.getCodFis())){

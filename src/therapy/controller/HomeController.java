@@ -40,11 +40,7 @@ public class HomeController implements Initializable {
     void handleLogin(ActionEvent event) {
         if (!Datastore.checkWindowOpen("patientslist")){
             String fxml;
-            if (Datastore.getActiveUser() == null){
-                fxml = "../gui/login.fxml";
-            } else {
-                fxml = "../gui/patientList.fxml";
-            }
+            fxml = Datastore.getActiveUser() == null ? "../gui/login.fxml" : "../gui/patientList.fxml";
 
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
@@ -186,6 +182,7 @@ public class HomeController implements Initializable {
             if (node instanceof LineChart){
                 if (currentindex == index)
                     return (LineChart) node;
+
                 currentindex++;
             }
         }

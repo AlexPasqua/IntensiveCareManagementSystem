@@ -51,6 +51,5 @@ public class AddDischargeLetterController {
         stage.close();
     }
 
-
     void setCurrentPatient(Patient currentPatient){ this.currentPatient = currentPatient; }
 }

@@ -66,6 +66,7 @@ public class ReportPageController {
         } catch (IOException e) {}
     }
 
+
     public void loadPatient(Report report){
         this.report = report;
 
@@ -82,7 +83,6 @@ public class ReportPageController {
         colPressMax.setCellValueFactory(new PropertyValueFactory<>("pressMax"));
         colPressMin.setCellValueFactory(new PropertyValueFactory<>("pressMin"));
 
-
         ObservableList<HeartBeat> data = FXCollections.observableArrayList(report.getHeartBeats());
         tableHB.setItems(data);
         ObservableList<Temperature> data1 = FXCollections.observableArrayList(report.getTemperatures());
@@ -92,6 +92,7 @@ public class ReportPageController {
 
         drawChart();
     }
+
 
     private void drawChart() {
         //hb

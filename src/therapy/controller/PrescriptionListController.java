@@ -59,7 +59,6 @@ public class PrescriptionListController {
     }
 
     void setCurrentPatient(Patient patient){
-
         currentPatient = patient;
 
         pTimestamp.setCellValueFactory(new PropertyValueFactory<Prescription,String>("timestamp"));
@@ -76,9 +75,8 @@ public class PrescriptionListController {
             addNewButton.setDisable(true);
             deleteButton.setDisable(true);
         }
-
-
     }
+
 
     FXMLLoader openPopupWindow(String title, String fxml, ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));

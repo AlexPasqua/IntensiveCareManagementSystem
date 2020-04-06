@@ -32,11 +32,7 @@ public final class GUI {
         alert.setContentText(msg);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            return true;
-        } else {
-            return false;
-        }
+        return result.get() == ButtonType.OK;
     }
 
     public static void quit(){

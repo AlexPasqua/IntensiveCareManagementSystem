@@ -91,7 +91,6 @@ public class PatientListController implements Initializable {
                 GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente non è possibile aprire la pagina del paziente");
             }
         }
-
     }
 
     @FXML
@@ -114,6 +113,7 @@ public class PatientListController implements Initializable {
         }
     }
 
+
     @FXML
     private void handleLogOut(ActionEvent event){
         for (Map.Entry<String, FXMLLoader> node : Datastore.allLoaders.entrySet()){
@@ -124,11 +124,12 @@ public class PatientListController implements Initializable {
         }
         Datastore.setActiveUser(null);
 
-        //chiudo login
+        // close login
         Datastore.allLoaders.remove("patientslist");
         Stage stage = (Stage)((Node)event.getTarget()).getScene().getWindow();
         stage.close();
     }
+
 
     @FXML
     private void handleAddUser(ActionEvent event){
@@ -151,6 +152,7 @@ public class PatientListController implements Initializable {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/icon.png")));
         stage.show();
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -178,11 +180,13 @@ public class PatientListController implements Initializable {
         }
     }
 
+
     public void reset(){
         for (Node btn :gridPatients.getChildren()){
             btn.setStyle("visibility: false");
         }
     }
+
 
     private void closeWindowEvent(WindowEvent event) {
         System.out.println("Updating patient list");
@@ -192,8 +196,8 @@ public class PatientListController implements Initializable {
             controller.reset();
             controller.loadList();
         }
-
     }
+
 
     private void updateList(){
         loadList();

@@ -49,6 +49,7 @@ public class PatientPageController implements Initializable {
     @FXML private VBox vboxDischarged;
     @FXML private Menu menuFile;
 
+
     @FXML
     void handleAdministrationsList(ActionEvent event) {
         try {
@@ -59,6 +60,7 @@ public class PatientPageController implements Initializable {
             GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aprire lista somministrazioni");
         }
     }
+
 
     @FXML
     void handleAddDiagnosis(ActionEvent event) {
@@ -71,6 +73,7 @@ public class PatientPageController implements Initializable {
         }
     }
 
+
     @FXML
     void handlePrescriptionsList(ActionEvent event) {
         try {
@@ -81,6 +84,7 @@ public class PatientPageController implements Initializable {
             GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile aprire la lista delle prescrizioni");
         }
     }
+
 
     @FXML
     void handleGenerateReport(ActionEvent event) {
@@ -93,6 +97,7 @@ public class PatientPageController implements Initializable {
             GUI.showDialog(Alert.AlertType.ERROR, "Error", "Momentaneamente impossibile generare report");
         }
     }
+
 
     @FXML
     void handleDischarge(ActionEvent event) {
@@ -118,12 +123,14 @@ public class PatientPageController implements Initializable {
         }
     }
 
+
     private void closeWindowEvent(WindowEvent event) {
         if (!this.currentPatient.getDischargeLetter().isEmpty()) {
             showUnHospitalizedView();
             System.out.println("Patient discharged");
         }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -136,7 +143,6 @@ public class PatientPageController implements Initializable {
 
         enableButtons();
         chartHeartBeat.getXAxis().setAutoRanging(true);
-
     }
 
 
@@ -145,6 +151,7 @@ public class PatientPageController implements Initializable {
         currentPatient = patients.get(patientId);
         loadPatient(currentPatient);
     }
+
 
     public void loadPatient(Patient patient){
         this.currentPatient = patient;
@@ -160,6 +167,7 @@ public class PatientPageController implements Initializable {
         loadCharts();
         updateCharts();
     }
+
 
     private void loadCharts(){
         //HB chart
@@ -182,7 +190,6 @@ public class PatientPageController implements Initializable {
         for (Temperature temp: currentPatient.getTemperatures()){
             if (temp.getTimestamp().after(new Date(System.currentTimeMillis() - 7200 * 1000)))
                 series.getData().add(new XYChart.Data<>(temp.getTimestamp().toString(), temp.getTemperature()));
-
         }
         chartTemperature.getXAxis().setTickLabelsVisible(false);
         chartTemperature.getXAxis().setOpacity(0);
@@ -226,6 +233,7 @@ public class PatientPageController implements Initializable {
         }
     }
 
+
     @FXML
     void handleGenerateRand(ActionEvent event) {
         currentPatient.generateFakeData();
@@ -236,6 +244,7 @@ public class PatientPageController implements Initializable {
         loadCharts();
         Datastore.write();
     }
+
 
     @FXML
     void handleClearClinicalData(ActionEvent event) {
@@ -259,8 +268,8 @@ public class PatientPageController implements Initializable {
         loadCharts();
 
         Datastore.write();
-
     }
+
 
     FXMLLoader openPopupWindow(String title, String fxml, ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
@@ -278,6 +287,7 @@ public class PatientPageController implements Initializable {
         return fxmlLoader;
     }
 
+
     private void showUnHospitalizedView(){
         gridCharts.setVisible(false);
         vboxDischarged.setVisible(true);
@@ -286,6 +296,7 @@ public class PatientPageController implements Initializable {
         menuFile.setDisable(true);
         labelLetter.setText(currentPatient.getDischargeLetter());
     }
+
 
     public void updateCharts() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
